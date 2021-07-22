@@ -57,3 +57,25 @@ var copyRandomList = function (head) {
  * 执行用时：76 ms, 在所有 JavaScript 提交中击败了86.34%的用户
  * 内存消耗：39.3 MB, 在所有 JavaScript 提交中击败了44.39%的用户
  */
+
+/**
+ * 官方题解 回溯 + 哈希
+ * @param {*} head
+ * @param {*} cachedNode
+ * @returns
+ */
+var copyRandomList = function (head, cachedNode = new Map()) {
+  if (head === null) {
+    return null;
+  }
+  //  不存在map内
+  if (!cachedNode.has(head)) {
+    // 放入数据
+    cachedNode.set(head, { val: head.val }),
+      Object.assign(cachedNode.get(head), {
+        next: copyRandomList(head.next, cachedNode),
+        random: copyRandomList(head.random, cachedNode),
+      });
+  }
+  return cachedNode.get(head);
+};
