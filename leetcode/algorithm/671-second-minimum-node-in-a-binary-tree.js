@@ -17,7 +17,7 @@
  * }
  */
 /**
- * 
+ *
  * 数据是乱的,还以为是有一定排序的
  * @param {TreeNode} root
  * @return {number}
@@ -38,5 +38,25 @@ var findSecondMinimumValue = function (root) {
       node = temp;
     }
   }
+  return result;
+};
+
+/**
+ * 失败,有点奇怪的问题
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findSecondMinimumValue = function (root) {
+  let result = -1;
+  let node = root;
+  let arr = [];
+  while (node) {
+    arr.push(node.val);
+    if (node.left) {
+      node = node.val === node.right.val ? node.left : node.right;
+    }
+  }
+  arr.sort((a, b) => b - a);
+  console.log(arr);
   return result;
 };
