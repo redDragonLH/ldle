@@ -94,3 +94,43 @@ console.log(pathInZigZagTree(5));
  * 执行用时：320 ms, 在所有 JavaScript 提交中击败了8.11%的用户
  * 内存消耗：116.7 MB, 在所有 JavaScript 提交中击败了5.41%的用户
  */
+
+
+/**
+ * 官方题解 数学
+ */
+ var pathInZigZagTree = function(label) {
+    let row = 1, rowStart = 1;
+    //  不构建真实的数组二叉树,但是计算二叉树的层数和总节点数
+    while (rowStart * 2 <= label) {
+        row++;
+        rowStart *= 2;
+    }
+    // 偶数行内的节点是反方向排列的
+    if (row % 2 === 0) {
+        // 重新处理label的位置么
+        label = getReverse(label, row);
+    }
+    const path = [];
+    while (row > 0) {
+        //  偶数层
+        if (row % 2 === 0) {
+            // 计算数据位置,但是上边不都处理一会了么
+            // 难道是配合这里
+            path.push(getReverse(label, row));
+        } else {
+            path.push(label);
+        }
+        //  向上一行
+        row--;
+        //  向右移动一位二进制
+        // 为什么右移
+        label >>= 1;
+    }
+    path.reverse();
+    return path;
+};
+
+const getReverse = (label, row) => {
+    return (1 << row - 1) + (1 << row) - 1 - label;
+}
