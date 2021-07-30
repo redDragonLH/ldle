@@ -27,8 +27,23 @@ var titleToNumber = function (columnTitle) {
   }
   return result;
 };
-titleToNumber("AB");
 /**
  * 执行用时：120 ms, 在所有 JavaScript 提交中击败了12.97%的用户
  * 内存消耗：39 MB, 在所有 JavaScript 提交中击败了92.71%的用户
  */
+
+
+/**
+ * 官方题解
+ * @param {string} columnTitle 
+ * @returns {number}
+ */
+var titleToNumber = function (columnTitle) {
+  let ans = 0;
+  for (let i = 0; i < columnTitle.length; i++) {
+    let num = columnTitle[i].charCodeAt() - "A".charCodeAt() + 1;
+    ans = ans * 26 + num;
+  }
+  return ans;
+};
+titleToNumber("AB");
