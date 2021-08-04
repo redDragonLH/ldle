@@ -39,3 +39,9 @@ var triangleNumber = function (nums) {
   }
   return ans;
 };
+
+/**
+ * 可以用双指针优化查找
+ * 
+ * 把j和k作为两个指针,循环i,在内部j每前进一步,k一直试探前进,直到不满足条件而停止
+ */
