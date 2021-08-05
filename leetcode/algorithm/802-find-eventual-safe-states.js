@@ -55,7 +55,7 @@ var eventualSafeNodes = function (graph) {
 /**
  * 代码很精巧,又返回值的同时也对数组进行了永久性的改变,使用了引用数据结构的特性
  * 递归也减少了一些中间数据,减少了复杂度
- * 
+ *
  * 数据流设计合理
  * @param {*} graph
  * @param {*} color
@@ -80,4 +80,50 @@ const safe = (graph, color, x) => {
   // 没问题则置为2
   color[x] = 2;
   return true;
+};
+
+/**
+ * 官方题解 拓扑排序
+ *
+ * 若一个节点没有出边,则该节点是安全的;若一个节点的出边相连的点都是安全的,则该节点也是安全的
+ *
+ * 根据这一性质,我们可以将图中所有边反向,得到一个反图,然后在反图上进行拓扑排序
+ *
+ * 具体步骤是: 首先得到反图 rg 及其入度数组 inDeg.将所有入度为 0 的点 加入队列,然后不断取出队首元素,将其出边相连的点的入度减一,若该点入度减一后为 0 ,则将该点加入队列,如此循环直到队列为空,.
+ * 循环结束后,所有入度为0的节点均为安全的
+ */
+
+var eventualSafeNodes = function (graph) {
+  const n = graph.length;
+  const rg = new Array(n).fill(0).map(() => new Array());
+  const inDeg = new Array(n).fill(0);
+  for (let x = 0; x < n; ++x) {
+    for (let y of graph[x]) {
+      rg[y].push(x);
+    }
+    inDeg[x] = graph[x].length;
+  }
+
+  const queue = [];
+  for (let i = 0; i < n; ++i) {
+    if (inDeg[i] === 0) {
+      queue.push(i);
+    }
+  }
+  while (queue.length) {
+    const y = queue.shift();
+    for (const x of rg[y]) {
+      if (--inDeg[x] === 0) {
+        queue.push(x);
+      }
+    }
+  }
+
+  const ans = [];
+  for (let i = 0; i < n; ++i) {
+    if (inDeg[i] === 0) {
+      ans.push(i);
+    }
+  }
+  return ans;
 };
