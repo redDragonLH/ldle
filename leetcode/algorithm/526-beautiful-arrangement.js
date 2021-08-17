@@ -10,12 +10,48 @@
 
 /**
  * .....
- * @param {*} n 
- * @returns 
+ * @param {*} n
+ * @returns
  */
 var countArrangement = function (n) {
   let table = [
     0, 1, 2, 3, 8, 10, 36, 41, 132, 250, 700, 750, 4010, 4237, 10680, 24679,
   ];
   return table[n];
+};
+
+/**
+ * 回溯法
+ */
+var countArrangement = function (n) {
+  const vis = new Array(n + 1).fill(0);
+  const match = new Array(n + 1).fill(0);
+  let num = 0;
+  for (let i = 0; i <= n; i++) {
+    match[i] = [];
+  }
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (i % j === 0 || j % i === 0) {
+        match[i].push(j);
+      }
+    }
+  }
+
+  const backtrack = (index, n) => {
+    if (index === n + 1) {
+      num++;
+      return;
+    }
+    for (const x of match[index]) {
+      if (!vis[x]) {
+        vis[x] = true;
+        backtrack(index + 1, n);
+        vis[x] = false;
+      }
+    }
+  };
+
+  backtrack(1, n);
+  return num;
 };
