@@ -24,31 +24,18 @@ var compress = function (chars) {
     chars.forEach(e => {
         if (currCode !== e) {
             // 总数大于10
-            if (currCount >= 10) {
-                let residue = []
-                console.log(currCode, currCount)
-                while (currCount >= 10) {
-                    residue.unshift(currCount % 10)
-                    currCount = parseInt(currCount / 10)
-                }
-                residue.unshift(currCount)
-                residue.forEach(c => {
-                    chars[arrCount++] = "" + c;
-                })
-                // 小于10
-            } else {
-                currCount > 1 && (chars[arrCount++] = "" + currCount);
-
-            }
+            arrCount = handleCharCount = (chars, currCount, arrCount)
             chars[arrCount++] = e
             currCount = 1;
             currCode = e;
         } else if (currCode === e) {
             currCount++;
         }
-
     })
 
+    return handleCharCount(chars, currCount, arrCount)
+};
+const handleCharCount = (chars, currCount, arrCount) => {
     if (currCount >= 10) {
         let residue = []
         while (currCount >= 10) {
@@ -64,9 +51,9 @@ var compress = function (chars) {
         currCount > 1 && (chars[arrCount++] = "" + currCount);
     }
     return arrCount
-};
+}
 /**
- * 代码结构还需要精简优化
+ * 结构优化清晰很多，但是效率有所下降
  * 执行用时：76 ms, 在所有 JavaScript 提交中击败了89.77%的用户
  * 内存消耗：39.6 MB, 在所有 JavaScript 提交中击败了74.42%的用户
  */
