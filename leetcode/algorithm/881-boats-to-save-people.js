@@ -66,3 +66,23 @@ var numRescueBoats = function (people, limit) {
 /**
  * 超时了,估计是已经处理过的元素不应该再循环到
  */
+
+/**
+ * 官方题解:贪心
+ * 
+ *  * 若他不能与体重最重的人同乘一艘船，那么体重最重的人无法与任何人同乘一艘船，此时应单独分配一艘船给体重最重的人。从 people 中去掉体重最重的人后，我们缩小了问题的规模，变成求解剩余 n-1n−1 个人所需的最小船数，将其加一即为原问题的答案。
+ *  * 若他能与体重最重的人同乘一艘船，那么他能与其余任何人同乘一艘船，为了尽可能地利用船的承载重量，选择与体重最重的人同乘一艘船是最优的。从 people 中去掉体重最轻和体重最重的人后，我们缩小了问题的规模，变成求解剩余 n-2n−2 个人所需的最小船数，将其加一即为原问题的答案。
+ */
+ var numRescueBoats = function(people, limit) {
+    let ans = 0;
+    people.sort((a, b) => a - b);
+    let light = 0, heavy = people.length - 1;
+    while (light <= heavy) {
+        if (people[light] + people[heavy] <= limit) {
+            ++light;
+        }
+        --heavy;
+        ++ans;
+    }
+    return ans;
+};
