@@ -60,3 +60,7 @@ MedianFinder.prototype.findMedian = function () {
  * 执行用时：4984 ms, 在所有 JavaScript 提交中击败了11.80%的用户
  * 内存消耗：70.4 MB, 在所有 JavaScript 提交中击败了25.84%的用户
  */
+
+/**
+ * 优化的话就得考虑改变数据结构,依托更对应的数据结构进行优化,比如树,和队列什么的
+ */
