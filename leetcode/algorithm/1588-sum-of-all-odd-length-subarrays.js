@@ -24,6 +24,7 @@ var sumOddLengthSubarrays = function (arr) {
     }
     let sum = 0;
     for (let start = 0; start < n; start++) {
+        // +=2
         for (let length = 1; start + length <= n; length += 2) {
             let end = start + length - 1;
             sum += prefixSums[end + 1] - prefixSums[start];
