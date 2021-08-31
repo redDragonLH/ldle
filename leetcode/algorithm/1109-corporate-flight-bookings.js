@@ -44,3 +44,14 @@ var corpFlightBookings = function (bookings, n) {
   }
   return nums;
 };
+
+
+
+/**
+ * 第三方解题思路
+ * 
+ * 1. 将问题转换为:某公交车共有 n 站, 第 i 条记录 bookings[i] = [i,j,k] 表示在i站上车k 人,乘坐到 j 站,在 j + 1 站下车,需要按照车站顺序返回每一站车上的人数
+ * 2. 根据 1 的思路,定义 counter[] 数组记录每站的人数变化, counter[i] 表示第 i + 1 站.遍历 bookings[]:bookings[i] = [i,j,k] 表示在 i 站增加 k 人
+ *    即 counters[i-1] += k,在 j + 1站减少 k 人即 counters[j] -= K
+ * 3. 遍历 counter[] 数组,得到每栈总人数:每站的人数为前一站人数为前一站人数加上当前人数变化 counters[i] += counters[i - 1]
+ */
