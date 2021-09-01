@@ -48,7 +48,7 @@ var compareVersion = function (version1, version2) {
 
 /**
  * 把所有数字相加然后对比可不可以,这样的话就得考虑小数点位置了
- * 
+ *
  * 依据小数点从左往右数字权重依次递减
  */
 var compareVersion = function (version1, version2) {
@@ -77,3 +77,31 @@ var compareVersion = function (version1, version2) {
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了89.97%的用户
  * 内存消耗：37.8 MB, 在所有 JavaScript 提交中击败了36.44%的用户
  */
+
+/**
+ * 官方题解双指针法
+ * 
+ * 官方题解的目标是不全部处理,只要处理到数值不同,立即返回
+ */
+var compareVersion = function (version1, version2) {
+  const n = version1.length,
+    m = version2.length;
+  let i = 0,
+    j = 0;
+  while (i < n || j < m) {
+    let x = 0;
+    for (; i < n && version1[i] !== "."; ++i) {
+      x = x * 10 + version1[i].charCodeAt() - "0".charCodeAt();
+    }
+    ++i; // 跳过点号
+    let y = 0;
+    for (; j < m && version2.charAt(j) !== "."; ++j) {
+      y = y * 10 + version2[j].charCodeAt() - "0".charCodeAt();
+    }
+    ++j; // 跳过点号
+    if (x !== y) {
+      return x > y ? 1 : -1;
+    }
+  }
+  return 0;
+};
