@@ -39,9 +39,41 @@ var compareVersion = function (version1, version2) {
   // 没有解决 1.0 和1.0.0的问题
   if (len1 === len2) {
     return 0;
-  }else if(len1 === len){
-      return 1
-  }else{
-      return -1
+  } else if (len1 === len) {
+    return 1;
+  } else {
+    return -1;
   }
 };
+
+/**
+ * 把所有数字相加然后对比可不可以,这样的话就得考虑小数点位置了
+ * 
+ * 依据小数点从左往右数字权重依次递减
+ */
+var compareVersion = function (version1, version2) {
+  let count1 = 0,
+    count2 = 0;
+  let pos = 0.1;
+  version1.split(".").map((e) => {
+    pos *= 10;
+    count1 += parseFloat(e) / pos;
+  });
+  pos = 0.1;
+  version2.split(".").map((e) => {
+    pos *= 10;
+    count2 += parseFloat(e) / pos;
+  });
+  if (count1 === count2) {
+    return 0;
+  } else if (count1 > count2) {
+    return 1;
+  } else {
+    return -1;
+  }
+};
+
+/**
+ * 执行用时：64 ms, 在所有 JavaScript 提交中击败了89.97%的用户
+ * 内存消耗：37.8 MB, 在所有 JavaScript 提交中击败了36.44%的用户
+ */
