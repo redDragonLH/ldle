@@ -15,7 +15,8 @@ var search = function (nums, target) {
     mid = 0;
   // 必须有等于,要不然有些特殊情况无法处理
   while (left <= right) {
-    mid = parseInt((right - left) / 2 + left);
+    // 位运算
+    mid = (left + right) >> 1;
     console.log(mid);
     if (nums[mid] === target) {
       return mid;
