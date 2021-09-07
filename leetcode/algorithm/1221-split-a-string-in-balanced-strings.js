@@ -31,3 +31,23 @@ var balancedStringSplit = function (s) {
  * 执行用时：100 ms, 在所有 JavaScript 提交中击败了9.76%的用户
  * 内存消耗：39.5 MB, 在所有 JavaScript 提交中击败了5.48%的用户
  */
+
+/**
+ * 官方题解 贪心
+ */
+ var balancedStringSplit = function(s) {
+     // 使用了一个变量作为指示,当变量为0时说明符合题意
+    let ans = 0, d = 0;
+    for (let i = 0; i < s.length; ++i) {
+        const ch = s[i];
+        if (ch === 'L') {
+            ++d;
+        } else {
+            --d;
+        }
+        if (d === 0) {
+            ++ans;
+        }
+    }
+    return ans;
+};
