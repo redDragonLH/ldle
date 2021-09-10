@@ -32,3 +32,27 @@ var chalkReplacer = function (chalk, k) {
  * 执行用时：3020 ms, 在所有 JavaScript 提交中击败了15.18%的用户
  * 内存消耗：48.2 MB, 在所有 JavaScript 提交中击败了92.86%的用户
  */
+
+/**
+ * 优化算法方案,把所有chalk加到一起,然后除以k,剩下的余数再进行模拟
+ */
+var chalkReplacer = function (chalk, k) {
+  let count = chalk.reduce((a, b) => a + b);
+  let remainder = k % count;
+  let len = chalk.length;
+  let i = 0;
+  for (; i < len; i++) {
+    if (remainder >= chalk[i]) {
+      remainder -= chalk[i];
+    } else {
+      return i;
+    }
+  }
+  return i;
+};
+
+/**
+ * 
+ * 执行用时：96 ms, 在所有 JavaScript 提交中击败了89.29%的用户
+ * 内存消耗：48.2 MB, 在所有 JavaScript 提交中击败了92.86%的用户
+ */
