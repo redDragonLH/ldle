@@ -10,13 +10,23 @@
  * @return {number}
  */
 var numberOfBoomerangs = function (points) {
-    // 找到三个点 第一个到后两个点的距离是一样的
-    let len = points.length;
-    let result = 0;
-    if(len <=2 ) return result;
-    for (let i = 0; i < len; i++) {
-
+  let result = 0;
+  for (const item of points) {
+    let cnt = {};
+    for (const q of points) {
+      let dis =
+        (item[0] - q[0]) * (item[0] - [q0]) +
+        (item[1] - q[1]) * (item[1] - q[1]);
+      cnt[dis] ? (cnt[dis] = cnt[dis] + 1) : (cnt[dis] = 1);
     }
+    for (const key in cnt) {
+      if (Object.hasOwnProperty.call(cnt, key)) {
+        let m = cnt[key];
+        result += m * (m - 1);
+      }
+    }
+  }
+  return result;
 };
 
 /**
@@ -25,5 +35,21 @@ var numberOfBoomerangs = function (points) {
  * 回旋镖可以视作一个V型的折线,枚举每个points[i],将其当作V型的拐点.设 points 中有m个点到 points[i] 的距离均相等,
  * 需要从这m点中选出2个点当作回旋镖的两个端点,由于题目要求考虑元素的顺序,因此方案数即为在m个元素中选出两个不同元素的排列数
  * 
- * 
- */
+class Solution {
+    public int numberOfBoomerangs(int[][] points) {
+        int ans = 0;
+        for (int[] p : points) {
+            Map<Integer, Integer> cnt = new HashMap<Integer, Integer>();
+            for (int[] q : points) {
+                int dis = (p[0] - q[0]) * (p[0] - q[0]) + (p[1] - q[1]) * (p[1] - q[1]);
+                cnt.put(dis, cnt.getOrDefault(dis, 0) + 1);
+            }
+            for (Map.Entry<Integer, Integer> entry : cnt.entrySet()) {
+                int m = entry.getValue();
+                ans += m * (m - 1);
+            }
+        }
+        return ans;
+    }
+}
+*/
