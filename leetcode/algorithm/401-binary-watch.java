@@ -11,7 +11,8 @@
  * 分钟必须由两位数组成，可能会以零开头：
  *  * 例如，"10:2" 是无效的时间，正确的写法应该是 "10:02" 。
  */
-
+import java.util.List;
+import java.util.ArrayList;
 class Solution {
     public List<String> readBinaryWatch(int turnedOn) {
         List<String> result = new ArrayList<String>();
