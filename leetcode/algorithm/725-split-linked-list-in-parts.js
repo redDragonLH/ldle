@@ -28,10 +28,15 @@ var splitListToParts = function (head, k) {
     let result = new Array(k)
     let node = head;
     while(node){
+        let next = node.next
+        node.next = null;
         linkArr.push(node)
-        node = node.next
+        node = next
     }
     console.log(linkArr);
-    if(linkArr.length<k){
+    //  链表元素小于等于k
+    if(linkArr.length<=k){
+    }else{
+        // 链表元素大k,又是另一种处理
     }
 };
