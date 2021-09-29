@@ -36,3 +36,26 @@ var findMinMoves = function (machines) {
   console.log(differenceArr, average);
   return result;
 };
+
+
+/**
+ * 官方题解: 贪心
+ */
+ var findMinMoves = function(machines) {
+    const tot = eval(machines.join('+'));
+    const n = machines.length;
+    if (tot % n !== 0) {
+        return -1;
+    }
+    let avg = Math.floor(tot / n);
+    let ans = 0, sum = 0;
+    // 逻辑核心
+    for (let num of machines) {
+        // 当前数减去平均数,所得是需移除或移入的数量
+        num -= avg;
+        // sum 作为一个容器,保存的是前面洗衣机剩余,或少的衣服件数
+        sum += num;
+        ans = Math.max(ans, Math.max(Math.abs(sum), num));
+    }
+    return ans;
+};
