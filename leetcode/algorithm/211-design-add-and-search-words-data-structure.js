@@ -49,3 +49,73 @@ WordDictionary.prototype.search = function (word) {
 /**
  * 超出时间限制
  */
+
+/**
+ * 官方题解 字典树
+ *
+ * 字典树(前缀树)是一种树形数据结构,用于高效的存储和检索字符串数据集中的键.前缀树可用O(|S|)的时间完成
+ *  *   向字典树中插入字符串 word
+ *  *   查询字符串word是否已经插入到字典树中
+ * 其中|S|是插入字符串或查询前缀的长度
+ *
+ */
+
+var WordDictionary = function () {
+  this.trieRoot = new TrieNode();
+};
+
+WordDictionary.prototype.addWord = function (word) {
+  this.trieRoot.insert(word);
+};
+
+WordDictionary.prototype.search = function (word) {
+  const dfs = (index, node) => {
+    if (index === word.length) {
+      return node.isEnd;
+    }
+    const ch = word[index];
+    if (ch !== ".") {
+      const child = node.children[ch.charCodeAt() - "a".charCodeAt()];
+      if (child && dfs(index + 1, child)) {
+        return true;
+      }
+    } else {
+      for (const child of node.children) {
+        if (child && dfs(index + 1, child)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  return dfs(0, this.trieRoot);
+};
+
+class TrieNode {
+  constructor() {
+    this.children = new Array(26).fill(0);
+    this.isEnd = false;
+  }
+
+  insert(word) {
+    let node = this;
+    for (let i = 0; i < word.length; i++) {
+      const ch = word[i];
+      const index = ch.charCodeAt() - "a".charCodeAt();
+      if (node.children[index] === 0) {
+        node.children[index] = new TrieNode();
+      }
+      node = node.children[index];
+    }
+    node.isEnd = true;
+  }
+
+  getChildren() {
+    return this.children;
+  }
+
+  isEnd() {
+    return this.isEnd;
+  }
+}
