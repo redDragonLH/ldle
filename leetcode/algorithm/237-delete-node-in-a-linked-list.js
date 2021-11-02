@@ -28,3 +28,11 @@ var deleteNode = function (node) {
   }
   node.next = null;
 };
+
+/**
+ * 官方题解 脑筋急转弯
+ */
+var deleteNode = function (node) {
+  node.val = node.next.val;
+  node.next = node.next.next;
+};
