@@ -15,3 +15,5 @@
 **字典树**[208. 实现 Trie (前缀树) 的官方题解](https://leetcode-cn.com/problems/implement-trie-prefix-tree/solution/shi-xian-trie-qian-zhui-shu-by-leetcode-ti500/)
 
 **摩尔投票法**
+
+**牛顿迭代法**
