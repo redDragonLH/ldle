@@ -32,3 +32,29 @@ var findPoisonedDuration = function (timeSeries, duration) {
  * 执行用时：92 ms, 在所有 JavaScript 提交中击败了16.67%的用户
  * 内存消耗：41.7 MB, 在所有 JavaScript 提交中击败了73.93%的用户
  */
+
+/**
+ * 官方题解 一次遍历
+ */
+/**
+ * @param {number[]} timeSeries
+ * @param {number} duration
+ * @return {number}
+ */
+var findPoisonedDuration = function (timeSeries, duration) {
+  let ans = 0;
+  // 用了额外的变量存放当前时间段的长度,以便判断,使用这个变量可以使逻辑操作超出当前循环的节点,并不会出错,因为就算数据多了下一个节点还会减回来
+  let expired = 0;
+  for (let i = 0; i < timeSeries.length; ++i) {
+    if (timeSeries[i] >= expired) {
+      ans += duration;
+    } else {
+      ans += timeSeries[i] + duration - expired;
+    }
+    expired = timeSeries[i] + duration;
+  }
+  return ans;
+};
+/**
+ * 为什么要比我的要快,min速度慢么
+ */
