@@ -119,4 +119,50 @@ MapSum.prototype._insert = function (map, key, i, val) {
  * ["MapSum","insert","sum","insert","sum","sum","insert","sum","sum","sum","insert","sum","sum","sum","sum","sum","insert","insert","insert","sum","sum","sum"]
  * [[],["aa",3],["a"],["aa",2],["a"],["aa"],["aaa",3],["aaa"],["bbb"],["ccc"],["aewfwaefjeoawefjwoeajfowajfoewajfoawefjeowajfowaj",111],["aa"],["a"],["b"],["c"],["aewfwaefjeoawefjwoeajfowajfoewajfoawefjeowajfowaj"],["bb",143],["cc",144],["aew",145],["bb"],["cc"],["aew"]]
  * 此例堆栈溢出
+ * 
+ * 数据结构有问题，可以继续优化
+ */
+
+/**
+ * 官方题解 字典树
+ */
+
+class TrieNode {
+    constructor() {
+        this.val = 0;
+        this.next = new Array(26).fill(0);
+    }
+}
+
+var MapSum = function () {
+    this.root = new TrieNode();
+    this.map = new Map();
+
+};
+
+MapSum.prototype.insert = function (key, val) {
+    const delta = val - (this.map.get(key) || 0);
+    this.map.set(key, val);
+    let node = this.root;
+    for (const c of key) {
+        if (node.next[c.charCodeAt() - 'a'.charCodeAt()] === 0) {
+            node.next[c.charCodeAt() - 'a'.charCodeAt()] = new TrieNode();
+        }
+        node = node.next[c.charCodeAt() - 'a'.charCodeAt()];
+        node.val += delta;
+    }
+};
+
+MapSum.prototype.sum = function (prefix) {
+    let node = this.root;
+    for (const c of prefix) {
+        if (node.next[c.charCodeAt() - 'a'.charCodeAt()] === 0) {
+            return 0;
+        }
+        node = node.next[c.charCodeAt() - 'a'.charCodeAt()];
+    }
+    return node.val;
+};
+/**
+ * 数据结构优化，但是转数字有点没必要吧
  */
