@@ -8,7 +8,7 @@
 
 /**
  * 也就是说,两个字符串只能有两个位置的字符不一样,且字符内容数量是一样的
- * 
+ *
  * 让特殊用例搞爆炸,这个思路还能优化
  * @param {string} s
  * @param {string} goal
@@ -45,3 +45,39 @@ var buddyStrings = function (s, goal) {
  * 执行用时：116 ms, 在所有 JavaScript 提交中击败了5.85%的用户
  * 内存消耗：39.4 MB, 在所有 JavaScript 提交中击败了62.44%的用户
  */
+
+/**
+ * 官方题解
+ */
+var buddyStrings = function (s, goal) {
+  if (s.length != goal.length) {
+    return false;
+  }
+  // 简化为 数据相等时的情况
+  if (s === goal) {
+    const count = new Array(26).fill(0);
+    for (let i = 0; i < s.length; i++) {
+      count[s[i].charCodeAt() - "a".charCodeAt()]++;
+      if (count[s[i].charCodeAt() - "a".charCodeAt()] > 1) {
+        return true;
+      }
+    }
+    return false;
+  } else {
+      //不相等就判断 
+      // 多于两个直接返回false
+    let first = -1,
+      second = -1;
+    for (let i = 0; i < s.length; i++) {
+      if (s[i] !== goal[i]) {
+        if (first === -1) first = i;
+        else if (second === -1) second = i;
+        else return false;
+      }
+    }
+    // 不相等的位置有两个且,两个位置的字符串交叉相等
+    return (
+      second !== -1 && s[first] === goal[second] && s[second] === goal[first]
+    );
+  }
+};
