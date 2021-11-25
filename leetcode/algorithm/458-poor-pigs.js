@@ -19,7 +19,8 @@
  *  根据题意,最大的测试轮数 iterations = minutesToTest/minutesToDie,
  * 也就是:在buckets 桶液体中有一桶有毒,至少需要多少只小猪才能在 iterations 轮测试中确定有毒的是哪一桶
  * 
- *  可以从另一角度考虑:
+ *  可以从另一角度考虑:用 f(i,j)表示i只小猪测试j轮最多可以在多少桶液体中确定有毒的是哪一桶.在确定最大测试轮数味 iterations 的情况下,
+ * 需要计算使得 f(i,iterations) >= buckets 成立的最小的i
  * @param {number} buckets
  * @param {number} minutesToDie
  * @param {number} minutesToTest
