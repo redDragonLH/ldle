@@ -31,7 +31,27 @@ var truncateSentence = function (s, k) {
 };
 /**
  * 暴力遍历
- * 
+ *
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了88.49%的用户
  * 内存消耗：37.2 MB, 在所有 JavaScript 提交中击败了100.00%的用户
+ */
+
+/**
+ * 由空格分割为数组
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var truncateSentence = function (s, k) {
+  let sArr = s.split(" ");
+  let resultArr = [];
+  for (let i = 0; i < k; i++) {
+    resultArr.push(sArr[i]);
+  }
+  return resultArr.join(" ");
+};
+/**
+ * 时间一样,内存增多
+ * 执行用时：64 ms, 在所有 JavaScript 提交中击败了88.49%的用户
+ *  内存消耗：38 MB, 在所有 JavaScript 提交中击败了25.90%的用户
  */
