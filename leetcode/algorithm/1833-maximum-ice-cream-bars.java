@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * 1833. 雪糕的最大数量
  *
@@ -31,7 +33,7 @@ class Solution {
  */
 
 
- class Solution {
+ class Solution2 {
     public int maxIceCream(int[] costs, int coins) {
         // 计数排序
         int[] freq = new int[100001];
