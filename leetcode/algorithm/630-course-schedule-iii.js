@@ -81,3 +81,10 @@ var scheduleCourse = function (courses) {
   }
   return result;
 };
+
+
+/**
+ * 官方题解,: 优先队列+贪心
+ * 
+ * 喵得,需要优先队列结构
+ */
