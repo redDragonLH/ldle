@@ -11,7 +11,7 @@
 /**
  * 看起来逻辑比较直观,直观的逻辑有点过不去,要动态规划么
  * 排序后贪遍历的方案不能完全解决这个问题,排序的方案需要规划
- * 
+ *
  * 排序后遍历:失败
  * @param {number[][]} courses
  * @return {number}
@@ -33,18 +33,11 @@ var scheduleCourse = function (courses) {
   return result;
 };
 
-[[5,15],[3,19],[6,7],[2,10],[5,16],[8,14],[10,11],[2,19]]
-[[100, 200],[200, 1300],[1000, 1250],[2000, 3200]]
-[[1, 2]]
-[[3, 2], [4, 3]]
-[[1, 2], [2, 3]]
-[[5, 5], [4, 6], [2, 6]]
-
 /**
  * 优化排序:失败
- * 
+ *
  * 问题: [[5, 5], [4, 6], [2, 6]] 类似用例的问题无法解决
- * 
+ *
  * 必须得判断出怎么样是最多的数量,难道多次循环么
  */
 var scheduleCourse = function (courses) {
@@ -64,5 +57,27 @@ var scheduleCourse = function (courses) {
       result++;
     }
   });
+  return result;
+};
+
+/**
+ * 优化:二重遍历
+ * 二重遍历也有用例通不过,贪心好像解决不了这个问题
+ */
+var scheduleCourse = function (courses) {
+  let sortCourses = courses.sort((a, b) => a[1] - b[1]);
+  let result = 0;
+  let len = courses.length;
+  for (let i = 0; i < len; i++) {
+    let currentTime = 0;
+    let count = 0;
+    for (let j = i; j < len; j++) {
+      if (sortCourses[j][1] >= currentTime + sortCourses[j][0]) {
+        currentTime += sortCourses[j][0];
+        count++;
+        result = Math.max(count, result);
+      }
+    }
+  }
   return result;
 };
