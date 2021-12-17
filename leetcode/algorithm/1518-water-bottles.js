@@ -36,3 +36,11 @@ var numWaterBottles = function (numBottles, numExchange) {
  * 执行用时：76 ms, 在所有 JavaScript 提交中击败了29.29%的用户
  * 内存消耗：37.5 MB, 在所有 JavaScript 提交中击败了75.76%的用户
  */
+
+/**
+ * 官方题解:数学
+ * 
+ */
+ var numWaterBottles = function(numBottles, numExchange) {
+    return numBottles >= numExchange ? Math.floor((numBottles - numExchange) / (numExchange - 1)) + 1 + numBottles : numBottles;
+};
