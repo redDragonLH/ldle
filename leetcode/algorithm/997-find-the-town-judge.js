@@ -48,3 +48,8 @@ var findJudge = function (n, trust) {
  * 执行用时：92 ms, 在所有 JavaScript 提交中击败了98.34%的用户
  * 内存消耗：45.5 MB, 在所有 JavaScript 提交中击败了54.64%的用户
  */
+
+/**
+ * 官方考察的是图
+ * 
+ */
