@@ -21,7 +21,8 @@ var findOcurrences = function (text, first, second) {
     while (text.indexOf(matchStr, index) !== -1) {
         index = text.indexOf(matchStr, index);
         // 必须是单个单词，first 前边不能有字母，但是可以是开头
-        if (text[index - 1] === ' ' || text[index - 1] === undefined) {
+        // index 是undefined的情况就是为0
+        if (text[index - 1] === ' ' || index === 0) {
 
             index += matchStr.length + 1;
             let end = index;
@@ -30,10 +31,11 @@ var findOcurrences = function (text, first, second) {
             index !== end && result.push(text.slice(index, end));
             // 数据可能有部分重叠，所以要回退位置，但是不能回退到indexOf 返回的位置
             index -= matchStr.length;
+            // 放if外就没有意义了,并且index+=1就会每次都加，虽然不会引起bug
+            continue;
         };
         // 匹配的位置前边有字母，跳过并， 前进一位，
         index += 1;
-        continue;
 
     }
     return result;
