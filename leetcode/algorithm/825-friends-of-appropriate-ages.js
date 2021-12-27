@@ -43,7 +43,7 @@ var numFriendRequests = function (ages) {
  * 排序加双指针
  *
  * 此题三个条件综合后得出的是一个区间,用双指针或者滑动窗口去包含这个区间,而这个区间的数量就是需要加好友的数量(减掉自己)
- * 
+ *
  * 缺乏向右查找的方案,或者说,元素值一样的话应该是right-left * 2 才行吧
  */
 var numFriendRequests = function (ages) {
@@ -56,11 +56,11 @@ var numFriendRequests = function (ages) {
   if (right === -1) return result;
   let left = ages.findIndex((e) => e > parseInt(0.5 * ages[right]) + 7);
   // 那结束条件是什么,x === length 么,right就是x吧
-  console.log(left, right, ages[left]);
-  //   right>left && (result += right - left - 1);
+  console.log(left, right, ages[left], ages[left - 1]);
   while (right < len) {
-    right >= left && (result += right - left);
-
+    if (ages[right] !== ages[left]) {
+      result += right - left;
+    }
     right++;
     while (ages[left] < parseInt(0.5 * ages[right]) + 7) left++;
   }
