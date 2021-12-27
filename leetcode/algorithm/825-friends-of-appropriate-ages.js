@@ -66,3 +66,30 @@ var numFriendRequests = function (ages) {
   }
   return result;
 };
+
+/**
+ * 官方题解: 排序+ 双指针
+ */
+var numFriendRequests = function (ages) {
+  const n = ages.length;
+  ages.sort((a, b) => a - b);
+  let left = 0,
+    right = 0,
+    ans = 0;
+  for (const age of ages) {
+    if (age < 15) {
+      continue;
+    }
+    while (ages[left] <= 0.5 * age + 7) {
+      ++left;
+    }
+    // 没搞明白的点就是这里,,right ++为啥要判断必须小于等于当前数量,
+    // 哦.这样就保证了可以不受x的位置的限制,也就是说可以超出x的位置,把这个数字所有可以请求的人一次性全部的计算出来
+    // 不被当前age 所在位置限制住,如果位置被当前age 所在位置限制住,如果后边还有等于age的元素,这些后边的元素的请求就没办法一次计算,多次计算增加复杂度
+    while (right + 1 < n && ages[right + 1] <= age) {
+      ++right;
+    }
+    ans += right - left;
+  }
+  return ans;
+};
