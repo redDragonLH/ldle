@@ -38,3 +38,35 @@ var modifyString = function (s) {
  * 执行用时：96 ms, 在所有 JavaScript 提交中击败了13.11%的用户
  * 内存消耗：39.1 MB, 在所有 JavaScript 提交中击败了81.97%的用户
  */
+
+/**
+ * 官方题解
+ * 
+ * 也就是abc三个字母,因为?周围只有相邻两个元素,所以用三个字母就可以排列为间隔字符串
+ */
+var modifyString = function (s) {
+  const n = s.length;
+  // 直接把所有字符串分解为单个字符的元素数组
+  const arr = [...s];
+  for (let i = 0; i < n; ++i) {
+      // 遇到问号进入处理流程
+    if (arr[i] === "?") {
+    // 循环三次就能得出结果
+      for (let j = 0; j < 3; ++j) {
+          // j 的用处就是charCode 的参数,从a-c
+        if (
+          (i > 0 && arr[i - 1] === String.fromCharCode("a".charCodeAt() + j)) ||
+          (i < n - 1 &&
+            arr[i + 1] === String.fromCharCode("a".charCodeAt() + j))
+        ) {
+            // 如果前一个元素或后一个元素等于 a或b,跳过这次轮询
+          continue;
+        }
+
+        arr[i] = String.fromCharCode("a".charCodeAt() + j);
+        break;
+      }
+    }
+  }
+  return arr.join("");
+};
