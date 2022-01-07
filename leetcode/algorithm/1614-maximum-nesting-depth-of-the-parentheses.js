@@ -18,29 +18,26 @@
 
 /**
  * 应该是用栈判断是否合法
+ *
+ * 优化,stack变量在此之中其实并没有参与任何逻辑操作,那就可以去掉
  * @param {string} s
  * @return {number}
  */
 var maxDepth = function (s) {
   let result = 0;
-  let stack = [];
   let deep = 0;
   for (let i = 0; i < s.length; i++) {
     if (s[i] === "(") {
-      stack.push("(");
       deep++;
       result = Math.max(result, deep);
     } else if (s[i] === ")") {
-      if (stack[stack.length - 1] === "(") {
-        stack.pop();
-        deep--;
-      }
+      deep--;
     }
   }
   return result;
 };
 /**
  * 全是正确的VPS,所以减少很多逻辑
- * 执行用时：76 ms, 在所有 JavaScript 提交中击败了50.82%的用户
- * 内存消耗：37.8 MB, 在所有 JavaScript 提交中击败了87.70%的用户
+ * 执行用时：64 ms, 在所有 JavaScript 提交中击败了95.90%的用户
+ * 内存消耗：37.9 MB, 在所有 JavaScript 提交中击败了87.70%的用户
  */
