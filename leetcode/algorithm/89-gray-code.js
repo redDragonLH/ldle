@@ -21,3 +21,19 @@
 var grayCode = function (n) {
 
 };
+
+/**
+ * 官方题解 对称生成
+ * @param {*} n 
+ * @returns 
+ */
+var grayCode = function (n) {
+    const ret = [0];
+    for (let i = 1; i <= n; i++) {
+        const m = ret.length;
+        for (let j = m - 1; j >= 0; j--) {
+            ret.push(ret[j] | (1 << (i - 1)));
+        }
+    }
+    return ret;
+};
