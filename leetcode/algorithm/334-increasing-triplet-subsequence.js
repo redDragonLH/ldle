@@ -36,7 +36,7 @@ var increasingTriplet = function (nums) {
  * 那就得用多叉树吧,有三层,那也麻烦
  *
  * 用多维数组,从前往后创建,如果大于数组内部数组的最后一个元素就push进去,然后判断数量
- * 
+ *
  * 对栈溢出,还不如三层遍历
  */
 var increasingTriplet = function (nums) {
@@ -49,6 +49,39 @@ var increasingTriplet = function (nums) {
       }
     }
     resultArr.push([item]);
+  }
+  return false;
+};
+
+/**
+ * 官方题解: 双向遍历
+ *
+ * 在nums[i] 的左边存在一个元素小于nums[i].等价于在nums[i]的左边的最小元素小于nums[i],在nums[i]
+ * 的右边存在一个元素大于 nums[i] 等价于在 nums[i] 的右边的最大元素大于 nums[i],因此可以维护数组nums 
+ * 中的每个元素左边的最小值和右边的最大值
+ * 
+ * 创建两个长度为n的数组leftMin和rightMax,对于 0 <= i < n.leftMin[i]表示nums[0]到nums[i]中的最小值,rightMax[i]表示 nums[i]
+ * 到 nums[n-1]中的最大值
+ */
+var increasingTriplet = function (nums) {
+  const n = nums.length;
+  if (n < 3) {
+    return false;
+  }
+  const leftMin = new Array(n).fill(0);
+  leftMin[0] = nums[0];
+  for (let i = 1; i < n; i++) {
+    leftMin[i] = Math.min(leftMin[i - 1], nums[i]);
+  }
+  const rightMax = new Array(n).fill(0);
+  rightMax[n - 1] = nums[n - 1];
+  for (let i = n - 2; i >= 0; i--) {
+    rightMax[i] = Math.max(rightMax[i + 1], nums[i]);
+  }
+  for (let i = 1; i < n - 1; i++) {
+    if (nums[i] > leftMin[i - 1] && nums[i] < rightMax[i + 1]) {
+      return true;
+    }
   }
   return false;
 };
