@@ -85,3 +85,16 @@ var increasingTriplet = function (nums) {
   }
   return false;
 };
+
+/**
+ * 官方题解: 贪心
+ * 
+ * 从左往右遍历数组nums,遍历过程中维护两个变量 first 和 second,分别表示递增的三元子序列中的第一个数和第二个数,任何时候都有 first < second
+ * 
+ * 初始时,first = nums[0],second =+∞.对于 1 <= i <n,当遍历到下标i时,令 num = nums[i],进行如下操作:
+ *  1. 如果 num > second,则找到了一个递增的三元子序列,返回true
+ *  2. 否则,如果num>first,则将 second 的值更新为 num
+ *  3. 否则,将 first 的值更新为 num.
+ * 
+ * 题解的原理:为了找到递增的三元子序列,first 和 secod 应尽可能的小,此时找到递增的三元子序列的可能性更大
+ */
