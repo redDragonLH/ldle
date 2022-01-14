@@ -32,6 +32,7 @@ var kSmallestPairs = function (nums1, nums2, k) {
   while (left <= right) {
       // 中位数
     const mid = left + ((right - left) >> 1);
+    // cnt 是啥
     let cnt = 0;
     let start = 0;
     let end = n - 1;
