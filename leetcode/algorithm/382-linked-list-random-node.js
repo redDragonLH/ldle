@@ -47,3 +47,34 @@ Solution.prototype.getRandom = function () {
  * 执行用时：108 ms, 在所有 JavaScript 提交中击败了63.33%的用户
  * 内存消耗：44.3 MB, 在所有 JavaScript 提交中击败了50.00%的用户
  */
+
+/**
+ * 试试直观写法，获取len，然后随机，查找返回
+ * @param {ListNode} head
+ */
+ var Solution = function (head) {
+     this.head = head;
+    this.len = 0
+    let node = head;
+    while (node) {
+        this.len++
+        node = node.next
+    }
+};
+
+/**
+ * @return {number}
+ */
+Solution.prototype.getRandom = function () {
+    let random = Math.floor(Math.random() * this.len)
+    let node = this.head
+    while(random--){
+        node= node.next;
+    }
+    return node.val
+};
+/**
+ * 速度没变，内存少了不少~~~
+ * 执行用时：108 ms, 在所有 JavaScript 提交中击败了63.33%的用户
+ * 内存消耗：44.1 MB, 在所有 JavaScript 提交中击败了78.89%的用户
+ */
