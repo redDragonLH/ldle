@@ -15,14 +15,16 @@
  */
 /**
  * 比较二的方案是转为数组，然后随机，问题就是内存估计得爆,果然内存限制
+ * 代码写错了。还以为是内存限制了
  * @param {ListNode} head
  */
 var Solution = function (head) {
     this.arr = []
     this.len = 0
     let node = head;
-    while(node){
+    while (node) {
         this.arr.push(node.val)
+        node = node.next
     }
     this.len = this.arr.length;
 };
@@ -31,7 +33,7 @@ var Solution = function (head) {
  * @return {number}
  */
 Solution.prototype.getRandom = function () {
-    let random = Math.floor(Math.random() * (this.len)) + this.len
+    let random = Math.floor(Math.random() * this.len)
     return this.arr[random]
 };
 
@@ -39,4 +41,9 @@ Solution.prototype.getRandom = function () {
  * Your Solution object will be instantiated and called as such:
  * var obj = new Solution(head)
  * var param_1 = obj.getRandom()
+ */
+
+/**
+ * 执行用时：108 ms, 在所有 JavaScript 提交中击败了63.33%的用户
+ * 内存消耗：44.3 MB, 在所有 JavaScript 提交中击败了50.00%的用户
  */
