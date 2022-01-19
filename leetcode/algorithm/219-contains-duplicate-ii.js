@@ -32,3 +32,9 @@ var containsNearbyDuplicate = function (nums, k) {
  * 执行用时：212 ms, 在所有 JavaScript 提交中击败了35.75%的用户
  * 内存消耗：65 MB, 在所有 JavaScript 提交中击败了5.08%的用户
  */
+
+/**
+ * 官方题解: 滑动窗口
+ * 
+ * 也就是创建一个k大的滑动窗口,然后检查这个窗口之内有没有重复元素
+ */
