@@ -13,6 +13,8 @@
  * 也就是查找一种顺序使之部分元素之和不能被3整除,但是顺序不一样,最后结果是一样的吧,当然,可能结果不符合条件,但是中间结果符合
  *
  * 比较直观的方案就是交替获取元素,使用两个贪心逻辑
+ * 
+ * 不对,应该是同一个贪心逻辑,都在查找能被3整除的数,现在问题是怎么算最佳决策
  * @param {number[]} stones
  * @return {boolean}
  */
@@ -25,15 +27,23 @@ var stoneGameIX = function (stones) {
       for (const item of stones) {
         if (item > 0 && !(count + item) % 3) return false;
       }
-      for (const item of stones) {
-        item > 0 && (count += item);
+      for (let i = 0; i < stones.length; i++) {
+        if (stones[i] > 0) {
+          count += stones[i];
+          stones[i] = 0;
+          break;
+        }
       }
-    }else {
-        for (const item of stones) {
-            if (item > 0 && (count + item) % 3){
-                count += item
-            };
-          }
+    } else {
+      let oldCount = count;
+      for (let i = 0; i < stones.length; i++) {
+        if (stones[i] > 0&& (count + stones[i]) % 3) {
+          count += stones[i];
+          stones[i] = 0;
+          break;
+        }
+      }
+      if (oldCount == count) return false;
     }
     user = (user + 1) % 2;
   }
