@@ -16,3 +16,22 @@
 var numberOfMatches = function (n) {
   return n - 1;
 };
+
+/**
+ * 模拟
+ */
+var numberOfMatches = function (n) {
+  let ans = 0;
+  while (n > 1) {
+    // 偶数情况
+    if (n % 2 === 0) {
+      ans += Math.floor(n / 2);
+      n /= 2;
+      // 奇数情况
+    } else {
+      ans += Math.floor((n - 1) / 2);
+      n = Math.floor((n - 1) / 2) + 1;
+    }
+  }
+  return ans;
+};
