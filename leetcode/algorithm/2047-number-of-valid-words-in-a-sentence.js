@@ -33,7 +33,7 @@ var countValidWords = function (sentence) {
     ) {
       let symbolReg = /\!|\,|\./g;
       let lastSymbolReg = /\!$|\,$|\.$/g;
-      
+
       let arr = e.match(symbolReg) || [];
 
       if (!arr.length) {
@@ -48,8 +48,20 @@ var countValidWords = function (sentence) {
 
 /**
  * 速度这么慢~~
- * 
+ *
  * 就当复习了下正则吧
  * 执行用时：96 ms, 在所有 JavaScript 提交中击败了19.21%的用户
  * 内存消耗：43.6 MB, 在所有 JavaScript 提交中击败了13.53%的用户
  */
+
+/**
+ * 第三方题解
+ * 
+ * 正则有点复杂
+ * @param {string} sentence
+ * @return {number}
+ */
+const countValidWords = (sentence) => {
+  const reg = /(^[a-z]+(?:(?<=[a-z])-(?=[a-z]))?[a-z]*[\!\,\.]?$|^[\!\,\.]$)/;
+  return sentence.split(" ").filter((s) => reg.test(s)).length;
+};
