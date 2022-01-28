@@ -25,6 +25,7 @@ var numberOfWeakCharacters = function (properties) {
   // 那得有个数据结构保存比当前元素大的
   let maxDef = 0;
   for (const p of properties) {
+      // 把 对比数字 返回到较小的情况,避免对比数字过大导致遗漏
     if (p[1] < maxDef) {
       result++;
     } else {
