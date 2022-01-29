@@ -19,9 +19,9 @@
  * 也就是找到水域,然后往四周扩散
  *
  * 多源广度优先搜索~~~
- * 
+ *
  * 由java代码转译而来
- * 
+ *
  * 超时~~
  * @param {number[][]} isWater
  * @return {number[][]}
@@ -64,4 +64,53 @@ var highestPeak = function (isWater) {
     }
   }
   return ans;
+};
+
+/**
+ * 第三方题解
+ * 
+ * 看起来最大优化只是优化了中间数据,直接在数据来源上操作
+ * 剩下的只是数据流通的处理
+ */
+const DIRS = [
+    [1, 0],
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+  ],
+  MAX = 0x3f3f3f;
+var highestPeak = function (isWater) {
+  // 直接在来源数据上处理
+  // 倒是减少了新建与处理新数据
+  const m = isWater.length,
+    n = isWater[0].length;
+  let queue = new Array(),
+    cost = 0;
+  for (let i = 0; i < m; i++)
+    for (let j = 0; j < n; j++)
+      if (isWater[i][j] == 1) {
+        // 初始化数据结构
+        isWater[i][j] = 0;
+        queue.push([i, j]);
+      } else {
+        // 陆地直接拉满,等到时候比较的时候
+        isWater[i][j] = MAX;
+      }
+  while (queue.length > 0) {
+    const nxt = new Array();
+    // 每层增加的高度都是一样的
+    cost++;
+    for (const point of queue)
+      for (const dir of DIRS) {
+        const nx = point[0] + dir[0],
+          ny = point[1] + dir[1];
+        if (nx >= 0 && ny >= 0 && nx < m && ny < n && isWater[nx][ny] > cost) {
+          isWater[nx][ny] = cost;
+          nxt.push([nx, ny]);
+        }
+      }
+      // 也可以直接push 到queue ,只不过要多加一个判断
+    queue = nxt;
+  }
+  return isWater;
 };
