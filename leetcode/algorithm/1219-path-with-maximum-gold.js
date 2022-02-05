@@ -11,11 +11,61 @@
  */
 
 /**
- * 
+ *
  * 广度优先搜索 + 贪心
  * @param {number[][]} grid
  * @return {number}
  */
-var getMaximumGold = function (grid) {
+var getMaximumGold = function (grid) {};
 
+/**
+ * 回溯算法
+ * 
+ * 也就是深度优先搜索吧
+ * 确实,广度有点坑
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var getMaximumGold = function (grid) {
+  this.grid = grid;
+  this.m = grid.length;
+  this.n = grid[0].length;
+  // 当前点对应上下左右四个点的偏移量
+  this.dirs = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+  ];
+  this.ans = 0;
+
+  const dfs = (x, y, gold) => {
+    gold += grid[x][y];
+    // 因为要的是黄金的量所以记录总量就可以了
+    this.ans = Math.max(ans, gold);
+
+    const rec = grid[x][y];
+    // 处理过的置为 0;
+    grid[x][y] = 0;
+
+    for (let d = 0; d < 4; ++d) {
+      const nx = x + this.dirs[d][0];
+      const ny = y + this.dirs[d][1];
+      // 当前点未超出范围且不为0,继续递归
+      if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] > 0) {
+        dfs(nx, ny, gold);
+      }
+    }
+    // 此次递归完成后把数据重置,以便下次使用
+    grid[x][y] = rec;
+  };
+  // 两重遍历
+  for (let i = 0; i < m; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (grid[i][j] !== 0) {
+        dfs(i, j, 0);
+      }
+    }
+  }
+  return ans;
 };
