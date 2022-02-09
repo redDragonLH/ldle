@@ -24,3 +24,18 @@ var countKDifference = function (nums, k) {
   }
   return res;
 };
+
+/**
+ * 哈希表
+ */
+ var countKDifference = function(nums, k) {
+    let res = 0, n = nums.length;
+    const cnt = new Map();
+    for (let j = 0; j < n; ++j) {
+        // 保存相同数据,并再次出现时把总量返回出来
+        // 是+= 的原因是每新增一个数据就代表和前边所有对应的数据都加了一遍
+        res += (cnt.get(nums[j] - k) || 0) + (cnt.get(nums[j] + k) || 0);
+        cnt.set(nums[j], (cnt.get(nums[j]) || 0) + 1);
+    }
+    return res;
+};
