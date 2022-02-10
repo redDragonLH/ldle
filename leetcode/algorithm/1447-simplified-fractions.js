@@ -18,3 +18,36 @@ var simplifiedFractions = function (n) {
   }
   return result;
 };
+
+/**
+ * 必须要考虑有公约数的情况,质数队列?
+ * 难道要每个数据去除么
+ *
+ * 互为质数
+ * @param {number} n
+ * @return {string[]}
+ */
+var simplifiedFractions = function (n) {
+  const ans = [];
+  for (let denominator = 2; denominator <= n; ++denominator) {
+    for (let numerator = 1; numerator < denominator; ++numerator) {
+      if (gcd(numerator, denominator) == 1) {
+        ans.push(numerator + "/" + denominator);
+      }
+    }
+  }
+  return ans;
+};
+// 计算两数的最大公约数
+/**
+ * 欧几里得算法(辗转相除法)
+ * 原理: 两个整数的最大公约数等于其中较小的数和两数的差的最大公约数
+ * 
+ * 在数学中一般使用求余运算替换差运算
+ */
+const gcd = (a, b) => {
+  if (b === 0) {
+    return a;
+  }
+  return gcd(b, a % b);
+};
