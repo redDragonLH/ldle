@@ -23,3 +23,9 @@ var singleNonDuplicate = function (nums) {
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了88.57%的用户
  * 内存消耗：45.1 MB, 在所有 JavaScript 提交中击败了5.30%的用户
  */
+
+/**
+ * 可以用二分法查找
+ * 
+ * 优化可以考虑偶数二分
+ */
