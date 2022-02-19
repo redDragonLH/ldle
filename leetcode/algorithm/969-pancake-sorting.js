@@ -24,7 +24,6 @@ var pancakeSort = function (arr) {
     let result = [];
     for (let i = len; i > 0; i--) {
         let currPos = arr.indexOf(i)
-        console.log(arr, currPos, i)
         if (currPos === i + 1) continue
         else {
 
@@ -36,7 +35,6 @@ var pancakeSort = function (arr) {
             i - 1 > 0 && result.push(i)
         }
     }
-    console.log(arr)
     return result
 };
 const reverse = (arr, index) => {
@@ -49,6 +47,7 @@ const reverse = (arr, index) => {
     }
 }
 /**
- * 执行用时：156 ms, 在所有 JavaScript 提交中击败了8.20%的用户
- * 内存消耗：49 MB, 在所有 JavaScript 提交中击败了5.24%的用户
+ * 去掉console.log后用时陡降
+ * 执行用时：48 ms, 在所有 JavaScript 提交中击败了100.00%的用户
+ * 内存消耗：41.6 MB, 在所有 JavaScript 提交中击败了22.62%的用户
  */
