@@ -23,14 +23,18 @@ var pancakeSort = function (arr) {
     let len = arr.length;
     let result = [];
     for (let i = len; i > 0; i--) {
+        // 查找当前要排序的元素的当前位置
         let currPos = arr.indexOf(i)
+        // 位置正确就不需要翻转
         if (currPos === i + 1) continue
         else {
 
             if (currPos !== 0) {
                 reverse(arr, currPos)
+                //翻转用的是数组下标，但是k是从1开始算，
                 result.push(currPos + 1)
             }
+            // 逻辑同上，就算更改逻辑让reverse 不减1，push 的时候还是会减
             reverse(arr, i - 1)
             i - 1 > 0 && result.push(i)
         }
