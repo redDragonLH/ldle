@@ -15,12 +15,16 @@
 var isOneBitCharacter = function (bits) {
     let len = bits.length;
     let one = 0
+    // 最后一个是1直接返回 false
     if (bits[len]) return false;
     for (let i = len - 1; i > -1; i--) {
+        // 如从后数两个元素都是0，那么肯定可以以0结尾，因为就算这两个前边有多少个1，最后都可以被0消掉，奇数个1就是10，偶数个1就剩单个0，因为1都两两消掉
         if (!one && !bits[i] && i <= len - 2) return true
+        // 当前元素是0，而且已经计算过1的个数，那就看是奇偶了
         if (!bits[i] && one) {
             return !(one % 2);
         }
+        // 从后数的 0 不进入计算
         if (!bits[i] && !one) {
             continue;
         } else {
