@@ -35,3 +35,13 @@ function dec2bin(dec) {
  * 执行用时：48 ms, 在所有 JavaScript 提交中击败了100.00%的用户
  * 内存消耗：41.3 MB, 在所有 JavaScript 提交中击败了13.61%的用户
  */
+
+/**
+ * 位运算
+ * @param {*} n 
+ * @returns 
+ */
+ var hasAlternatingBits = function(n) {
+    const a = n ^ (n >> 1);
+    return (a & (a + 1)) === 0;
+};
