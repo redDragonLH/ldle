@@ -80,3 +80,45 @@ const getPosi = (arr, start, target, len) => {
   }
   return wigth;
 };
+
+var maxConsecutiveAnswers = function (answerKey, k) {
+  // 问题是找到初始窗口的长度
+  let Tstart = 0,
+    Tend = getPosi(answerKey, 0, "F", k);
+  let Fstart = 0,
+    Fend = getPosi(answerKey, 0, "T", k);
+  let len = answerKey.length - k;
+  let max = Math.max(Tend - Tstart, Fend - Fstart);
+  for (let i = 1; i < len; i++) {
+    // 余出一个转换量,则重新计算end
+    if (answerKey[Tstart] === "F") {
+      Tend += getPosi(answerKey, Tend, "F", 1);
+    }
+    Tstart = i;
+
+    if (answerKey[Fstart] === "T") {
+      Fend += getPosi(answerKey, Fend, "T", 1);
+    }
+    Fstart = i;
+
+    max = Math.max(max, Tend - Tstart, Fend - Fstart);
+  }
+
+  return max;
+};
+const getPosi = (arr, start, target, len) => {
+  let wigth = 0;
+  for (let index = start; index < arr.length; index++) {
+    if (arr[index] === target && !len) return wigth;
+
+    if (arr[index] === target) {
+      len--;
+    }
+    wigth++;
+  }
+  return wigth;
+};
+/**
+ * 执行用时：100 ms, 在所有 JavaScript 提交中击败了25.00%的用户
+ * 内存消耗：46 MB, 在所有 JavaScript 提交中击败了6.25%的用户
+ */
