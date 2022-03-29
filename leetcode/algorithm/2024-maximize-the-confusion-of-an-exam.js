@@ -11,7 +11,7 @@
  * 如果说要在k次操作中找到最大长度,那么T或者F肯定是要连续的
  *
  * 可以使用滑动窗口,循环两次,一次T,一次F
- * 
+ *
  * 代码失败
  * @param {string} answerKey
  * @param {number} k
@@ -44,4 +44,36 @@ var maxConsecutiveAnswers = function (answerKey, k) {
   }
   console.log(maxT, maxF);
   return Math.max(maxF, maxT);
+};
+
+/**
+ * 使用滑动窗口,循环两次,一次T,一次F
+ * @param {string} answerKey
+ * @param {number} k
+ * @return {number}
+ */
+var maxConsecutiveAnswers = function (answerKey, k) {
+  // 问题是找到初始窗口的长度
+//   let Tstart = 0,
+//     Tend = getPosi(answerKey, 0, "F", k);
+//   let Fstart = 0,
+//     Fend = getPosi(answerKey, 0, "T", k);
+let max = 0
+    for (let i = 0; i < answerKey.length; i++) {
+        max = Math.max(max,getPosi(answerKey, i, "T", k),getPosi(answerKey, 0, "F", k))
+        
+    }
+    return max;
+};
+const getPosi = (arr, start, target, len) => {
+  let wigth = 0;
+  for (let index = start; index < arr.length; index++) {
+    if (arr[index] === target && !len) return wigth;
+
+    if (arr[index] === target) {
+      len--;
+    }
+    wigth++;
+  }
+  return wigth;
 };
