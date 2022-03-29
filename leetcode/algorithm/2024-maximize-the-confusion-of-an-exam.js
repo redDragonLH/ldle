@@ -47,23 +47,26 @@ var maxConsecutiveAnswers = function (answerKey, k) {
 };
 
 /**
- * 使用滑动窗口,循环两次,一次T,一次F
  * @param {string} answerKey
  * @param {number} k
  * @return {number}
  */
 var maxConsecutiveAnswers = function (answerKey, k) {
   // 问题是找到初始窗口的长度
-//   let Tstart = 0,
-//     Tend = getPosi(answerKey, 0, "F", k);
-//   let Fstart = 0,
-//     Fend = getPosi(answerKey, 0, "T", k);
-let max = 0
-    for (let i = 0; i < answerKey.length; i++) {
-        max = Math.max(max,getPosi(answerKey, i, "T", k),getPosi(answerKey, 0, "F", k))
-        
-    }
-    return max;
+  //   let Tstart = 0,
+  //     Tend = getPosi(answerKey, 0, "F", k);
+  //   let Fstart = 0,
+  //     Fend = getPosi(answerKey, 0, "T", k);
+  let max = 0;
+  for (let i = 0; i < answerKey.length; i++) {
+    max = Math.max(
+      max,
+      getPosi(answerKey, i, "T", k),
+      getPosi(answerKey, i, "F", k)
+    );
+  }
+
+  return max;
 };
 const getPosi = (arr, start, target, len) => {
   let wigth = 0;
