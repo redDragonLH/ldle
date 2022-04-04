@@ -14,12 +14,12 @@
 /**
  * @param {number[]} nums
  */
- var NumArray = function (nums) {
+var NumArray = function (nums) {
     this.nums = nums;
     this.numsLen = nums.length;
     this.prefixSum = [];
 
-    this.calPrefixSum(0, this.numsLen-1);
+    this.calPrefixSum(0, this.numsLen - 1);
 };
 
 /** 
@@ -29,7 +29,7 @@
  */
 NumArray.prototype.update = function (index, val) {
     this.nums[index] = val;
-    this.calPrefixSum(index, this.numsLen-1);
+    this.calPrefixSum(index, this.numsLen - 1);
 
 };
 
@@ -39,11 +39,11 @@ NumArray.prototype.update = function (index, val) {
  * @return {number}
  */
 NumArray.prototype.sumRange = function (left, right) {
-    return this.prefixSum[right] - (this.prefixSum[left-1] || 0)
+    return this.prefixSum[right] - (this.prefixSum[left - 1] || 0)
 };
 NumArray.prototype.calPrefixSum = function (left, right) {
     for (let i = left; i <= right; i++) {
-        this.prefixSum[i] = (this.prefixSum[i - 1]|| 0) + this.nums[i]
+        this.prefixSum[i] = (this.prefixSum[i - 1] || 0) + this.nums[i]
     }
 };
 
