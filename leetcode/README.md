@@ -26,6 +26,8 @@
 
 **蓄水池抽样算法**
 
+**线段树**
+
 [382题](.\algorithm\382-linked-list-random-node.js)
 ## 算法分析
 ### 后缀数组

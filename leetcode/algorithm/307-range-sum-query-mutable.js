@@ -53,3 +53,6 @@ NumArray.prototype.calPrefixSum = function (left, right) {
  * obj.update(index,val)
  * var param_2 = obj.sumRange(left,right)
  */
+/**
+ * 官方题解： 线段树
+ */
