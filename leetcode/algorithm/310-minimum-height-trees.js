@@ -1,0 +1,78 @@
+/**
+ * 310. 最小高度树
+ *
+ * 树是一个无向图，其中任何两个顶点只通过一条路径连接。 换句话说，一个任何没有简单环路的连通图都是一棵树。
+ *
+ * 给你一棵包含 n 个节点的树，标记为 0 到 n - 1 。给定数字 n 和一个有 n - 1 条无向边的 edges 列表（每一个边都是一对标签），其中 edges[i] = [ai, bi] 表示树中节点 ai 和 bi 之间存在一条无向边。
+ *
+ * 可选择树中任何一个节点作为根。当选择节点 x 作为根节点时，设结果树的高度为 h 。在所有可能的树中，具有最小高度的树（即，min(h)）被称为 最小高度树 。
+ *
+ * 请你找到所有的 最小高度树 并按 任意顺序 返回它们的根节点标签列表。
+ *
+ * 树的 高度 是指根节点和叶子节点之间最长向下路径上边的数量。
+ */
+
+/**
+ * 找到一个节点,它的最远节点的距离在所有节点为根节点的树中最近
+ *
+ * 暴力遍历
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findMinHeightTrees = function (n, edges) {
+  let result = [];
+  let minHeight = Number.MAX_SAFE_INTEGER;
+  if (!n) return result;
+  // 应该先构建一个节点树
+  let tree = buildTree(n, edges);
+  console.log("tree", tree);
+  // 每个节点进行遍历,找到最小的高度
+  tree.forEach((e, i) => {
+    let set = new Set();
+    let nodes = [i];
+
+    let heigh = 0;
+    while (nodes.length) {
+      let nodeLen = nodes.length;
+      while (nodeLen--) {
+        let node = nodes.shift();
+        if (set.has(node)) continue;
+        set.add(node);
+
+        e.forEach((sube) => {
+          if (!set.has(sube)) {
+            nodes.push(sube);
+          }
+        });
+      }
+
+      heigh++;
+    }
+    console.log("heigh", heigh);
+    if (heigh === minHeight) {
+      result.push(i);
+    } else if (heigh < minHeight) {
+      minHeight = heigh;
+      result = [i];
+    }
+  });
+  return result;
+};
+const buildTree = (n, edges) => {
+  let nodeEdges = [];
+  for (let i = 0; i < n; i++) {
+    nodeEdges[i] = [];
+    edges.forEach((e) => {
+      if (e[1] === i) {
+        nodeEdges[i].push(e[0]);
+      } else if (e[0] === i) {
+        nodeEdges[i].push(e[1]);
+      }
+    });
+  }
+  return nodeEdges;
+};
+/**
+ * 超时,要怎样优化,是否可以记忆
+ */
