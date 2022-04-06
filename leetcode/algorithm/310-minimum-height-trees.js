@@ -76,3 +76,14 @@ const buildTree = (n, edges) => {
 /**
  * 超时,要怎样优化,是否可以记忆
  */
+
+/**
+ * 找到一个节点,它的最远节点的距离在所有节点为根节点的树中最近
+ *
+ * 优化:
+ * 增加记忆点,毕竟每个节点连接都是确定的,但是进入节点不确定,这样的情况下,那就必须把这个节点下的节点的高度也分别记忆,因为可能需要查找次低节点,计算也就变得复杂了
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findMinHeightTrees = function (n, edges) {};
