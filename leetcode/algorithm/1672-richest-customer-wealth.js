@@ -13,12 +13,14 @@
 var maximumWealth = function (accounts) {
   let count = 0;
   accounts.forEach((e) => {
-    let eCount = e.reduce((p, c) => p + c, 0);
-    count = Math.max(count, eCount);
+    count = Math.max(
+      count,
+      e.reduce((p, c) => p + c, 0)
+    );
   });
   return count;
 };
 /**
- *  执行用时：64 ms, 在所有 JavaScript 提交中击败了50.40%的用户
- *  内存消耗：41 MB, 在所有 JavaScript 提交中击败了70.85%的用户
+ *  执行用时：60 ms, 在所有 JavaScript 提交中击败了70.85%的用户
+ *  内存消耗：41.2 MB, 在所有 JavaScript 提交中击败了46.76%的用户
  */
