@@ -24,6 +24,7 @@ var maxRotateFunction = function (nums) {
   let f = 0,
     n = nums.length,
     numSum = _.sum(nums);
+    // 初始和
   for (let i = 0; i < n; i++) {
     f += i * nums[i];
   }
