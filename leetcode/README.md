@@ -32,6 +32,9 @@
 
 [382题](.\algorithm\382-linked-list-random-node.js)
 
+**水塘抽样**
+[398. 随机数索引](https://leetcode-cn.com/problems/random-pick-index/)
+
 ## 算法分析
 
 ### 后缀数组
