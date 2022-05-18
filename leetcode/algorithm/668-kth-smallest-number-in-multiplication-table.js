@@ -7,7 +7,7 @@
  */
 
 /**
- * 二分查找
+ * 官方题解:二分查找
  *
  *  由于 m 和 n 很大,直接求出所有数字然后找的第 k 小会超出时间限制.不妨考虑一个反向问题:对于乘法表中的数字 x ,他是乘法表中的第几小的数字?
  *
@@ -20,9 +20,12 @@
  */
 var findKthNumber = function (m, n, k) {
   let left = 1,
+  // 最大值
     right = m * n;
   while (left < right) {
+      // 找到中间位置
     const x = left + Math.floor((right - left) / 2);
+    // 这是一个什么边界呢,n = 1 时的位置么?
     let count = Math.floor(x / n) * n;
     for (let i = Math.floor(x / n) + 1; i <= m; ++i) {
       count += Math.floor(x / i);
