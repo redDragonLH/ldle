@@ -35,10 +35,14 @@ var findRightInterval = function (intervals) {
 
   const ans = new Array(n).fill(0);
   for (let i = 0, j = 0; i < n; i++) {
+      // 查找比当前位置的end小的start
+      // 也就是在intervals 全局内查找,并没有限定在当前位置的右侧或左侧
     while (j < n && endIntervals[i][0] > startIntervals[j][0]) {
       j++;
     }
+    // 如果位置在数组内
     if (j < n) {
+        // 填补 end 的位置
       ans[endIntervals[i][1]] = startIntervals[j][1];
     } else {
       ans[endIntervals[i][1]] = -1;
