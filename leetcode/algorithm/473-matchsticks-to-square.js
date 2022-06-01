@@ -43,3 +43,44 @@ var makesquare = function (matchsticks) {
 /**
  * 核心代码逻辑还是不对
  */
+
+/**
+ * 官方题解: 回溯
+ * @param {*} matchsticks 
+ * @returns 
+ */
+ var makesquare = function(matchsticks) {
+    const totalLen = _.sum(matchsticks);
+    if (totalLen % 4 !== 0) {
+        return false;
+    }
+    matchsticks.sort((a, b) => a - b);
+    // 为什么要从头到尾交换,你这不就又反过来了么
+    for (let i = 0, j = matchsticks.length - 1; i < j; i++, j--) {
+        const temp = matchsticks[i];
+        matchsticks[i] = matchsticks[j];
+        matchsticks[j] = temp;
+    }
+
+    const edges = new Array(4).fill(0);
+    return dfs(0, matchsticks, edges, Math.floor(totalLen / 4));
+}
+
+const dfs = (index, matchsticks, edges, len) => {
+    // 已经处理完了
+    if (index === matchsticks.length) {
+        return true;
+    }
+    // 回溯处理,一个一个试,每个进行遍历,
+    for (let i = 0; i < edges.length; i++) {
+        edges[i] += matchsticks[index];
+        if (edges[i] <= len && dfs(index + 1, matchsticks, edges, len)) {
+            return true;
+        }
+        edges[i] -= matchsticks[index];
+    }
+    return false;
+};
+/**
+ * 回溯: 就是在处理完一条记录时把这条记录会退,在用这会退的记录加新条件进行计算获取新纪录,再次进行计算,适用于在数组中查找合适的排列等应用
+ */
