@@ -25,23 +25,21 @@ var minFlipsMonoIncr = function (s) {
       prefix[i] = prefix[i - 1] + 1;
     } else prefix[i] = prefix[i - 1];
   }
+  let min = Math.min(sLen, prefix[sLen-1]);;
+
   for (let i = sLen - 2; i >= 0; i--) {
     if (s[i + 1] === "0") {
       suffix[i] = suffix[i + 1] + 1;
     } else suffix[i] = suffix[i + 1];
-  }
-  //   console.log(prefix, suffix);
-  let min = sLen;
-  for (let i = 0; i < sLen; i++) {
-    let curr = 0;
-    //   if(s[i]==='0') curr = 1
-    //   console.log('i:',i,'prefix[i]',prefix[i],' suffix[i]', suffix[i])
-    min = Math.min(min, prefix[i] + curr + suffix[i]);
+    min = Math.min(min, prefix[i] + suffix[i]);
+
   }
   return min;
 };
 /**
  * 前缀和，后缀和
- * 执行用时：76 ms, 在所有 JavaScript 提交中击败了87.69%的用户
+ * 怎么还越优化耗时越长，减少了一个循环，时间应该有提升啊
+ * 
+ * 执行用时：100 ms, 在所有 JavaScript 提交中击败了50.77%的用户
  * 内存消耗：48.6 MB, 在所有 JavaScript 提交中击败了61.54%的用户
  */
