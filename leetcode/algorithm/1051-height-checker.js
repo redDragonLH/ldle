@@ -27,3 +27,9 @@ var heightChecker = function (heights) {
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了48.69%的用户
  * 内存消耗：41 MB, 在所有 JavaScript 提交中击败了72.77%的用户
  */
+
+/**
+ * 计数排序:找到最大值,新建一个长度为最大值的数组,再次遍历heights,把对应元素位置的下标+1;
+ * @param {number[]} heights
+ * @return {number}
+ */
