@@ -26,27 +26,31 @@
 var insert = function (head, insertVal) {
   let newNode = new Node(insertVal, null);
   let node = head;
-  let maxNode = head
-  if(!head){
+  let maxNode = head;
+  if (!head) {
     newNode.next = newNode;
     return newNode;
   }
   // 那得判断是不是全是一个数据，陷入死循环
   // 还得搞快慢针,快慢针也无法解决
-  let slow = 0;
-  let first = 0
-  while(head.val === head.next.val){
-    head =  head.next
-    slow++
-    first+=2;
-    if(first > slow*2){
-
+  let first =head;
+  while (head.val === head.next.val) {
+    head = head.next;
+    first = head.next.next.next;
+    if (head === first) {
+        let next = head.next;
+        head.next = newNode;
+        newNode.next = next;
+        return head;
     }
   }
 
   while (true) {
-      maxNode = node.val>maxNode.val?node: maxNode
-    if ((node.val < insertVal|| node.val === insertVal) && node.next.val > insertVal) {
+    maxNode = node.val > maxNode.val ? node : maxNode;
+    if (
+      (node.val < insertVal || node.val === insertVal) &&
+      node.next.val > insertVal
+    ) {
       let next = node.next;
       node.next = newNode;
       newNode.next = next;
@@ -60,4 +64,39 @@ var insert = function (head, insertVal) {
       return head;
     }
   }
+};
+
+/**
+ *官方题解
+ */
+var insert = function (head, insertVal) {
+  const node = new Node(insertVal);
+  if (!head) {
+    node.next = node;
+    return node;
+  }
+  // 这里为什么直接赋值返回
+  // 对象的全等判断，判断的是内存位置，好久没有用过，都忘了
+  if (head.next === head) {
+    head.next = node;
+    node.next = head;
+    return head;
+  }
+  let curr = head,
+    next = head.next;
+  while (next !== head) {
+    if (insertVal >= curr.val && insertVal <= next.val) {
+      break;
+    }
+    if (curr.val > next.val) {
+      if (insertVal > curr.val || insertVal < next.val) {
+        break;
+      }
+    }
+    curr = curr.next;
+    next = next.next;
+  }
+  curr.next = node;
+  node.next = next;
+  return head;
 };
