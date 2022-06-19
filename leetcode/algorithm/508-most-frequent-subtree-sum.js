@@ -42,7 +42,6 @@ var findFrequentTreeSum = function (root) {
       list.push(s);
     }
   }
-  return list
   // 为啥要转一层，理论上不是一样的么
   const ans = new Array(list.length);
   for (let i = 0; i < list.length; ++i) {
@@ -51,6 +50,7 @@ var findFrequentTreeSum = function (root) {
   return ans;
 };
 /**
+ * 转换层添加之后运行效率降低明显，为啥要加呢~~~
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了96.59%的用户
  * 内存消耗：47 MB, 在所有 JavaScript 提交中击败了53.41%的用户
  */
