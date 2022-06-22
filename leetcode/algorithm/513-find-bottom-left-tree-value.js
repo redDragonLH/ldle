@@ -40,3 +40,24 @@ var findBottomLeftValue = function (root) {
  * 执行用时：72 ms, 在所有 JavaScript 提交中击败了55.78%的用户
  * 内存消耗：45.6 MB, 在所有 JavaScript 提交中击败了20.54%的用户
  */
+
+/**
+ * 官方广度优先搜索
+ */
+var findBottomLeftValue = function (root) {
+  let ret = 0;
+  const queue = [root];
+  while (queue.length) {
+    const p = queue.shift();
+    if (p.right) {
+      queue.push(p.right);
+    }
+    if (p.left) {
+      queue.push(p.left);
+    }
+    // 不会被上一个左侧元素覆盖么
+    // 好像是从右往左遍历,这个思路很巧妙
+    ret = p.val;
+  }
+  return ret;
+};
