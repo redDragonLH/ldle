@@ -45,3 +45,10 @@ var largestValues = function (root) {
   }
   return res;
 };
+
+/**
+ * 深度优先
+ * 
+ * 深度优先搜索需要额外记住节点的高度
+ * 操作比广度优先搜索的算法多一些
+ */
