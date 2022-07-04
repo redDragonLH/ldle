@@ -26,6 +26,7 @@ var minimumAbsDifference = function (arr) {
   return result;
 };
 /**
+ * 如果想优化当前算法,应该优化排序部分利益最大
  * 执行用时：156 ms, 在所有 JavaScript 提交中击败了28.46%的用户
  * 内存消耗：52.4 MB, 在所有 JavaScript 提交中击败了59.35%的用户
  */
