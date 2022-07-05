@@ -88,3 +88,9 @@ MyCalendar.prototype.update = function (start, end, l, r, idx) {
  * var obj = new MyCalendar()
  * var param_1 = obj.book(start,end)
  */
+
+/**
+ * 线段树
+ * 
+ * 线段树是一种二叉搜索树,与区间树相似,它将一个区间划分成一些单元区间,每个单元区间对应线段树中的一个叶结点
+ */
