@@ -31,3 +31,16 @@ var replaceWords = function (dictionary, sentence) {
  * 执行用时：864 ms, 在所有 JavaScript 提交中击败了5.17%的用户
  * 内存消耗：60.6 MB, 在所有 JavaScript 提交中击败了22.41%的用户
  */
+
+/**
+ * 应该可以优化,使用预处理,但是要怎样预处理才能在 d+s次中解决问题
+ * 
+ * 预处理中把 dictionary 转成字典树
+ * @param {string[]} dictionary
+ * @param {string} sentence
+ * @return {string}
+ */
+var replaceWords = function (dictionary, sentence) {};
+/**
+ *
+ */
