@@ -79,3 +79,33 @@ WordFilter.prototype.f = function (pref, suff) {
  * var obj = new WordFilter(words)
  * var param_1 = obj.f(pref,suff)
  */
+
+/**
+ * 把前后缀都拼接然后用正则匹配,减少嵌套循环遍历
+ * 把复杂度都放在了初始化构建数据结构的环节
+ * @param {*} words 
+ */
+var WordFilter = function (words) {
+  this.dictionary = new Map();
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    const m = word.length;
+    for (let prefixLength = 1; prefixLength <= m; prefixLength++) {
+      for (let suffixLength = 1; suffixLength <= m; suffixLength++) {
+        this.dictionary.set(
+          word.substring(0, prefixLength) +
+            "#" +
+            word.substring(m - suffixLength),
+          i
+        );
+      }
+    }
+  }
+};
+
+WordFilter.prototype.f = function (pref, suff) {
+  if (this.dictionary.has(pref + "#" + suff)) {
+    return this.dictionary.get(pref + "#" + suff);
+  }
+  return -1;
+};
