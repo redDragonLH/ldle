@@ -46,3 +46,30 @@ MovingAverage.prototype.next = function (val) {
  * var obj = new MovingAverage(size)
  * var param_1 = obj.next(val)
  */
+/**
+ * 执行用时：88 ms, 在所有 JavaScript 提交中击败了99.16%的用户
+ * 内存消耗：47.5 MB, 在所有 JavaScript 提交中击败了32.78%的用户
+ */
+
+/**
+ * 应该可以优化，把数组去掉，因为这个数组的意义就是保存下一个要删除的元素,有一个变量替代就好了
+ * Initialize your data structure here.
+ * @param {number} size
+ */
+ var MovingAverage = function(size) {
+
+};
+
+/** 
+ * @param {number} val
+ * @return {number}
+ */
+MovingAverage.prototype.next = function(val) {
+
+};
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * var obj = new MovingAverage(size)
+ * var param_1 = obj.next(val)
+ */
