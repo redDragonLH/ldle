@@ -26,4 +26,28 @@ var arrayNesting = function (nums) {
 };
 /**
  * 但是有个问题就是超时~~
+ * 这应该没啥优化的空间了
  */
+
+/**
+ * 以图论作为解题原理
+ * 遍历数组，从i向nums[i]连边，可以得到一张有向图
+ * 由于题目保证 nums 中不含有重复的元素，因此有向图中每个点的出度和入度均为1.在这种情况下，有向图必然由一个或多个环组成。
+ *
+ * 核心理论就是： 一个元素只会是一个环的其中一环，不会是多个最大环的公共部分，那么这种情况下，一个元素被遍历一遍就可以知道他是属于哪个图
+ */
+var arrayNesting = function (nums) {
+  let ans = 0,
+    n = nums.length;
+  const vis = new Array(n).fill(0);
+  for (let i = 0; i < n; ++i) {
+    let cnt = 0;
+    while (!vis[i]) {
+      vis[i] = true;
+      i = nums[i];
+      ++cnt;
+    }
+    ans = Math.max(ans, cnt);
+  }
+  return ans;
+};
