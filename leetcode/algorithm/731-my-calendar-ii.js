@@ -15,32 +15,34 @@
  * 简单来说就是判断前后时间是否在另一个区间里,那其中有一个不在区间就不算重复么(时间交叉就算啊),
  * 是交叉对比,这样就能简单的检查是否重合
  */
- var MyCalendarTwo = function() {
-    this.booked = [];
-    // 使用一个对象保存二重预订
-    this.overlaps = [];
+var MyCalendarTwo = function () {
+  this.booked = [];
+  // 使用一个对象保存二重预订
+  this.overlaps = [];
 };
 
-MyCalendarTwo.prototype.book = function(start, end) {
-    for (const arr of this.overlaps) {
-        // l: 开始时间; r:结束时间
-        let l = arr[0], r = arr[1];
-        // 开始时间比新日程结束时间小;结束时间比新日程
-        if (l < end && start < r) {
-            // 三重预订返回false
-            return false;
-        }
+MyCalendarTwo.prototype.book = function (start, end) {
+  for (const arr of this.overlaps) {
+    // l: 开始时间; r:结束时间
+    let l = arr[0],
+      r = arr[1];
+    // 开始时间比新日程结束时间小;结束时间比新日程
+    if (l < end && start < r) {
+      // 三重预订返回false
+      return false;
     }
-    // 检查两重预订;同样的逻辑
-    for (const arr of this.booked) {
-        let l = arr[0], r = arr[1];
-        if (l < end && start < r) {
-            // 不过要计算一下两重预订的重合区间
-            this.overlaps.push([Math.max(l, start), Math.min(r, end)]);
-        }
+  }
+  // 检查两重预订;同样的逻辑
+  for (const arr of this.booked) {
+    let l = arr[0],
+      r = arr[1];
+    if (l < end && start < r) {
+      // 不过要计算一下两重预订的重合区间
+      this.overlaps.push([Math.max(l, start), Math.min(r, end)]);
     }
-    this.booked.push([start, end]);
-    return true;
+  }
+  this.booked.push([start, end]);
+  return true;
 };
 /**
  * Your MyCalendarTwo object will be instantiated and called as such:
