@@ -22,3 +22,7 @@ var stringMatching = function (words) {
   }
   return result;
 };
+/**
+ * 执行用时：64 ms, 在所有 JavaScript 提交中击败了58.62%的用户
+ * 内存消耗：41.7 MB, 在所有 JavaScript 提交中击败了11.50%的用户
+ */
