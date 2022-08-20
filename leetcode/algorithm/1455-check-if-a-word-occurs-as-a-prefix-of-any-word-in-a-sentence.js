@@ -11,8 +11,8 @@
  * @return {number}
  */
 var isPrefixOfWord = function (sentence, searchWord) {
-  let position = 0;
-  while ((position = sentence.indexOf(searchWord, position)) !== -1) {
+  let position = -1; // 起点要注意，因为indexof 会从第二个参数所定位的位置开始，而不是跳过这里
+  while ((position = sentence.indexOf(searchWord, position + 1)) !== -1) {
     if (position === 0 || sentence[position - 1] === " ") {
       break;
     }
@@ -20,7 +20,7 @@ var isPrefixOfWord = function (sentence, searchWord) {
   if (position === -1) return position;
   let result = 1;
   for (let i = 0; i < position; i++) {
-    if(sentence[i] === ' ')result++
+    if (sentence[i] === " ") result++;
   }
   return result;
 };
@@ -28,4 +28,8 @@ var isPrefixOfWord = function (sentence, searchWord) {
  * "hellohello hellohellohello"
  * "ell"
  * 超出时间限制
+ */
+/**
+ * 执行用时：48 ms, 在所有 JavaScript 提交中击败了100.00%的用户
+ * 内存消耗：40.8 MB, 在所有 JavaScript 提交中击败了78.48%的用户
  */
