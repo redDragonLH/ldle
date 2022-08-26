@@ -42,3 +42,9 @@ var maxProduct = function (nums) {
  * 执行用时：76 ms, 在所有 JavaScript 提交中击败了14.52%的用户
  * 内存消耗：41.2 MB, 在所有 JavaScript 提交中击败了78.50%的用户
  */
+
+/**
+ * 一次遍历找到最大的前几个值~~
+ * @param {number[]} nums
+ * @return {number}
+ */
