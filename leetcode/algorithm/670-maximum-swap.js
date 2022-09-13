@@ -50,6 +50,7 @@ var maximumSwap = function(num) {
     const charArray = [...'' + num];
     const n = charArray.length;
     let maxNum = num;
+    // 每次交换两位数,然后与当前最大值比较,
     for (let i = 0; i < n; i++) {
         for (let j = i + 1; j < n; j++) {
             swap(charArray, i, j);
