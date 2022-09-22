@@ -7,6 +7,7 @@
  */
 
 /**
+ * 连接~~~
  * @param {number[]} arr
  * @param {number[][]} pieces
  * @return {boolean}
@@ -15,17 +16,19 @@ var canFormArray = function (arr, pieces) {
   const n = arr.length,
     m = pieces.length;
   const index = new Map();
+  // pieces[i][0]是key,i是value
   for (let i = 0; i < m; i++) {
     index.set(pieces[i][0], i);
   }
   for (let i = 0; i < n; ) {
+    // 如果arr[i]不存在index里面,也就是key 没有arr
     if (!index.has(arr[i])) {
-      return false;
+      return false; // 直接失败
     }
-    const j = index.get(arr[i]),
-      len = pieces[j].length;
+    const j = index.get(arr[i]), // 获取存在元素所在的 index
+      len = pieces[j].length; // 
     for (let k = 0; k < len; k++) {
-      if (arr[i + k] != pieces[j][k]) {
+      if (arr[i + k] != pieces[j][k]) { // 顺序不能变的情况下由pieces的元素组成arr 
         return false;
       }
     }
