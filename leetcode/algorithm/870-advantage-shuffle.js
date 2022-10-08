@@ -18,9 +18,15 @@ var advantageCount = function (nums1, nums2) {
   // 那 大一点 这个概念就有点坑
   // 还要保证已处理数据不来捣乱
   let len = nums1.length;
-for (const [key,item] of nums2) {
-    console.log(key,item);
-}
+    for (let i = 0; i < len; i++) {
+        for (let j = 1; j < len; j++) {
+            if(nums2[i] <nums1[j] && nums2[i]>nums1[j-1]){
+                switchItem(nums1,i,j)
+                nums2.splice(j,1)
+            }
+        }
+        
+    }
   return nums1
 };
 const switchItem = (arr, i, j) => {
