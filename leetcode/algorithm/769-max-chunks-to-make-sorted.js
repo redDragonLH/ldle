@@ -47,3 +47,21 @@ var maxChunksToSorted = function (arr) {
   }
   return result;
 };
+
+/**
+ * 官方题解
+ */
+var maxChunksToSorted = function (arr) {
+  let m = 0,
+    res = 0;
+  for (let i = 0; i < arr.length; i++) {
+    m = Math.max(m, arr[i]);
+    // 也就是其实对应位置元素直接算一个块得到的块是最多的
+    // 如果m的位置不是 i 也可以么
+    // 或者说此段的最大值找到后已经确定是一段了么
+    if (m === i) {
+      res++;
+    }
+  }
+  return res;
+};
