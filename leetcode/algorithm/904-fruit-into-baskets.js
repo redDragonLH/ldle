@@ -26,7 +26,6 @@ var totalFruit = function (fruits) {
   let currentType = [];
   let result = 0;
   for (let i = 0; i < len; i++) {
-
     if (currentType.includes(fruits[i])) {
       right++;
       result = Math.max(result, right - left);
@@ -52,4 +51,29 @@ var totalFruit = function (fruits) {
     }
   }
   return result;
+};
+
+/**
+ * 官方题解  滑动窗口
+ */
+var totalFruit = function (fruits) {
+  const n = fruits.length;
+  const cnt = new Map();
+
+  let left = 0,
+    ans = 0;
+  for (let right = 0; right < n; ++right) {
+    // 塞
+    cnt.set(fruits[right], (cnt.get(fruits[right]) || 0) + 1);
+    while (cnt.size > 2) {
+      // 左侧位置减一,和我的不也差不多么,也没考虑交杂问题吧,
+      cnt.set(fruits[left], cnt.get(fruits[left]) - 1);
+      if (cnt.get(fruits[left]) == 0) {
+        cnt.delete(fruits[left]);
+      }
+      ++left;
+    }
+    ans = Math.max(ans, right - left + 1);
+  }
+  return ans;
 };
