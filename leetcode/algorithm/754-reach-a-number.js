@@ -22,15 +22,15 @@ var reachNumber = function (target) {
   let index = 0;
   let step = 0;
   for (let i = 1; index <= target; i++) {
-    console.log(i,index,step,target);
+    console.log(i, index, step, target);
     if (index + i === target) {
       index = index + i;
       return ++step;
     } else if (index + i < target) {
       step++;
       index = index + i;
-    }else {
-        break
+    } else {
+      break;
     }
   }
   return step + (target - index) * 2;
@@ -39,3 +39,21 @@ console.log(reachNumber(4));
 /**
  * 失败,那这样贪心无法解决这个问题,这得动态规划
  */
+
+/**
+ * 官方题解
+ * @param {*} target 
+ * @returns 
+ */
+var reachNumber = function (target) {
+  target = Math.abs(target);
+  let k = 0;
+  while (target > 0) {
+    k++;
+    target -= k;
+  }
+  // 上部分逻辑一样
+  // 返回的逻辑还要看奇偶性
+  // 而且为啥是偶数就直接返回k,还没到头呢啊
+  return target % 2 === 0 ? k : k + 1 + (k % 2);
+};
