@@ -13,27 +13,24 @@
  * @return {boolean}
  */
 var halvesAreAlike = function (s) {
-  let vowel = ["a", "e", "i", "o", "u"];
-  let left = 0,
-    right = 0;
+  let vowel = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
+  let vowelNum = 0;
   let len = s.length;
   let rightStartPoint = len / 2;
   let leftStartPoint = 0;
 
-  s = s.toLowerCase();
   while (rightStartPoint !== len) {
     if (vowel.indexOf(s[leftStartPoint]) > -1) {
-      left++;
+      vowelNum++;
     }
     leftStartPoint++;
 
-
-    if ( vowel.indexOf(s[rightStartPoint]) > -1) {
-      right++;
+    if (vowel.indexOf(s[rightStartPoint]) > -1) {
+      vowelNum--;
     }
     rightStartPoint++;
   }
-  return left === right;
+  return vowelNum === 0;
 };
 /**
  * 数量对上就行，还以为要和字母对应上
