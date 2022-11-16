@@ -40,3 +40,20 @@ var isIdealPermutation = function (nums) {
 /**
  * 超时,双层遍历果然不行
  */
+
+/**
+ * 不需要算出全部的数量,因为局部倒置肯定是一个全局倒置,只要找到一个非局部倒置的全局倒置,那么就可以返回
+ *
+ * 不过这玩意最差还是n的2次方~~
+ */
+var isIdealPermutation = function (nums) {
+  let len = nums.length;
+  for (let i = 0; i < len; i++) {
+    for (let j = i + 1; j < len; j++) {
+      if (nums[i] > nums[j] && j > i + 1) {
+        return false;
+      }
+    }
+  }
+  return ture;
+};
