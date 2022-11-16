@@ -57,3 +57,22 @@ var isIdealPermutation = function (nums) {
   }
   return ture;
 };
+
+
+/**
+ * 归纳证明
+ * 
+ * nums 是一个由 0~n-1组成的排列,设不存在非局部倒置的排列为「理想排列」.由于非局部倒置表示存在一个j>i+1 使得 nums[i] > nums[j]成立,所以对于最小的元素0来说,它的下标不能够大于等于2
+ *  1.  若 nums[0]=0,那么问题转换为[1,n-1]区间的一个字问题
+ *  2.  若nums[1]=0,那么 nums[0只能为1,因为如果是大于1的任何元素,都将会与后面的1构成非局部倒置,此时问题转换为了[2,n-1] 区间的一个字问题
+ * 
+ * 根据上述讨论,不难归纳出「理想排列」的充分必要条件为对于每个元素 nums[i]都满足 |nums[i] -i| <=1
+ */
+ var isIdealPermutation = function(nums) {
+    for (let i = 0; i < nums.length; i++) {
+        if (Math.abs(nums[i] - i) > 1) {
+            return false;
+        }
+    }
+    return true;
+};
