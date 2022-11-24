@@ -22,7 +22,7 @@ var numSubarrayBoundedMax = function (nums, left, right) {
   let result = 0;
   while (leftPos < len) {
     if (rightPos < len && nums[rightPos] <= right) {
-        if(rightPos!==leftPos) result++;
+      if (rightPos !== leftPos) result++;
       result++;
       rightPos++;
     } else if (leftPos < rightPos) {
@@ -46,3 +46,30 @@ var numSubarrayBoundedMax = function (nums, left, right) {
 /**
  * 逻辑过于复杂,切未考虑双指针位置不等时的单个元素
  */
+
+
+/**
+ * 一次遍历
+ * 得确定合规数组新增一位增加多少个子数组
+ * @param {number[]} nums
+ * @param {number} left
+ * @param {number} right
+ * @return {number}
+ */
+var numSubarrayBoundedMax = function (nums, left, right) {
+  let res = 0,
+    last2 = -1,
+    last1 = -1;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] >= left && nums[i] <= right) {
+      last1 = i;
+    } else if (nums[i] > right) {
+      last2 = i;
+      last1 = -1;
+    }
+    if (last1 !== -1) {
+      res += last1 - last2;
+    }
+  }
+  return res;
+};
