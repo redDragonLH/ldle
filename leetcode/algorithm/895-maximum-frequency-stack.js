@@ -11,7 +11,9 @@
  */
 
 var FreqStack = function () {
+// 频率
   this.freq = new Map();
+  // 组
   this.group = new Map();
   this.maxFreq = 0;
 };
@@ -26,6 +28,7 @@ FreqStack.prototype.push = function (val) {
 };
 
 FreqStack.prototype.pop = function () {
+    // map 保证了顺序吗
   const val = this.group.get(this.maxFreq)[
     this.group.get(this.maxFreq).length - 1
   ];
