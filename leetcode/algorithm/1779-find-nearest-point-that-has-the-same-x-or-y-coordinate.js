@@ -52,3 +52,34 @@ var nearestValidPoint = function (x, y, points) {
  * 执行用时：84 ms, 在所有 JavaScript 提交中击败了93.1%的用户
  * 内存消耗：49.7 MB, 在所有 JavaScript 提交中击败了45.45%的用户
  */
+/**
+ * 官方题解
+ * @param {*} x
+ * @param {*} y
+ * @param {*} points
+ * @returns
+ */
+var nearestValidPoint = function (x, y, points) {
+  const n = points.length;
+  let best = Number.MAX_VALUE,
+    bestid = -1;
+  for (let i = 0; i < n; ++i) {
+    const px = points[i][0],
+      py = points[i][1];
+    if (x === px) {
+      const dist = Math.abs(y - py);
+      if (dist < best) {
+        best = dist;
+        // 我日,是数组下标
+        bestid = i;
+      }
+    } else if (y === py) {
+      const dist = Math.abs(x - px);
+      if (dist < best) {
+        best = dist;
+        bestid = i;
+      }
+    }
+  }
+  return bestid;
+};
