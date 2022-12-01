@@ -23,26 +23,32 @@
  */
 const MAX_POINT = 100000;
 var nearestValidPoint = function (x, y, points) {
+  let len = points.length;
   let minDistance = MAX_POINT;
   let minPoint = [MAX_POINT, MAX_POINT];
-  for (const item of points) {
+  let result = -1; // 返回结果是 points 数组的下标~~
+  for (let i = 0; i < len; i++) {
+    let item = points[i];
     // 位置相似的点
     if (item[0] === x || item[1] === y) {
       let distance = Math.abs(item[0] - x) + Math.abs(item[1] - y);
-      console.log(item, distance);
-
       if (minDistance > distance) {
         minDistance = distance;
         minPoint = item;
+        result = i;
       } else if (minDistance === distance) {
         if (item[0] + item[1] < minPoint[0] + minPoint[1]) {
           minPoint = item;
+          result = i;
         }
       }
     }
   }
-  return minPoint[0] === MAX_POINT ? -1 : minPoint[0];
+  return result;
 };
 /**
- * 下标究竟是啥
+ * 下标究竟是啥~~~
+ *
+ * 执行用时：84 ms, 在所有 JavaScript 提交中击败了93.1%的用户
+ * 内存消耗：49.7 MB, 在所有 JavaScript 提交中击败了45.45%的用户
  */
