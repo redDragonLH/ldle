@@ -15,28 +15,18 @@
  * @return {number}
  */
 var numDifferentIntegers = function (word) {
-  let numberStr = word.replaceAll(/\D/gi, " ");
+  let numberStr = word.replaceAll(/[a-zA-Z]+/gi, " ");
   let set = new Set();
   let numberArr = numberStr.split(" ");
   for (const item of numberArr) {
-    let num = "";
-    let head = true;
-    if (item.length == 1) {
-      set.add(item);
-      continue;
+    if (item !== "") {
+      set.add(BigInt(item));
     }
-    for (let i = 0; i < item.length; i++) {
-      if (item[i] !== "0") head = false;
-      if (head) {
-        continue;
-      } else {
-        num += item[i];
-      }
-    }
-    num && set.add(num);
   }
   return set.size;
 };
 /**
  * 字符串判断,要判断前导零以及整个数字都是0 逻辑过于复杂,不如直接转数字
+ * 
+ * 有大数字~~效率陡降
  */
