@@ -38,3 +38,17 @@ var squareIsWhite = function (coordinates) {
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了32.61%的用户
  * 内存消耗：40.9 MB, 在所有 JavaScript 提交中击败了28.26%的用户
  */
+
+/**
+ * 官方题解
+ */
+var squareIsWhite = function (coordinates) {
+  return (
+    (coordinates[0].charCodeAt() -
+      "a".charCodeAt() +
+      1 +
+      (coordinates[1].charCodeAt() - "0".charCodeAt())) %
+      2 ===
+    1
+  );
+};
