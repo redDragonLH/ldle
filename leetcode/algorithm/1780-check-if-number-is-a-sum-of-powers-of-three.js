@@ -30,3 +30,22 @@ var checkPowersOfThree = function (n) {
 /**
  * 失败
  */
+
+/**
+ * 官方题解 
+ * 
+ * 我们可以将 nnn 转换成 333 进制。如果 nnn 的 333 进制表示中每一位均不为 222，那么答案为 True，否则为 False。
+ * 
+ * 例如当 n=12 时，12=(110)3 ，满足要求；
+ * 当 n=21时，21=(210)3，不满足要求。
+ */
+var checkPowersOfThree = function (n) {
+  while (n !== 0) {
+    // 必定能被3整除么
+    if (n % 3 === 2) {
+      return false;
+    }
+    n = Math.floor(n / 3);
+  }
+  return true;
+};
