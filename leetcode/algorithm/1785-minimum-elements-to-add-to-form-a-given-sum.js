@@ -31,3 +31,13 @@ var minElements = function (nums, limit, goal) {
  * 执行用时：84 ms, 在所有 JavaScript 提交中击败了72.50%的用户
  * 内存消耗：51.8 MB, 在所有 JavaScript 提交中击败了55%的用户
  */
+
+/**
+ * 官方题解
+ * 可以向上取整
+ */
+ var minElements = function(nums, limit, goal) {
+    const sum = _.sum(nums);
+    const diff = Math.abs(sum - goal);
+    return Math.abs(Math.floor((diff + limit - 1) / limit));
+};
