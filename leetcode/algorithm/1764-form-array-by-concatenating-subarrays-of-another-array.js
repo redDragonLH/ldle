@@ -50,3 +50,42 @@ var canChoose = function (groups, nums) {
  * 失败
  * 人家要的是子数组,不是子串
  */
+
+/**
+ * 子数组不相交，子数组还有顺序相同，那就必须按顺序遍历了呗
+ * @param {number[][]} groups
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canChoose = function (groups, nums) {
+  let index = 0;
+  let numsLen = nums.length;
+  for (const group of groups) {
+    let groupIndex = 0;
+    let len = group.length;
+    let currentIndex = index;
+    console.log(group, index);
+    if (index >= numsLen) return false;
+
+    for (; currentIndex < numsLen - 1; ) {
+      console.log("for", group, groupIndex, currentIndex);
+
+      if (groupIndex === len) break;
+      if (group[groupIndex] === nums[currentIndex]) {
+        groupIndex++;
+        currentIndex++;
+      } else {
+        groupIndex = 0;
+        currentIndex = ++index;
+      }
+    }
+    console.log("end", group, index, numsLen, groupIndex, len - 1);
+    if (index >= numsLen && groupIndex < len - 1) return false;
+    index = ++currentIndex;
+    //循环终结条件很重要
+  }
+  return true;
+};
+/**
+ * 失败 验证条件以及位置没想好，太困了
+ */
