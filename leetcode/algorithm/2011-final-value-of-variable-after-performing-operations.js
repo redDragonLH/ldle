@@ -31,3 +31,23 @@ var finalValueAfterOperations = function (operations) {
  * 执行用时：72 ms, 在所有 JavaScript 提交中击败了24.26%的用户
  * 内存消耗：42.9 MB, 在所有 JavaScript 提交中击败了15.39%的用户
  */
+
+/**
+ * 执行最快题解
+ * 
+ * 为什么是最快的
+ * @param {string[]} operations
+ * @return {number}
+ */
+var finalValueAfterOperations = function (operations) {
+  let plus = (div = 0);
+  for (let i = 0; i < operations.length; i++) {
+    if (operations[i].includes("+")) {
+      plus++;
+    } else {
+      div++;
+    }
+  }
+
+  return plus - div;
+};
