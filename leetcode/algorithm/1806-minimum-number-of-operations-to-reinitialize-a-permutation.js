@@ -45,5 +45,5 @@ let isCorrent = (arr, n) => {
 };
 console.log(reinitializePermutation(2));
 /**
- * while / do while leetcode 不运行
+ * while / do while leetcode 不运行,判断条件必须是true ,false 关键字,不能是变量
  */
