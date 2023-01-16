@@ -68,5 +68,56 @@ var areSentencesSimilar = function (sentence1, sentence2) {
 };
 
 /**
- * 可以考虑构建字符串对比,但是有点二
+ * 可以考虑构建字符串对比
+ * @param {string} sentence1
+ * @param {string} sentence2
+ * @return {boolean}
+ */
+var areSentencesSimilar = function (sentence1, sentence2) {
+  if (sentence1 === sentence2) return true;
+  if (!sentence1.length || !sentence2.length) return true;
+
+  let longStr = sentence1.length > sentence2.length ? sentence1 : sentence2;
+  let longStrLen = longStr.length;
+  let shortArr =
+    sentence1.length > sentence2.length
+      ? sentence2.split(" ")
+      : sentence1.split(" ");
+  let shortLen = shortArr.length;
+  let shortStr = shortArr.join(" ");
+  // if (shortLen === 1) {
+  //     if (longStr.indexOf(shortArr[0]) === 0 || longStr.indexOf(shortArr[0]) === longStrLen - shortArr[0].length) {
+  //         return true;
+  //     } else return false;
+  // }
+  console.log(longStr[shortStr.length]);
+  if (longStr.indexOf(shortStr) === 0) {
+    if (longStr[shortStr.length] === " ") return true;
+  }
+  if (longStr.lastIndexOf(shortStr) === longStrLen - shortStr.length) {
+    if (longStr[longStrLen - shortStr.length - 1] === " ") return true;
+    else return false;
+  }
+  let index = 1;
+  while (index < shortLen) {
+    let left = shortArr.slice(0, index).join(" ");
+    let right = shortArr.slice(index, shortLen).join(" ");
+    let pos = longStrLen - right.length;
+    if (
+      longStr.indexOf(left) === 0 &&
+      longStr[left.length] === " " &&
+      longStr.lastIndexOf(right) === pos &&
+      longStr[pos - 1] === " "
+    )
+      return true;
+    else {
+      index++;
+    }
+  }
+  return false;
+};
+/**
+ * 
+ * 执行用时：64 ms, 在所有 JavaScript 提交中击败了44.44%的用户
+ * 内存消耗：41.6 MB, 在所有 JavaScript 提交中击败了7.41%的用户
  */
