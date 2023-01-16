@@ -117,7 +117,8 @@ var areSentencesSimilar = function (sentence1, sentence2) {
   return false;
 };
 /**
- * 
+ * 按照这种思路直接全部转变成数组进行遍历对比可以去掉空格对比,但是数组遍历的性能应该比不是字符串对比
+ *  
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了44.44%的用户
  * 内存消耗：41.6 MB, 在所有 JavaScript 提交中击败了7.41%的用户
  */
