@@ -44,7 +44,8 @@ let rev = (temp) => {
  * 优化就要考虑数据是否可以保存,保存的数据是否准确,可以使用
  *
  * 思路: 根据交换律  nums[i] + rev(nums[j]) == nums[j] + rev(nums[i]) => nums[i] - rev(nums[i]) == nums[j] -rev(nums[j])
- * 所以只有两个数的这个数和它的相反数的相减结果是一样的,那么这两个数就是好对子数
+ * 所以只有两个数的这个数和它的相反数的相减结果是一样的,那么这两个数就是好对子数,
+ * 而这样的话我们就可以
  * 
  * @param {number[]} nums
  * @return {number}
