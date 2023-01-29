@@ -20,22 +20,60 @@
  *  在删除一个下标之后这个下标后面的元素才会改变位置那么可不可以考虑使用前缀和,以及从后往前遍历并且后缀和,只不过后缀和可能要两个~~
  *  注意,删除一个元素后后边的所有元素整体进一,所以后缀和可以切换使用,不会失效
  * 第一版,前缀和+ 后全量
- * 
+ *
  * 有点复杂,先中断
  * @param {number[]} nums
  * @return {number}
  */
 var waysToMakeFair = function (nums) {
-  let oddPrefix = [0];
-  let evenPrefix = [0];
-  let len = nums.length;
-  for (let i = 1; i < len; i++) {
-    if (i & 1) {
-      evenPrefix[i] = evenPrefix[i - 1] + (nums[i - 2] || 0);
-      oddPrefix[i] = oddPrefix[i - 1];
-    } else {
-      oddPrefix[i] = oddPrefix[i - 1] + (nums[i - 2] || 0);
-      evenPrefix[i] = evenPrefix[i - 1];
+    let oddPrefix = [0];
+    let evenPrefix = [0];
+    let len = nums.length;
+    for (let i = 1; i < len; i++) {
+      if (i & 1) {
+        evenPrefix[i] = evenPrefix[i - 1] + (nums[i - 2] || 0);
+        oddPrefix[i] = oddPrefix[i - 1];
+      } else {
+        oddPrefix[i] = oddPrefix[i - 1] + (nums[i - 2] || 0);
+        evenPrefix[i] = evenPrefix[i - 1];
+      }
     }
-  }
-};
+  };
+  
+  /**
+   * 官方题解 动态规划
+   * @param {*} nums 
+   * @returns 
+   */
+  var waysToMakeFair = function (nums) {
+      // 优化了结构
+    let odd1 = 0,
+      even1 = 0;
+    let odd2 = 0,
+      even2 = 0;
+    for (let i = 0; i < nums.length; ++i) {
+      if ((i & 1) !== 0) {
+        odd2 += nums[i];
+      } else {
+        even2 += nums[i];
+      }
+    }
+    let res = 0;
+    for (let i = 0; i < nums.length; ++i) {
+      if ((i & 1) != 0) {
+        odd2 -= nums[i];
+      } else {
+        even2 -= nums[i];
+      }
+      if (odd1 + even2 === odd2 + even1) {
+        ++res;
+      }
+      if ((i & 1) !== 0) {
+        odd1 += nums[i];
+      } else {
+        even1 += nums[i];
+      }
+    }
+    return res;
+  };
+  
