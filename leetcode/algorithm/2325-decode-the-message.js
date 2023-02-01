@@ -40,3 +40,25 @@ var decodeMessage = function (key, message) {
  * 执行用时：80 ms, 在所有 JavaScript 提交中击败了13.33%的用户
  * 内存消耗：43.7 MB, 在所有 JavaScript 提交中击败了37.78%的用户
  */
+
+/**
+ * 最高效率代码
+ */
+/**
+ * @param {string} key
+ * @param {string} message
+ * @return {string}
+ */
+var decodeMessage = function(key, message) {
+    // Uint8Array : 一个 8 位无符号整型数组
+    const n = key.length, hashMap = new Uint8Array(26)
+    for (let i = 0, charCode = 97; i < n; i++) {
+      if (hashMap[key.charCodeAt(i) - 97] === 32 || hashMap[key.charCodeAt(i) - 97] !== 0) continue
+      hashMap[key.charCodeAt(i) - 97] = charCode++
+    }
+    const m = message.length, r = []
+    for (let i = 0; i < m; i++) {
+      r.push(message.charCodeAt(i) === 32 ? 32 : hashMap[message.charCodeAt(i) - 97])
+    }
+    return String.fromCharCode(...r)
+  };
