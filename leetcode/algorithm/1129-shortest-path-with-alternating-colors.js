@@ -11,6 +11,8 @@
  * 每个节点可以广度优先遍历,但是不知道效率如何,有没有更好的
  *
  * 还得先把路径映射好,但是还得带着颜色
+ * 
+ * 超时了,注意因为是有向图所以很多情况下是可以以动态规划的思路把前一个元素的状态作为当前元素的起始状态,不需要每次从头处理
  * @param {number} n
  * @param {number[][]} redEdges
  * @param {number[][]} blueEdges
@@ -32,43 +34,41 @@ var shortestAlternatingPaths = function (n, redEdges, blueEdges) {
   }
   let result = [0];
   for (let i = 1; i < n; i++) {
-    breadthTraversal(mapping, i, 0, n);
+    result[i] = breadthTraversal(mapping, i, 0, n);
   }
-  return mapping;
+  return result;
 };
 
 let breadthTraversal = (mapping, index, len, n) => {
-    if(len >=n)return -1;
-  len++;
+  if (len >= n) return -1;
   let direction = [new Struct(0, null)];
   while (direction.length) {
     let dLen = direction.length;
     let i = 0;
     while (i < dLen) {
       i++;
-      let item = direction.shift()
-      let paths = mapping[item];
-      if(!path)return -1;
+      len++;
+
+      let item = direction.shift();
+      let paths = mapping[item.point];
+      if (!paths) return -1;
+      // 循环里面应该增加路径颜色的判断,但是就得和前面和后面有状态联系
       for (const path of paths) {
-        if(path.point === index){
-            return len
+        if (item.color !== path.color) {
+          if (path.point === index) return len;
+          direction.push(path);
         }
-        direction.push()
       }
     }
   }
+  return -1;
 };
+// 注意是有向图
 let buildMap = (edge, mapping, color) => {
   let item = mapping[edge[0]];
   if (item) {
     item.push(new Struct(edge[1], color));
   } else {
     mapping[edge[0]] = [new Struct(edge[1], color)];
-  }
-  item = mapping[edge[1]];
-  if (item) {
-    item.push(new Struct(edge[0], color));
-  } else {
-    mapping[edge[1]] = [new Struct(edge[0], color)];
   }
 };
