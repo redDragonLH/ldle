@@ -15,6 +15,7 @@
  * 超时了,注意因为是有向图所以很多情况下是可以以动态规划的思路把前一个元素的状态作为当前元素的起始状态,不需要每次从头处理
  *
  * 第二版 有错误结果,估计是交替变检查有问题
+ * 第三版 依旧超时
  * @param {number} n
  * @param {number[][]} redEdges
  * @param {number[][]} blueEdges
@@ -34,19 +35,21 @@ var shortestAlternatingPaths = function (n, redEdges, blueEdges) {
   for (const blueEdge of blueEdges) {
     buildMap(blueEdge, mapping, 1);
   }
-  return breadthTraversal(mapping, 0, n, redEdge.length + blueEdges.length);
+  return breadthTraversal(mapping, 0, n, redEdges.length + blueEdges.length);
 };
 
 let breadthTraversal = (mapping, len, n, allSide) => {
+  console.log(mapping);
   let result = new Array(n);
   result.fill(-1);
   let direction = [new Struct(0, null)];
   while (direction.length) {
     let dLen = direction.length;
     let i = 0;
+    len++;
+
     while (i < dLen) {
       i++;
-      len++;
 
       let item = direction.shift();
       let paths = mapping[item.point];
@@ -57,6 +60,7 @@ let breadthTraversal = (mapping, len, n, allSide) => {
       // 循环里面应该增加路径颜色的判断,但是就得和前面和后面有状态联系
       for (const path of paths) {
         if (item.color !== path.color) {
+          // 不是递归,不可能有小len
           if (result[path.point] === -1) {
             result[path.point] = len;
           }
