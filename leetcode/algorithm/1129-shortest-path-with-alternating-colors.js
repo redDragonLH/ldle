@@ -11,8 +11,10 @@
  * 每个节点可以广度优先遍历,但是不知道效率如何,有没有更好的
  *
  * 还得先把路径映射好,但是还得带着颜色
- * 
+ *
  * 超时了,注意因为是有向图所以很多情况下是可以以动态规划的思路把前一个元素的状态作为当前元素的起始状态,不需要每次从头处理
+ *
+ * 第二版 有错误结果,估计是交替变检查有问题
  * @param {number} n
  * @param {number[][]} redEdges
  * @param {number[][]} blueEdges
@@ -32,15 +34,12 @@ var shortestAlternatingPaths = function (n, redEdges, blueEdges) {
   for (const blueEdge of blueEdges) {
     buildMap(blueEdge, mapping, 1);
   }
-  let result = [0];
-  for (let i = 1; i < n; i++) {
-    result[i] = breadthTraversal(mapping, i, 0, n);
-  }
-  return result;
+  return breadthTraversal(mapping, 0, n, redEdge.length + blueEdges.length);
 };
 
-let breadthTraversal = (mapping, index, len, n) => {
-  if (len >= n) return -1;
+let breadthTraversal = (mapping, len, n, allSide) => {
+  let result = new Array(n);
+  result.fill(-1);
   let direction = [new Struct(0, null)];
   while (direction.length) {
     let dLen = direction.length;
@@ -51,17 +50,26 @@ let breadthTraversal = (mapping, index, len, n) => {
 
       let item = direction.shift();
       let paths = mapping[item.point];
-      if (!paths) return -1;
+      result[0] = 0;
+
+      if (!paths) return result;
+
       // 循环里面应该增加路径颜色的判断,但是就得和前面和后面有状态联系
       for (const path of paths) {
         if (item.color !== path.color) {
-          if (path.point === index) return len;
-          direction.push(path);
+          if (result[path.point] === -1) {
+            result[path.point] = len;
+          }
+          // 这里不设边界条件就会死循环,设定死的长度就会有可能遗漏
+          // 也许可以用红蓝所有边的和做边界条件
+          if (len <= allSide) {
+            direction.push(path);
+          }
         }
       }
     }
   }
-  return -1;
+  return result;
 };
 // 注意是有向图
 let buildMap = (edge, mapping, color) => {
