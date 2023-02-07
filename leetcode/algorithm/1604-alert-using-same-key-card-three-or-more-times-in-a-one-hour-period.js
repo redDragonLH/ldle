@@ -29,12 +29,11 @@ var alertNames = function (keyName, keyTime) {
 
   let left = 0,
     right = 3;
-    // 要求是一小时内三次,而不一定是这个人一小时内连续三次
-    // 思路断了
+  // 要求是一小时内三次,而不一定是这个人一小时内连续三次
+  // 思路断了
   while (right < len) {
-    for (let i = left; i <right; i++) {
-        const element = array[i];
-        
+    for (let i = left; i < right; i++) {
+      const element = array[i];
     }
   }
 };
@@ -65,4 +64,47 @@ let sortByTime = (arr) => {
       return 0;
     }
   });
+};
+
+/**
+ * 官方题解
+ */
+
+var alertNames = function (keyName, keyTime) {
+  const timeMap = new Map();
+  const n = keyName.length;
+  for (let i = 0; i < n; i++) {
+    const name = keyName[i];
+    const time = keyTime[i];
+    if (!timeMap.has(name)) {
+      timeMap.set(name, []);
+    }
+    // 转换时间,判断好计算
+    const hour =
+      (time[0].charCodeAt() - "0".charCodeAt()) * 10 +
+      (time[1].charCodeAt() - "0".charCodeAt());
+    const minute =
+      (time[3].charCodeAt() - "0".charCodeAt()) * 10 +
+      (time[4].charCodeAt() - "0".charCodeAt());
+    timeMap.get(name).push(hour * 60 + minute);
+  }
+  let res = [];
+  const keySet = timeMap.keys();
+  for (const name of keySet) {
+    const list = timeMap.get(name);
+    list.sort((a, b) => a - b);
+    const size = list.length;
+    for (let i = 2; i < size; i++) {
+      const time1 = list[i - 2],
+        time2 = list[i];
+      const difference = time2 - time1;
+      // 简单判断即可,无需在这里转换时间格式
+      if (difference <= 60) {
+        res.push(name);
+        break;
+      }
+    }
+  }
+  res.sort();
+  return res;
 };
