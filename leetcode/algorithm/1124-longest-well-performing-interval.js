@@ -45,7 +45,33 @@ let isGood = (hours, left, right) => {
 };
 /**
  * 直接超时
- * 
+ *
  * 必须优化,滑动窗口可以解决么,
  * 那要怎么滑动可以不错过所有情况
  */
+
+/**
+ * 官方题解 贪心
+ */
+var longestWPI = function (hours) {
+  const n = hours.length;
+  const s = new Array(n + 1).fill(0);
+  const stk = [0];
+  for (let i = 1; i <= n; i++) {
+    // 前缀和?
+    s[i] = s[i - 1] + (hours[i - 1] > 8 ? 1 : -1);
+
+    // 当前劳累数小于上一次的加班日期
+    if (s[stk[stk.length - 1]] > s[i]) {
+      stk.push(i);
+    }
+  }
+
+  let res = 0;
+  for (let r = n; r >= 1; r--) {
+    while (stk.length && s[stk[stk.length - 1]] < s[r]) {
+      res = Math.max(res, r - stk.pop());
+    }
+  }
+  return res;
+};
