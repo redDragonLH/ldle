@@ -39,3 +39,30 @@ var numberOfPairs = function (nums) {
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了43.94%的用户
  * 内存消耗：41.5 MB, 在所有 JavaScript 提交中击败了40.91%的用户
  */
+
+
+/**
+ * 最快效率 
+ * 排序+ 滑动窗口
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var numberOfPairs = function(nums) {
+    //排序+滑动窗口
+    // 难道构建对象比排序还要慢?
+    nums.sort((a,b)=>a-b)
+    let count = [0,0]
+    
+    //还是说后期第二次循环太过啰嗦
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]===nums[i+1]){
+            // 这里i实际加了两次
+            i++
+            count[0]++
+        }else{
+            // 不一样就可以直接加一么,反正i肯定是多余的
+            count[1]++
+        }
+    }
+    return count
+};
