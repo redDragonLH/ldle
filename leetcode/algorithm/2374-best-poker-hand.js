@@ -19,21 +19,39 @@
 var bestHand = function (ranks, suits) {
   const typeMapping = ["Flush", "Three of a Kind", "Pair", "High Card"];
 
-  let len = suits.length
+  let len = suits.length;
 
-  let flush= calculation(suits,len)
-  if(flush)return typeMapping[flush]
-
-  if()
+  let flush = calculation(suits, len);
+  if (flush) return typeMapping[flush];
 };
-
-let calculation = (ranks,suits,len)=>{
-    let isFlush = 1
-    for (let i = 1; i < len; i++) {
-        if(suits[i] === suits[i-1]){
-            isFlush++
-            if(isFlush=== 5) return 1
-        }
-        
+let calculation = (ranks, suits, len) => {
+  let isFlush = 1;
+  for (let i = 1; i < len; i++) {
+    if (suits[i] === suits[i - 1]) {
+      isFlush++;
+      if (isFlush === 5) return 1;
     }
-}
+  }
+};
+var bestHand = function (ranks, suits) {
+  const suitsSet = new Set();
+  for (const suit of suits) {
+    suitsSet.add(suit);
+  }
+  if (suitsSet.size === 1) {
+    return "Flush";
+  }
+  const h = new Map();
+  for (const rank of ranks) {
+    h.set(rank, (h.get(rank) || 0) + 1);
+  }
+  if (h.size === 5) {
+    return "High Card";
+  }
+  for (const value of h.values()) {
+    if (value > 2) {
+      return "Three of a Kind";
+    }
+  }
+  return "Pair";
+};
