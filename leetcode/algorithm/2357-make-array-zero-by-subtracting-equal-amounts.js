@@ -36,3 +36,19 @@ var minimumOperations = function (nums) {
  * 执行用时：76 ms, 在所有 JavaScript 提交中击败了14%的用户
  * 内存消耗：43.7 MB, 在所有 JavaScript 提交中击败了13%的用户
  */
+
+var minimumOperations = function (nums) {
+  let set = new Set();
+  nums.forEach((e) => {
+    if (e) {
+      set.add(e);
+    }
+  });
+  return set.size;
+};
+
+/**
+ * 果然去重去0,就行
+ * 执行用时：56 ms, 在所有 JavaScript 提交中击败了89.00%的用户
+ * 内存消耗：40.9 MB, 在所有 JavaScript 提交中击败了97.00%的用户
+ */
