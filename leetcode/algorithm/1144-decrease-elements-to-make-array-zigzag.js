@@ -35,3 +35,37 @@ var movesToMakeZigzag = function (nums) {
 /**
  * 逻辑就非常复杂了,从奇偶性分到大于小于等于
  */
+/**
+ * 官方题解:贪心+分类讨论
+ */
+var movesToMakeZigzag = function (nums) {
+  return Math.min(help(nums, 0), help(nums, 1));
+};
+/**
+ * 和我的逻辑差不多,就是代码抽象和封装的非常好
+ * @param {*} nums 
+ * @param {*} pos 
+ * @returns 
+ */
+const help = (nums, pos) => {
+  let res = 0;
+  // 每次加等于2就减少了奇偶性判断,肯定都是一个性
+  for (let i = pos; i < nums.length; i += 2) {
+    // a ~~~
+    let a = 0;
+
+    // 判断当前位置与两边的差距,获取让当前位置成为波谷的最大值,
+    // 也就是必须让当前位置成为三个位置中的最低值
+    // 左边界判断
+    if (i - 1 >= 0) {
+        // 检查当前位置与前一位置的高度差距,话说全是减,负数怎么办,0是吧~~
+      a = Math.max(a, nums[i] - nums[i - 1] + 1);
+    }
+    // 右边界判断
+    if (i + 1 < nums.length) {
+      a = Math.max(a, nums[i] - nums[i + 1] + 1);
+    }
+    res += a;
+  }
+  return res;
+};
