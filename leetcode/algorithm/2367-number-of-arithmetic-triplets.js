@@ -24,10 +24,37 @@ var arithmeticTriplets = function (nums, diff) {
       }
     }
   }
-  return result
+  return result;
 };
 /**
  * 暴力遍历
  * 执行用时：68 ms, 在所有 JavaScript 提交中击败了54.44%的用户
  * 内存消耗：41.1 MB, 在所有 JavaScript 提交中击败了76.67%的用户
+ */
+
+/**
+ * 优化: 哈希表
+ * @param {number[]} nums
+ * @param {number} diff
+ * @return {number}
+ */
+var arithmeticTriplets = function (nums, diff) {
+  const set = new Set();
+  // 把当前数据塞进去
+  for (const x of nums) {
+    set.add(x);
+  }
+  let ans = 0;
+  for (const x of nums) {
+    // 因为当前要求的其实是一个等差数列,而且使用减的,所以所要找的数据都在数组nums里面,所以
+    // 可以用逆式查找所需用的另两个数
+    // 也就是说在已知一个数的情况下可以同时找到另两个数
+    if (set.has(x + diff) && set.has(x + 2 * diff)) {
+      ans++;
+    }
+  }
+  return ans;
+};
+/**
+ * 题目隐藏着答案
  */
