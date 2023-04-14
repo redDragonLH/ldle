@@ -7,8 +7,10 @@
 
 /**
  * 查找带查询串中的大写字母是否全匹配
- * 
+ *
  * 不是这么简单,模式串里面还有小写字母
+ *
+ * 那就只能双指针
  * @param {string[]} queries
  * @param {string} pattern
  * @return {boolean[]}
@@ -22,6 +24,36 @@ var camelMatch = function (queries, pattern) {
       result.push(upArray.join("") === UpPattern ? true : false);
     } else {
       result.push(false);
+    }
+  }
+  return result;
+};
+
+/**
+ * 双指针
+ * @param {string[]} queries
+ * @param {string} pattern
+ * @return {boolean[]}
+ */
+var camelMatch = function (queries, pattern) {
+  let result = [];
+  let patternLen = pattern.length - 1;
+  for (const iterator of queries) {
+    let len = iterator.length;
+    let patternIndex = 0;
+    for (let i = 0; i < len; i++) {
+      if (patternIndex === patternLen && iterator[i].charCodeAt() < 97) {
+        result.push(false);
+        break;
+      }
+      if (iterator[i] === pattern[patternIndex]) {
+        patternIndex++;
+      }
+    }
+    if (patternIndex < patternLen) {
+      result.push(false);
+    } else {
+      result.push(true);
     }
   }
   return result;
