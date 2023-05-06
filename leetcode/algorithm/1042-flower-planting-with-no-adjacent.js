@@ -28,9 +28,13 @@ var gardenNoAdj = function (n, paths) {
   let ans = new Array(n).fill(0);
   for (let i = 0; i < n; i++) {
     let colored = new Array(5).fill(false);
+    // 遍历当前花园的邻接花园，
+    // 已经有颜色的就把这个颜色标记出来
     for (let vertex of adj[i]) {
       colored[ans[vertex]] = true;
     }
+    // 随便找一个没有用的颜色给到ans，
+    // 算是贪心的思路吧，并没有动态规划等操作回溯或遍历整个问题
     for (let j = 1; j <= 4; j++) {
       if (!colored[j]) {
         ans[i] = j;
