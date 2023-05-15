@@ -33,3 +33,42 @@ var rearrangeBarcodes = function(barcodes) {
 /**
  * 解决不了单个元素重复超过一半的问题
  */
+
+/**
+ * 理论上可以计数，然后找最多的先插入，但是数据结构就要复杂，
+ * 但是肯定得确定最多的元素，要不然位置不够
+ * @param {number[]} barcodes
+ * @return {number[]}
+ */
+var rearrangeBarcodes = function(barcodes) {
+    const length = barcodes.length;
+    if (length < 2) {
+        return barcodes;
+    }
+
+    const counts = new Map();
+    let maxCount = 0;
+    for (const b of barcodes) {
+        counts.set(b, (counts.get(b) || 0) + 1);
+        maxCount = Math.max(maxCount, counts.get(b));
+    }
+
+    let evenIndex = 0;
+    let oddIndex = 1;
+    let halfLength = Math.floor(length / 2);
+    const res = _.fill(Array(length), 0);
+    // 核心代码
+    for (let [x, count] of counts.entries()) {
+        while (count > 0 && count <= halfLength && oddIndex < length) {
+            res[oddIndex] = x;
+            count--;
+            oddIndex += 2;
+        }
+        while (count > 0) {
+            res[evenIndex] = x;
+            count--;
+            evenIndex += 2;
+        }
+    }
+    return res;
+};
