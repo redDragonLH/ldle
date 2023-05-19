@@ -11,6 +11,7 @@
  */
 var numTilePossibilities = function (tiles) {
   const count = new Map();
+  // 这是把同样的字母统一处理
   for (let t of tiles) {
     count.set(t, (count.get(t) || 0) + 1);
   }
