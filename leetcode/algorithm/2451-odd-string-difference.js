@@ -48,3 +48,32 @@ var oddString = function (words) {
  * 执行用时：56 ms, 在所有 JavaScript 提交中击败了93.88%的用户
  * 内存消耗：41.3 MB, 在所有 JavaScript 提交中击败了65.31%的用户
  */
+
+/**
+ * 最快题解
+ * @param {string[]} words
+ * @return {string}
+ */
+var oddString = function(words) {
+    const check = []
+    // 遍历
+    for (let k = 0; k < words.length; k++) {
+        // 从第二个字符开始遍历
+        for (let i = 1; i < words[k].length; i++) {
+            // 第一个字符串直接怼,但是直接怼到check数组里面
+            if (k === 0) {
+                check.push(words[k].charCodeAt(i) - words[k].charCodeAt(i - 1))
+            }
+            else {
+                // 以后的字符串每个差值对比,失败的就是不同的,但是前两个由于没有确定哪个是基础差值,所以要特殊处理 
+                if (words[k].charCodeAt(i) - words[k].charCodeAt(i - 1) !== check[i -1]) {
+                    if (k === 1) {
+                        // 和第三个对比~~~
+                        if (words[2].charCodeAt(i) - words[2].charCodeAt(i - 1) !== check[i -1]) return words[0]
+                        else return words[1]
+                    } else return words[k]
+                }
+            }
+        }
+    }
+};
