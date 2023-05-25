@@ -33,7 +33,9 @@ var oddString = function (words) {
       if (!difference.includes(different.join(","))) return word;
     }
     difference.push(different.join(","));
-    if (difference.length > 2) {
+    // 改为 == 3 就只会计算内部一次
+    // > 2 每次都要计算一下内部,比较亏
+    if (difference.length === 3) {
       // 大于2后对比一下前两个与第三个是否有不一样的,有的话直接返回
       // 经过前面的对比,第三个肯定是基础差值
       if (difference[0] != difference[2]) return words[0];
@@ -43,6 +45,6 @@ var oddString = function (words) {
 };
 /**
  * 优化了最后判断的位置
- * 执行用时：60 ms, 在所有 JavaScript 提交中击败了81.63%的用户
+ * 执行用时：56 ms, 在所有 JavaScript 提交中击败了93.88%的用户
  * 内存消耗：41.3 MB, 在所有 JavaScript 提交中击败了65.31%的用户
  */
