@@ -21,7 +21,7 @@ var oddString = function (words) {
   for (const word of words) {
     let different = [];
     for (let i = 0; i < word.length - 1; i++) {
-    //计算差值数组
+      //计算差值数组
       different[i] =
         word[i + 1].charCodeAt() -
         start_number -
@@ -29,17 +29,20 @@ var oddString = function (words) {
     }
     // 大于2后说明可以找到不同的数组了,
     if (difference.length >= 2) {
-        // 没有相等的说明是不同的,直接返回
+      // 没有相等的说明是不同的,直接返回
       if (!difference.includes(different.join(","))) return word;
     }
     difference.push(different.join(","));
+    if (difference.length > 2) {
+      // 大于2后对比一下前两个与第三个是否有不一样的,有的话直接返回
+      // 经过前面的对比,第三个肯定是基础差值
+      if (difference[0] != difference[2]) return words[0];
+      if (difference[1] != difference[2]) return words[1];
+    }
   }
-  // 如果到最后的话说明不同数组在前两个就混进来了
-  if (difference[0] != difference[2]) return words[0];
-  if (difference[1] != difference[2]) return words[1];
 };
 /**
- * 看来有技巧啊
- * 执行用时：80 ms, 在所有 JavaScript 提交中击败了8.16%的用户
- * 内存消耗：41.4 MB, 在所有 JavaScript 提交中击败了65.31%的用户
+ * 优化了最后判断的位置
+ * 执行用时：60 ms, 在所有 JavaScript 提交中击败了81.63%的用户
+ * 内存消耗：41.3 MB, 在所有 JavaScript 提交中击败了65.31%的用户
  */
