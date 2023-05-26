@@ -38,6 +38,8 @@ var shortestPathBinaryMatrix = function (grid) {
 
 /**
  * 动态规划?还是要保存中间节点,每个元素位置保存的是到起点的最短路径
+ * 
+ * 标准bfs
  * @param {*} grid 
  * @returns 
  */
