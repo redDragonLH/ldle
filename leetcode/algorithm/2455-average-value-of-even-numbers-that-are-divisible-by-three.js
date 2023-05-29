@@ -14,10 +14,12 @@ var averageValue = function (nums) {
   let conuter = 0;
   let len = 0;
   for (const num of nums) {
-    if (!num % 2 && !num % 3) {
+    // 优化版,2,3=>6
+    if (!(num % 6)) {
       conuter += num;
       len++;
     }
   }
   return parseInt(conuter/len)
 };
+
