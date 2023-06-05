@@ -16,12 +16,41 @@
  * @return {number[]}
  */
 var applyOperations = function (nums) {
-
-    for (let i = 0; i < nums.length-1; i++) {
-        if(nums[i] === nums[i+1]){
-            nums[i] = nums[i]*2
-            nums[i+1] = 0
-        }
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] === nums[i + 1]) {
+      nums[i] = nums[i] * 2;
+      nums[i + 1] = 0;
     }
-    // 缺少移动逻辑
+  }
+  // 缺少移动逻辑
+};
+
+/**
+ * 官方题解 
+ * 改完数据就换吗?不会影响数据处理顺序吗
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var applyOperations = function (nums) {
+  let n = nums.length;
+  let j = 0;
+  // 应该只遍历n-1,但是都组合到一个循环里面了,只能全遍历
+  for (let i = 0; i < n; i++) {
+    // 第一步处理流程
+    if (i + 1 < n && nums[i] == nums[i + 1]) {
+      nums[i] *= 2;
+      nums[i + 1] = 0;
+    }
+    // j 在最开始指向 nums 的 0位置,
+    // 那这个i不为0的时候交换是什么意思
+    // 如果0位置是0那就不动,如果不是0,交换过程中i就等于j,
+    // 直到遇到一个0,j 停到元素0所在位置,i继续执行,直到i遇到不为0的元素,交换j的0与i的具体元素
+    // 如此能把交换的时间复杂度减少到n,且把0都移到末尾而去不改变非零元素的相对位置
+    // 并且没有改变具体算法逻辑的处理顺序,因为i已经超过j了吧,
+    if (nums[i] != 0) {
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+      j++;
+    }
+  }
+  return nums;
 };
