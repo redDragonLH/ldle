@@ -1,0 +1,10 @@
+---
+execution:
+- executor: jmeter
+  scenario:
+    script: jmeter_script1.jmx
+
+modules:
+  jmeter:
+    properties:
+      prometheus.ip: "0.0.0.0"
