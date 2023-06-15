@@ -12,37 +12,29 @@
  * 注意：在替换时，子串中的每个字母都必须作为 独立的 项进行计数，也就是说，如果 s[left..right] = "aaa" 且 k = 2，我们只能替换其中的两个字母。（另外，任何检测都不会修改原始字符串 s，可以认为每次检测都是独立的）
  */
 /**
- * 
+ * 官方题解 前缀和
  * @param {string} s
  * @param {number[][]} queries
  * @return {boolean[]}
  */
 var canMakePaliQueries = function (s, queries) {
-  const result = [];
-  for (const arr of queries) {
-    if (arr[0] === arr[1]) {
-      result.push(true);
-      continue;
-    } else {
-      result.push(isPalindrome(s, arr));
-    }
+  const n = s.length;
+  const count = Array(n + 1).fill(0);
+  for (let i = 0; i < n; i++) {
+    count[i + 1] = count[i] ^ (1 << (s[i].charCodeAt(0) - "a".charCodeAt(0)));
   }
-  return result;
-};
-const isPalindrome = (s, range) => {
-  let left = range[0],
-    right = range[1];
-  let different = 0;
-  console.log(range);
-  while (left < right) {
-    console.log(s[left], s[right]);
-
-    if (s[left] !== s[right]) {
-      different++;
+  const res = [];
+  for (const query of queries) {
+    const l = query[0],
+      r = query[1],
+      k = query[2];
+    let bits = 0,
+      x = count[r + 1] ^ count[l];
+    while (x > 0) {
+      x &= x - 1;
+      bits++;
     }
-    left++;
-    right--;
+    res.push(bits <= k * 2 + 1);
   }
-  if (different <= range[2]) return true;
-  return false;
+  return res;
 };
