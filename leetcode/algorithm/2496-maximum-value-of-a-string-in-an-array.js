@@ -26,3 +26,20 @@ var maximumValue = function (strs) {
  * 执行用时：60 ms, 在所有 JavaScript 提交中击败了64.21%的用户
  * 内存消耗：41 MB, 在所有 JavaScript 提交中击败了48.42%的用户
  */
+
+/**
+ * 最快题解
+ * 
+ * 逻辑一样，不过用的新语法
+ * @param {string[]} strs
+ * @return {number}
+ */
+var maximumValue = function(strs) {
+    return Math.max(...strs.map(i=>{
+        if(isNaN(i)){
+            return i.length
+        }else{
+            return parseInt(i, 10)
+        }
+    }))
+};
