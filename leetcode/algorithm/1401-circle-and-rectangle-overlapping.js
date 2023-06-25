@@ -8,6 +8,7 @@
  * 换句话说，请你检测是否 存在 点 (xi, yi) ，它既在圆上也在矩形上（两者都包括点落在边界上的情况）。
  */
 /**
+ * 位置判断
  * @param {number} radius
  * @param {number} xCenter
  * @param {number} yCenter
@@ -17,16 +18,19 @@
  * @param {number} y2
  * @return {boolean}
  */
-function distance(ux, uy, vx, vy) {
-  return (ux - vx) ** 2 + (uy - vy) ** 2;
-}
 
 var checkOverlap = function (radius, xCenter, yCenter, x1, y1, x2, y2) {
-  /* 圆心在矩形内部 */
+  /**
+   * 圆心在矩形内部
+   * 很简单,判断圆心点小于右上,大于左下
+   */
   if (x1 <= xCenter && xCenter <= x2 && y1 <= yCenter && yCenter <= y2) {
     return true;
   }
-  /* 圆心在矩形上部 */
+  /**
+   *  圆心在矩形上部
+   * 圆心距离不能超过正方形上边界到圆心的距离
+   */
   if (
     x1 <= xCenter &&
     xCenter <= x2 &&
@@ -35,7 +39,10 @@ var checkOverlap = function (radius, xCenter, yCenter, x1, y1, x2, y2) {
   ) {
     return true;
   }
-  /* 圆心在矩形下部 */
+  /**
+   *  圆心在矩形下部
+   * 同理
+   */
   if (
     x1 <= xCenter &&
     xCenter <= x2 &&
@@ -62,6 +69,9 @@ var checkOverlap = function (radius, xCenter, yCenter, x1, y1, x2, y2) {
   ) {
     return true;
   }
+  /**
+   * 四角比价麻烦,因为圆是有弧度的
+   */
   /* 矩形左上角 */
   if (distance(xCenter, yCenter, x1, y2) <= radius * radius) {
     return true;
@@ -81,3 +91,6 @@ var checkOverlap = function (radius, xCenter, yCenter, x1, y1, x2, y2) {
   /* 无交点 */
   return false;
 };
+function distance(ux, uy, vx, vy) {
+    return (ux - vx) ** 2 + (uy - vy) ** 2;
+  }
