@@ -106,18 +106,6 @@ var maxConsecutiveAnswers = function (answerKey, k) {
 
   return max;
 };
-const getPosi = (arr, start, target, len) => {
-  let wigth = 0;
-  for (let index = start; index < arr.length; index++) {
-    if (arr[index] === target && !len) return wigth;
-
-    if (arr[index] === target) {
-      len--;
-    }
-    wigth++;
-  }
-  return wigth;
-};
 /**
  * 执行用时：100 ms, 在所有 JavaScript 提交中击败了25.00%的用户
  * 内存消耗：46 MB, 在所有 JavaScript 提交中击败了6.25%的用户
