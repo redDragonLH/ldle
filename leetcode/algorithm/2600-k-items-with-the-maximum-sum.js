@@ -17,10 +17,8 @@
  * @return {number}
  */
 var kItemsWithMaximumSum = function (numOnes, numZeros, numNegOnes, k) {
-  if (numOnes >= k) {
-    return k;
-  } else if (numOnes + numZeros >= k) {
-    return numOnes;
+if (numOnes + numZeros >= k) {
+    return Math.min(numOnes, k);
   } else {
     let remaining = k - numOnes - numZeros;
     remaining = Math.min(remaining, numNegOnes);
