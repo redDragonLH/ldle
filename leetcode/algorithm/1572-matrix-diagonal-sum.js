@@ -35,3 +35,20 @@ var diagonalSum = function (mat) {
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了47.71%的用户
  * 内存消耗：40.88 MB, 在所有 JavaScript 提交中击败了24.77%的用户
  */
+/**
+ * 最高效题解
+ * @param {number[][]} mat
+ * @return {number}
+ */
+function diagonalSum(mat) {
+    let sum = 0;
+    //一层就够了
+    for (let i = 0; i < mat.length; i++) {
+      sum += mat[i][i];
+      // 另一个对角线通过计算得出
+      if (i !== mat.length - 1 - i) {
+        sum += mat[i][mat.length - 1 - i];
+      }
+    }
+    return sum;
+  }
