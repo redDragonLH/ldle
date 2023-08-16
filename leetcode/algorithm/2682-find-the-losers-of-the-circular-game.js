@@ -44,3 +44,30 @@ var circularGameLosers = function (n, k) {
  * 执行用时：92 ms, 在所有 JavaScript 提交中击败了55.28%的用户
  * 内存消耗：43.47 MB, 在所有 JavaScript 提交中击败了38.19%的用户
  */
+
+
+/**
+ *最快题解
+ * @param {number} n
+ * @param {number} k
+ * @return {number[]}
+ */
+var circularGameLosers = function(n, k) {
+    let visit = new Array(n).fill(false);
+    // 判断条件 
+    // 用+ 换 *,减少计算,好逻辑
+    for(let i=k, j=0;!visit[j];i+=k) {
+        // 走过的路都标上
+        visit[j] = true;
+        // 肯定要 余
+        j = (j+i)%n;
+    }
+    let res = [];
+    // 这里思路就一样了
+    for(let i=0;i<n;i++) {
+        if(!visit[i]) {
+            res.push(i+1);
+        }
+    }
+    return res;
+};
