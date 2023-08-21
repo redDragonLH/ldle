@@ -15,26 +15,72 @@
  * @return {boolean}
  */
 var canChange = function (start, target) {
-    let del_start = start.split("_").join("")
-    let del_target = target.split("_").join("")
-    console.log(del_start,del_target)
-    if(del_start!==del_target) return false;
+  let del_start = start.split("_").join("");
+  let del_target = target.split("_").join("");
+  console.log(del_start, del_target);
+  if (del_start !== del_target) return false;
 
-    let start_num = 0
-    let target_num = 0
-    for (let i = 0; i < start.length; i++) {
-        if(start[i] === '_'){
-            start_num++
-        }
-        if(target[i] === '_'){
-            target_num++
-        }
+  let start_num = 0;
+  let target_num = 0;
+  for (let i = 0; i < start.length; i++) {
+    if (start[i] === "_") {
+      start_num++;
     }
-    console.log(start_num,target_num)
+    if (target[i] === "_") {
+      target_num++;
+    }
+  }
+  console.log(start_num, target_num);
 
-    if(start_num === target_num) return true;
-    return false;
+  if (start_num === target_num) return true;
+  return false;
 };
 /**
  * 失败,还是要考虑左右移动的问题
  */
+
+/**
+ * 官方题解 双指针
+ * 
+ * 既然可以排列说明不止一种方案,所以可以自己排列检查是否可以成功
+ * @param {*} start 
+ * @param {*} target 
+ * @returns 
+ */
+var canChange = function (start, target) {
+  const n = start.length;
+  let i = 0,
+    j = 0;
+  while (i < n && j < n) {
+    while (i < n && start[i] === "_") {
+      i++;
+    }
+    while (j < n && target[j] === "_") {
+      j++; 
+    }
+    if (i < n && j < n) {
+      if (start[i] !== target[j]) {
+        return false;
+      }
+      const c = start[i];
+      if ((c === "L" && i < j) || (c === "R" && i > j)) {
+        return false;
+      }
+      i++;
+      j++;
+    }
+  }
+  while (i < n) {
+    if (start[i] !== "_") {
+      return false;
+    }
+    i++;
+  }
+  while (j < n) {
+    if (target[j] !== "_") {
+      return false;
+    }
+    j++;
+  }
+  return true;
+};
