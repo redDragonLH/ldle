@@ -34,3 +34,41 @@ var countServers = function (grid) {
   }
   return result;
 };
+
+/**
+ * 两次遍历 + 哈希表
+ * 
+ * 这个思路有些抽象
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var countServers = function (grid) {
+  const m = grid.length,
+    n = grid[0].length;
+  const rows = new Map();
+  const cols = new Map();
+  for (let i = 0; i < m; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (grid[i][j] == 1) {
+        // 计算每行、列里面分别有多少元素
+        rows.set(i, (rows.get(i) || 0) + 1);
+        cols.set(j, (cols.get(j) || 0) + 1);
+      }
+    }
+  }
+  let ans = 0;
+  for (let i = 0; i < m; ++i) {
+    for (let j = 0; j < n; ++j) {
+        // 是否把当前服务器加入到结果
+        // 当前位置以及他的上下左右有服务器,那就加入进去
+      if (
+        grid[i][j] == 1 &&
+        ((rows.get(i) || 0) > 1 || (cols.get(j) || 0) > 1)
+      ) {
+        
+        ++ans;
+      }
+    }
+  }
+  return ans;
+};
