@@ -19,7 +19,7 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9091
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka
     extra_hosts:
-      kafka1: 10.95.33.38
+      kafka1: 10.95.33.108
   kafka2:
     image: wurstmeister/kafka
     depends_on: [ zookeeper ]
@@ -33,7 +33,7 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka
     extra_hosts:
-      kafka2: 10.95.33.38
+      kafka2: 10.95.33.108
   kafka3:
     image: wurstmeister/kafka
     depends_on: [ zookeeper ]
@@ -47,4 +47,4 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181/kafka
     extra_hosts:
-      kafka3: 10.95.33.38
+      kafka3: 10.95.33.108
