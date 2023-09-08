@@ -10,9 +10,21 @@
  * @return {number}
  */
 var findDelayedArrivalTime = function (arrivalTime, delayedTime) {
-    return (arrivalTime + delayedTime) % 24;
-  };
-  /**
+  return (arrivalTime + delayedTime) % 24;
+};
+/**
+ * 求余数在计算机CPU中运行时比较耗费时间的，所以如果能转成加减操作会好很多
+ * 
  * 执行用时：64 ms, 在所有 JavaScript 提交中击败了54.81%的用户
  * 内存消耗：40.33 MB, 在所有 JavaScript 提交中击败了43.70%的用户
  */
+
+/**
+ * 第三方题解
+ * 
+ * 判断+简单计算
+ */
+var findDelayedArrivalTime = function(arrivalTime, delayedTime) {
+    const total = arrivalTime + delayedTime
+    return total >= 24 ? total - 24 : total
+};
