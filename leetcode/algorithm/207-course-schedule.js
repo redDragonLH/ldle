@@ -157,3 +157,61 @@ console.log(
  *    }
  * }
  */
+
+/**
+ * 核心是构建有向图，确定所有点的入度与关联点，然后从入度为0的节点开始遍历，一边遍历一边减去前一个点的数据，直到所有的元素都被删除，或者查不到有入度为零的元素
+ */
+const map ={
+  a:['b','c'],
+  b: ['c'],
+  c: []
+}
+/**
+ * c的入度为零，所以从c开始处理，删除c,字段。然后把数组中的c都删除。然后重新查找入度为零的 元素，直至全部字段删除，或者遍历一遍后没有找到入度为零的字段
+ */
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {boolean}
+ */
+var canFinish = function(numCourses, prerequisites) {
+  let map = new Map();
+    for (const pre of prerequisites) {
+      if(map.has(pre[0])){
+        map.set(pre[0],[...map.get(pre[0]),pre[1]])
+      }else {
+        map.set(pre[0],[pre[1]])
+
+      }
+      if(!map.has(pre[1])){
+        map.set(pre[1],[])
+      }
+    }
+    while(map.size){
+      let zero=-1;
+      // 找到入度为零的元素
+      for (const [key,value] of map) {
+          if(!value.length){
+            zero = key;
+            map.delete(key)
+            break
+        }
+      }
+      if(zero === -1) return false
+      numCourses--
+      if(numCourses < 0) return false
+      // 删除所有字段数组里面的入度为零的元素
+      for (const [key,value] of map) {
+          let index = value.indexOf(zero)
+          if(index>-1){
+            value.splice(index, 1)
+            map.set(key,value)
+          }
+      }
+    }
+    return true;
+};
+/**
+ * 执行用时：140 ms, 在所有 JavaScript 提交中击败了13.49%的用户
+ * 内存消耗：49.38 MB, 在所有 JavaScript 提交中击败了8.08%的用户
+ */
