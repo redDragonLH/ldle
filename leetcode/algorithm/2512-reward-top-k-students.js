@@ -27,13 +27,21 @@ var topStudents = function (
 ) {
   let len = student_id.length;
   let scores = [];
+  let positive ={}
+  let negative ={}
+  for (const iterator of positive_feedback) {
+    positive[iterator]=true
+  }
+  for (const iterator of negative_feedback) {
+    negative[iterator]=true
+  }
   for (let i = 0; i < len; i++) {
     let word = report[i].split(" ");
     let score = 0;
     for (const item of word) {
-      if (positive_feedback.includes(item)) {
+      if (positive[item]) {
         score += 3;
-      } else if (negative_feedback.includes(item)) {
+      } else if (negative[item]) {
         score -= 1;
       }
     }
@@ -53,5 +61,8 @@ var topStudents = function (
   return result;
 };
 /**
- * 超出时间限制
+ * includes 也是遍历数组,转为hash 表之后时间复杂度O(n)降到 O(1)
+ * 
+ * 执行用时 :236 ms, 在所有 JavaScript 提交中击败了25.00%的用户
+ * 内存消耗 :65.73 MB, 在所有 JavaScript 提交中击败33.33%的用户
  */
