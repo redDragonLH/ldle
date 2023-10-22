@@ -12,6 +12,8 @@
 
 /**
  *满意程度数值是一个问题，满意程度位置也是一个问题，最大的值应该尽可能往后排，但是有些小值会导致总值大打折扣
+
+ 可以优化，就是肯定会有个转折点从增多到减少的，现在逻辑顺序不对，需要从大到小计算才能用当前逻辑
  * @param {number[]} satisfaction
  * @return {number}
  */
@@ -24,7 +26,8 @@ var maxSatisfaction = function (satisfaction) {
       satisfaction.forEach((e, i) => {
         count += (i + 1) * e;
       });
-      result = Math.max(result, count);
+      if(result > count) return result
+      result = count;
       satisfaction.shift();
     } else {
       return result;
