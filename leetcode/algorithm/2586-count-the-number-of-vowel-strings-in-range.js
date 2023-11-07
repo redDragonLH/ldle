@@ -27,6 +27,9 @@ var vowelStrings = function (words, left, right) {
   return result
 };
 /**
+ * 最快题解使用 "aeiou".includes 字符串的包含方法,不知道有没有速度优势,也没有,我提交就是74毫秒~~
+ * 
+ * 
  * 执行用时：84 ms, 在所有 JavaScript 提交中击败了34.09%的用户
  * 内存消耗：43.14 MB, 在所有 JavaScript 提交中击败了39.77%的用户
  */
