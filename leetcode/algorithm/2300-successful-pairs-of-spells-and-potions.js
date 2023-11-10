@@ -31,9 +31,42 @@ var successfulPairs = function (spells, potions, success) {
             if(potions[mid]*2 < success){
 
             }else {
-                
+
             }
         }
 
     }
+};
+
+/**
+ * 官方二分
+ * @param {*} spells 
+ * @param {*} potions 
+ * @param {*} success 
+ * @returns 
+ */
+var successfulPairs = function(spells, potions, success) {
+    function binarySearch(nums, lo, hi, target) {
+        let res = hi + 1;
+        // hi小于lo 则说明找到界限
+        // 判断左右和当前元素不一样挺low
+        while (lo <= hi) {
+            const mid = lo + Math.floor((hi - lo) / 2);
+            if (nums[mid] > target) {
+                res = mid;
+                hi = mid - 1;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return res;
+    }
+
+    potions.sort((a, b) => a - b);
+    // 不用显式创建新的数组
+    return spells.map((item) => {
+        // 获取不超过success 的元素位置
+        // 而且直接找元素,只计算一次除法,不用每次乘
+        return potions.length - binarySearch(potions, 0, potions.length - 1, (success - 1) / item)
+    })
 };
