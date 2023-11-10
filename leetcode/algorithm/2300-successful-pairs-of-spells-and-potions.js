@@ -49,7 +49,7 @@ var successfulPairs = function(spells, potions, success) {
     function binarySearch(nums, lo, hi, target) {
         let res = hi + 1;
         // hi小于lo 则说明找到界限
-        // 判断左右和当前元素不一样挺low
+        // 判断左右和当前元素是不是一样挺low
         while (lo <= hi) {
             const mid = lo + Math.floor((hi - lo) / 2);
             if (nums[mid] > target) {
