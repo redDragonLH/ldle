@@ -7,9 +7,17 @@
 
 /**
  * 这个问题嵌套循环可以解决，但是O(n)应该需要一些异或的特性
+ * 循环嵌套超时
  * @param {number[]} nums
  * @return {number}
  */
 var findMaximumXOR = function (nums) {
-
+    let result = 0
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = i+1; j < nums.length; j++) {
+            result = Math.max(nums[i]^nums[j],result)
+        }
+        
+    }
+    return result
 };
