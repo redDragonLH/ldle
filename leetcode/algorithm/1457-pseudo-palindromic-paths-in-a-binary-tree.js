@@ -18,40 +18,41 @@
  * @param {TreeNode} root
  * @return {number}
  */
+let box = new Array(10).fill(0);
+
 var pseudoPalindromicPaths = function (root) {
-    let result=[0]
-    deep(root,[],result)
-    return result[0]
+  let result = [0];
+  deep(root, [], result);
+  return result[0];
 };
-let deep =(root,data,result)=>{
-    let newData = [...data,root.val]
+let deep = (root, data, result) => {
+  data.push(root.val);
+  if (root.left === null && root.right === null) {
+    result[0] = result[0] + isPalindromic(data);
+  }
 
-    if(root.left===null && root.right===null){
-        console.log(root,newData)
-        result[0]=result[0]+ isPalindromic(newData.sort((a,b)=>a-b))
-        return ;
+  if (root.left) {
+    deep(root.left, data, result);
+  }
+  if (root.right) {
+    deep(root.right, data, result);
+  }
+  data.pop(root.val);
+};
+const isPalindromic = (data) => {
+  box.fill(0);
+  let odd = 0;
+  data.forEach((e) => {
+    box[e]++;
+  });
+  box.forEach((e) => {
+    if (e % 2) {
+      odd++;
     }
-
-    if(root.left){
-        deep(root.left,newData,result)
-    }
-    if(root.right){
-        deep(root.right,newData,result)
-    }
-}
-const isPalindromic=(data)=>{
-    let odd =0
-    let box = new Array(10).fill(0)
-    data.forEach(e => {
-        box[e]++
-    });
-    box.forEach(e=>{
-        if(e%2){
-            odd++
-        }
-    })
-    return odd>1?0:1
-}
+  });
+  return odd > 1 ? 0 : 1;
+};
 /**
- * 没想到内存超了
+ * 执行用时：6488 ms, 在所有 JavaScript 提交中击败了7.69%的用户
+ * 内存消耗：87.98 MB, 在所有 JavaScript 提交中击败了84.62%的用户
  */
