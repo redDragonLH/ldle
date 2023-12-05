@@ -50,3 +50,40 @@ const Search = (root, num) => {
     }
   }
 };
+
+/**
+ * 官方题解 贪心+ 深度优先搜索
+ *
+ * 等价于给出了一棵以节点0 为根结点的树,并且初始树上的每一个节点都有一个人,现在所有人都需要通过 「车子」向结点 0 移动
+ *
+ * 对于某一个节点 x ,x != 0 ,其父节点为y,因为以节点x为根结点的子树的人都需要通过边 x -> y向节点0移动,所以为了使这条边上的 「车子」利用率最高,
+ * 应该贪心的让 x的全部子节点上的人到了节点 x后再一起坐车向上移动, 设以节点x为根结点的子树大小为cutx,那么我们至少需要 「车子」的数量为「cutx/seats」,其中 seats 为一辆车的给定座位数
+ *
+ * 那么可以通过从根结点0往下进行 「深度优先搜索」, 每一条边上「车子」的数目即位该条边上汽油的开销,统计全部边上的汽油的开销即为最终答案
+ */
+var minimumFuelCost = function (roads, seats) {
+  const n = roads.length;
+  const g = new Array(n + 1).fill(0).map(() => new Array());
+  // 构建映射mapping,比真的构建树简单清晰的多
+  for (const e of roads) {
+    g[e[0]].push(e[1]);
+    g[e[1]].push(e[0]);
+  }
+  let res = 0;
+  var dfs = function (cur, fa) {
+    let peopleSum = 1;
+    // 遍历点所有的下级点
+    for (const ne of g[cur]) {
+        // 两个点不相等
+      if (ne != fa) {
+        const peopleCnt = dfs(ne, cur);
+        peopleSum += peopleCnt;
+        res += Math.floor((peopleCnt + seats - 1) / seats);
+      }
+    }
+    return peopleSum;
+  };
+  // 两个参数都是点喽
+  dfs(0, -1);
+  return res;
+};
