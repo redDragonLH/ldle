@@ -38,6 +38,41 @@ var maxTaxiEarnings = function (n, rides) {
 };
 /**
  * 失败,这个无法解决重叠数据选取最大值的逻辑,那就得无数层循环嵌套了.
- * 
+ *
  * 现在属于贪心逻辑无法满足,得用动态规划了,或者广度优先遍历
  */
+
+/**
+ * 官方题解 动态规划
+ * 
+ * 确认初始数据结构
+ * 确认初始数据
+ * 确认转换方程
+ *  这步比较麻烦,尤其是这题无法直接得出转换方程
+ */
+var maxTaxiEarnings = function (n, rides) {
+  const dp = new Array(n + 1).fill(0);
+  const rideMap = new Map();
+  for (const ride of rides) {
+    // 以结束时间为元素组织数据
+    if (rideMap.has(ride[1])) {
+      rideMap.set(ride[1], [...rideMap.get(ride[1]), ride]);
+    } else {
+      rideMap.set(ride[1], [ride]);
+    }
+  }
+
+  for (let i = 1; i <= n; i++) {
+    dp[i] = dp[i - 1];
+    // 结束点有数据
+    if (rideMap.has(i)) {
+        // 遍历所有这点相关的数据
+        // 这就解决了我逻辑中贪心无法解决的问题
+        // 但是以End 点为组织是否可以完全处理问题,以start是否也是可以的?
+      for (const ride of rideMap.get(i)) {
+        dp[i] = Math.max(dp[i], dp[ride[0]] + ride[1] - ride[0] + ride[2]);
+      }
+    }
+  }
+  return dp[n];
+};
