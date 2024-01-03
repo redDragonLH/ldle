@@ -59,3 +59,20 @@ var removeNodes = function (head) {
 /**
  * 失败
  */
+
+/**
+ * 官方题解 递归
+ */
+var removeNodes = function(head) {
+    if (head == null) {
+        return null;
+    }
+    // 递归代码所在的位置表示实际的逻辑操作是从后往前处理的
+    head.next = removeNodes(head.next);
+    // 当前节点小于下一个节点,就直接返回下一个节点
+    if (head.next != null && head.val < head.next.val) {
+        return head.next;
+    } else {
+        return head;
+    }
+};
