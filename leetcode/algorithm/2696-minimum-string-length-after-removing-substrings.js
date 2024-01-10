@@ -24,3 +24,26 @@ var minLength = function (s) {
  * 执行用时：104 ms, 在所有 JavaScript 提交中击败了17.07%的用户
  * 内存消耗：51.73 MB, 在所有 JavaScript 提交中击败了6.10%的用户
  */
+
+/**
+ * 官方题解: 栈
+ * @param {*} s 
+ * @returns 
+ */
+var minLength = function(s) {
+    const st = new Array();
+    // 遍历每个字符
+    for (const c of s) {
+        // 把字符push进数组里
+        st.push(c);
+        let m = st.length;
+        // 每次push进去之后就判断开头是否存在两个字符,存在则pop掉
+        if (m >= 2 &&
+            (st[m - 2] == 'A' && st[m - 1] == 'B' ||
+            st[m - 2] == 'C' && st[m - 1] == 'D')) {
+            st.pop();
+            st.pop();
+        }
+    }
+    return st.length;
+};
