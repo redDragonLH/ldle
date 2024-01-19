@@ -16,12 +16,12 @@
  */
 var splitWordsBySeparator = function (words, separator) {
   let result = [];
-  for (const word of words) {
-    result.push(...word.split(separator).filter((v, i) => v !== ""));
-  }
+  words.forEach(e=>{
+    result.push(...e.split(separator).filter((v, i) => v !== ""));
+  });
   return result;
 };
 /**
- * 执行用时：119 ms, 在所有 JavaScript 提交中击败了14.00%的用户
- * 内存消耗：58.29 MB, 在所有 JavaScript 提交中击败了6.00%的用户
+ * 执行用时：109 ms, 在所有 JavaScript 提交中击败了24.00%的用户
+ * 内存消耗：57.91 MB, 在所有 JavaScript 提交中击败了6.00%的用户
  */
