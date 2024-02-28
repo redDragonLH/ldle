@@ -48,3 +48,24 @@ var minIncrements = function (n, cost) {
 /**
  *  失败.广度优先没办法解决元素路径不等,但是最终相等的问题
  */
+
+/**
+ * 官方题解
+ * @param {*} n 
+ * @param {*} cost 
+ * @returns 
+ */
+var minIncrements = function(n, cost) {
+    let ans = 0;
+    for (let i = n - 2; i > 0; i -= 2) {
+        ans += Math.abs(cost[i] - cost[i + 1]);
+        // 叶节点 i 和 i+1 的双亲节点下标为 i/2（整数除法）
+        cost[i >> 1] += Math.max(cost[i], cost[i + 1]); // 这行把子节点的值向上加到父节点,为什么?
+    }
+    return ans;
+};
+/**
+ * 广度优先,不过只关注于一个节点下面的字节点,而不是所有同层节点,这可以保证所有叶子结点都相等么
+ * 
+ * 逆序遍历,适用于数组结构树
+ */
