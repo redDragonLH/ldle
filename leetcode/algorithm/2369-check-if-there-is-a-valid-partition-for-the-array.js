@@ -25,7 +25,7 @@ let subNum = [nums[0]]
       if(subNum.length ===2 || subNum.length ===3){
         isVaild(subNum)
       }else {
-        
+
       }
     }
 };
@@ -42,3 +42,35 @@ const isVaild = (subNum) => {
   }
   return false;
 };
+
+/**
+ * 应该使用动态规划
+ * 这样前面只有两个状态,就是两个元素是否合格,三个元素是否合格
+ */
+var validPartition = function(nums) {
+  const n = nums.length;
+  const dp = new Array(n + 1).fill(false);
+  dp[0] = true;
+  // 这种打乱顺序的方式有些抽象
+  for (let i = 1; i <= n; i++) {
+      if (i >= 2) {
+        // 不管前面么,奇怪
+        // 只管当前两个元素,
+        // 不对.i-2就已经处理了
+          dp[i] = dp[i - 2] && validTwo(nums[i - 2], nums[i - 1]);
+      }
+      if (i >= 3) {
+        // 当前两个元素是否ok,不可以就判断一下三个的
+          dp[i] = dp[i] || (dp[i - 3] && validThree(nums[i - 3], nums[i - 2], nums[i - 1]));
+      }
+  }
+  return dp[n];
+};
+
+function validTwo(num1, num2) {
+  return num1 === num2;
+}
+
+function validThree(num1, num2, num3) {
+  return (num1 === num2 && num1 === num3) || (num1 + 1 === num2 && num2 + 1 === num3);
+}
