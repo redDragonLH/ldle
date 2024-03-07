@@ -29,4 +29,27 @@ var divisibilityArray = function (word, m) {
 };
 /**
  * 超时,这就不知道怎么优化了
+ * 果然优化不了
+ */
+
+/**
+ * 官方题解
+ * 模运算
+ * @param {*} word
+ * @param {*} m
+ * @returns
+ */
+var divisibilityArray = function (word, m) {
+  const res = [];
+  let cur = 0;
+  for (const c of word) {
+    // 每次都拆成比m小的数字判断,这也是有后效性的吗?多段数字连起来的数字也是可以被整除的吗
+    // 因为前一段数字已经被整除,所有就算这段数字与后面的数字相加,前段数字也是只是商的前面的整数,不会对余数造成任何影响
+    cur = (cur * 10 + (c.charCodeAt(0) - "0".charCodeAt(0))) % m;
+    res.push(cur === 0 ? 1 : 0);
+  }
+  return res;
+};
+/**
+ * 数字也可以用后效性思路处理,这样就可以分段,不分段超时
  */
