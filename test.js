@@ -1,6 +1,6 @@
 const http = require('http');
 const server = http.createServer();
-
+const fs = require('fs');
 server.listen(64333, () => {
     console.log('service run: http://127.0.0.1:64333');
 });
@@ -53,8 +53,15 @@ server.on('request', (req, res) => {
                 
                 // 在获取数据结束时，调用end事件
                 req.on('end', () => {
-                  data = JSON.parse(data);
-                  console.log('请求体：', data);
+                  jData = JSON.parse(data);
+                  console.log('请求体：', jData);
+                  fsName = `./daocloud-${new Date()}.json`
+                  fs.writeFile(fsName, data, err => {
+                    if (err) {
+                      console.error(err);
+                    }
+                    // file written successfully
+                  });
                 });
               }
             res.statusCode = 200;
