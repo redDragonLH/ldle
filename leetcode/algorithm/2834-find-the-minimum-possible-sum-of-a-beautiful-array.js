@@ -36,6 +36,29 @@ var minimumPossibleSum = function(n, target) {
     return result.reduce((p,c)=>(p+c)%mod,0)
 };
 /**
+ * 用例 n=1000000000 超时,那这个算法优化空间有限 
  * 执行用时：214 ms, 在所有 JavaScript 提交中击败了0.00%的用户
  * 内存消耗：73.07 MB, 在所有 JavaScript 提交中击败了6.67%的用户
+ */
+
+/**
+ * 数学方法
+ * @param {number} n
+ * @param {number} target
+ * @return {number}
+ */
+var minimumPossibleSum = function(n, target) {
+    const mod = 1000000007;
+    const m = Math.floor(target / 2);
+    if (n <= m) {
+        return ((1 + n) * n / 2) % mod;
+    }
+    return (((1 + m) * m / 2) + (((target + target + (n - m) - 1) * (n - m) / 2))) % mod;
+};
+/**
+ * 官方题解
+ * 
+ * 为了让数组之和最小，我们按照 1,2,3,⋯ 的顺序考虑，但添加了 x 之后，
+ * 就不能添加 target−x，因此最大可以添加到 ⌊target/2⌋，如果个数还不够 n 个，
+ * 就继续从 target,target+1,target+2,⋯依次添加。由于添加的数字是连续的，所以可以用等差数列求和公式快速求解
  */
