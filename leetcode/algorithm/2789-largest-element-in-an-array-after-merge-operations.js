@@ -21,15 +21,28 @@ var maxArrayValue = function (nums) {
         if (first === -1) {
           first = nums[i];
         } else {
-            if(nums[i]<first){
-                first=-1
-            }else {
-                second = nums[i];
-            }
+          if (nums[i] < first) {
+            first = -1;
+          } else {
+            second = nums[i];
+          }
         }
       }
       if (first > -1 && second > -1) {
       }
     }
   }
+};
+
+/**
+ * 官方题解
+ * 比我想的要简单,我还以为最好要并无可并
+ */
+var maxArrayValue = function (nums) {
+  let sum = nums[nums.length - 1];
+  // 只进行了一次遍历
+  for (let i = nums.length - 2; i >= 0; i--) {
+    sum = nums[i] <= sum ? nums[i] + sum : nums[i];
+  }
+  return sum;
 };
