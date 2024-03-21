@@ -68,3 +68,38 @@ FrequencyTracker.prototype.hasFrequency = function (frequency) {
  * obj.deleteOne(number)
  * var param_3 = obj.hasFrequency(frequency)
  */
+
+/**
+ * 官方题解
+ */
+var FrequencyTracker = function() {
+    this.freq = new Map();
+    this.freq_cnt = new Map();
+};
+
+FrequencyTracker.prototype.add = function(number) {
+    if (!this.freq.has(number)) {
+        this.freq.set(number, 0);
+        // 只留存数量不留存元素,还是要简便太多
+        // 数字留存的话删除增加都是麻烦事
+        this.freq_cnt.set(0, (this.freq_cnt.get(0) || 0) + 1);
+    }
+    const prev = this.freq.get(number);
+    this.freq_cnt.set(prev, (this.freq_cnt.get(prev) || 0) - 1);
+    this.freq.set(number, prev + 1);
+    this.freq_cnt.set(prev + 1, (this.freq_cnt.get(prev + 1) || 0) + 1);
+};
+
+FrequencyTracker.prototype.deleteOne = function(number) {
+    if (!this.freq.has(number) || this.freq.get(number) === 0) {
+        return;
+    }
+    let prev = this.freq.get(number);
+    this.freq_cnt.set(prev, (this.freq_cnt.get(prev) || 0) - 1);
+    this.freq.set(number, prev - 1);
+    this.freq_cnt.set(prev - 1, (this.freq_cnt.get(prev - 1) || 0) + 1);
+};
+
+FrequencyTracker.prototype.hasFrequency = function(frequency) {
+    return this.freq_cnt.get(frequency) > 0;
+};
