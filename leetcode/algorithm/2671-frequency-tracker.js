@@ -14,6 +14,7 @@
  */
 var FrequencyTracker = function () {
   this.number = new Map();
+  this.frequency = new Map();
 };
 
 /**
@@ -22,10 +23,14 @@ var FrequencyTracker = function () {
  */
 FrequencyTracker.prototype.add = function (number) {
   if (this.number.has(number)) {
-    this.number.set(number, this.number.get(number) + 1);
+    let frequency =this.number.get(number).length
+    let location = this.frequency.get(frequency).findIndex(number)
+    this.frequency.set(frequency,this.frequency.get(frequency).splice(location,1))
+    this.number.set(number, frequency + 1);
   } else {
     this.number.set(number, 1);
   }
+  this.frequency.set(frequency+1,[...this.frequency.get(this.frequency+1),number])
 };
 
 /**
@@ -34,21 +39,29 @@ FrequencyTracker.prototype.add = function (number) {
  */
 FrequencyTracker.prototype.deleteOne = function (number) {
   if (this.number.has(number) && this.number.get(number) > 0) {
+    let location = this.frequency.get(this.number.get(number).length).findIndex(number)
+
+    this.frequency.set(this.number.get(number).length,this.frequency.get(this.number.get(number).length).splice(location,1))
+
     this.number.set(number, this.number.get(number) - 1);
+
+  this.frequency.set(this.number.get(number).length,[...this.frequency.get(this.number.get(number).length),number])
+
   }
+
 };
 
 /**
+ * 这里是耗能核心
  * @param {number} frequency
  * @return {boolean}
  */
 FrequencyTracker.prototype.hasFrequency = function (frequency) {
-  let exist = false;
-  this.number.forEach((v, k) => (v === frequency ? (exist = true) : ""));
-  return exist;
+  return this.frequency.has(frequency);
 };
 
 /**
+ * 逻辑太绕.失败
  * Your FrequencyTracker object will be instantiated and called as such:
  * var obj = new FrequencyTracker()
  * obj.add(number)
