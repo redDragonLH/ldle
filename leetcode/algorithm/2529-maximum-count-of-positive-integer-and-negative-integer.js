@@ -32,10 +32,10 @@ var maximumCount = function (nums) {
     }
   }
   console.log(mid);
-  if(nums[mid]===0){
-    let withOutZero = mid
-    while(nums[withOutZero]===0){
-        withOutZero++
+  if (nums[mid] === 0) {
+    let withOutZero = mid;
+    while (nums[withOutZero] === 0) {
+      withOutZero++;
     }
     return len - withOutZero > mid ? len - withOutZero : mid;
   }
@@ -44,3 +44,29 @@ var maximumCount = function (nums) {
 /**
  * 0 不算正整数,需要剔除
  */
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maximumCount = function (nums) {
+  const pos1 = lowerBound(nums, 0);
+  const pos2 = lowerBound(nums, 1);
+  return Math.max(pos1, nums.length - pos2);
+};
+
+const lowerBound = (nums, val) => {
+  let l = 0,
+    r = nums.length;
+    // 位置相等
+  while (l < r) {
+    // 中分
+    const m = (l + r) >> 1;
+    if (nums[m] >= val) {
+      r = m;
+    } else {
+        // +1 操作比较重要,
+      l = m + 1;
+    }
+  }
+  return l;
+};
