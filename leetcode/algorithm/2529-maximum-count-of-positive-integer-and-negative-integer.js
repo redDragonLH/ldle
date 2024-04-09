@@ -32,6 +32,13 @@ var maximumCount = function (nums) {
     }
   }
   console.log(mid);
+  if(nums[mid]===0){
+    let withOutZero = mid
+    while(nums[withOutZero]===0){
+        withOutZero++
+    }
+    return len - withOutZero > mid ? len - withOutZero : mid;
+  }
   return len - mid > mid ? len - mid : mid;
 };
 /**
