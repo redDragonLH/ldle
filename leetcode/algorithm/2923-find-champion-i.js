@@ -32,3 +32,21 @@ var findChampion = function (grid) {
  * 执行用时：88 ms, 在所有 JavaScript 提交中击败了13.04%的用户
  * 内存消耗：54.12 MB, 在所有 JavaScript 提交中击败了47.83%的用户
  */
+
+/**
+ * 官方题解
+ * 
+ * 隐含信息就是如果是冠军那么他的分数必然是赢所有队伍
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var findChampion = function (grid) {
+  const n = grid.length;
+  for (let i = 0; i < n; i++) {
+    const sum = grid[i].reduce((a, b) => a + b, 0);
+    if (sum === n - 1) {
+      return i;
+    }
+  }
+  return -1;
+};
