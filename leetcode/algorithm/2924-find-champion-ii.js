@@ -21,9 +21,7 @@ var findChampion = function(n, edges) {
     // 遍历所有边，但是把肯定不是冠军的元素存储，跳过遍历
     let weakTeam = new Array(n).fill(0);
     let weakTeamCount = 0
-    let team= new Map();
     for (const edge of edges) {
-        team.set(edge[0],edge[1])
         // 这种情况把弱队都提出来了，但是如果强队有多个怎么办
         if(!weakTeam[edge[1]]){
             weakTeam[edge[1]]=1
@@ -37,6 +35,8 @@ var findChampion = function(n, edges) {
 
 /**
  * 果然是冠军队，一局都不能输，不比都不行
- * 执行用时：104 ms, 在所有 JavaScript 提交中击败了 46.15 %的用户
- * 内存消耗：57.11 MB, 在所有 JavaScript 提交中击败了46.15%的用户
+ * 
+ * 优化： set 结构完全没有任何意义，去掉
+ * 执行用时：98 ms, 在所有 JavaScript 提交中击败了 76.92 %的用户
+ * 内存消耗：57.15 MB, 在所有 JavaScript 提交中击败了46.15%的用户
  */
