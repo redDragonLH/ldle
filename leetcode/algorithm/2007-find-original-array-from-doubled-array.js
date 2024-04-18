@@ -40,3 +40,40 @@ var findOriginalArray = function (changed) {
  * 失败,indexof 能处理相邻数字,不能处理不相邻数字
  * [1,2,3,2,4,6,2,4,6,4,8,12]
  */
+
+/**
+ * 对原数据进行破坏性处理
+ * 
+ * @param {number[]} changed
+ * @return {number[]}
+ */
+var findOriginalArray = function (changed) {
+    let len = changed.length;
+    if (len % 2) return [];
+    // 可以先排序,然后判断是否存在对应数字
+    // 出现混合情况,无法使用二分法处理
+    // changed.sort((a, b) => a - b);
+    let set = new Array(len).fill(0);
+    for (let i = 0; i < len; i++) {
+      if (!set[i] && changed[i]>-1) {
+        let index = changed.indexOf(changed[i] * 2);
+        if (index > -1 && index !== i) {
+          set[i] = 1;
+          set[index] = 2;
+          changed[index] = -1;
+        }
+      }
+    }
+    let result = [];
+    for (let i = 0; i < len; i++) {
+      if (set[i] === 1) {
+        result.push(changed[i]);
+      }
+    }
+    if (result.length === len / 2) return result;
+    return [];
+  };
+  /**
+   * 没想到超时了~~
+   * 特例处理也有问题
+   */
