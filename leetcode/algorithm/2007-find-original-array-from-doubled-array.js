@@ -77,3 +77,34 @@ var findOriginalArray = function (changed) {
    * 没想到超时了~~
    * 特例处理也有问题
    */
+
+  /**
+   * 官方题解
+   * @param {*} changed 
+   * @returns 
+   */
+  var findOriginalArray = function(changed) {
+    changed.sort((a, b) => a - b);
+    const count = {};
+    // mapping 化
+    for (const num of changed) {
+        // 计数
+        count[num] = (count[num] || 0) + 1;
+    }
+    const res = [];
+    for (const a of changed) {
+        //这个数计算完成了
+        if (count[a] === 0) {
+            continue;
+        }
+        // 如果还有就继续处理
+        count[a]--;
+        // 没有成对的就直接返回,以示失败
+        if (!count[a * 2]) {
+            return [];
+        }
+        count[a * 2]--;
+        res.push(a);
+    }
+    return res;
+};
