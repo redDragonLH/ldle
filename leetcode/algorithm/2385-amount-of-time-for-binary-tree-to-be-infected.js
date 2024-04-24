@@ -24,20 +24,57 @@
  * @return {number}
  */
 var amountOfTime = function (root, start) {
-    console.log(getDeep(root));
+  console.log(getDeep(root));
 };
 
 const getDeep = (root, deep = 0) => {
   if (!root) {
     return deep;
   }
-  let left = getDeep(root.left, deep + 1),right = getDeep(root.right, deep + 1)
+  let left = getDeep(root.left, deep + 1),
+    right = getDeep(root.right, deep + 1);
   return [Math.max(...left), Math.max(...right)];
 };
 
-const getStartPosition = (root, start)=>{
-
-}
+const getStartPosition = (root, start) => {};
 /**
  * 这个逻辑有点复杂
+ */
+
+var amountOfTime = function (root, start) {
+  const graph = new Map();
+  const dfs = (node) => {
+    [node.left, node.right].forEach((child) => {
+      if (child !== null) {
+        graph.has(node.val)
+          ? graph.get(node.val).push(child.val)
+          : graph.set(node.val, [child.val]);
+        graph.has(child.val)
+          ? graph.get(child.val).push(node.val)
+          : graph.set(child.val, [node.val]);
+        dfs(child);
+      }
+    });
+  };
+
+  dfs(root);
+  const q = [[start, 0]];
+  visited = new Set([start]);
+  let time = 0;
+  while (q.length > 0) {
+    const [nodeVal, currTime] = q.shift();
+    time = currTime;
+    if (graph.has(nodeVal)) {
+      graph.get(nodeVal).forEach((childVal) => {
+        if (!visited.has(childVal)) {
+          q.push([childVal, time + 1]);
+          visited.add(childVal);
+        }
+      });
+    }
+  }
+  return time;
+};
+/**
+ *  建图啊~~mapping 化果然是利器
  */
