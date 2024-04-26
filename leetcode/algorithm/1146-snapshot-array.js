@@ -54,3 +54,43 @@ SnapshotArray.prototype.get = function(index, snap_id) {
 /**
  * 果然超时
  */
+
+/**
+ * 其实从没要求给到完整的快照
+ * @param {*} length 
+ */
+var SnapshotArray = function(length) {
+    this.snap_cnt = 0;
+    this.data = Array.from({length}, () => []);
+};
+
+SnapshotArray.prototype.set = function(index, val) {
+    this.data[index].push([this.snap_cnt, val]);
+};
+
+SnapshotArray.prototype.snap = function() {
+    return this.snap_cnt++;
+};
+
+SnapshotArray.prototype.get = function(index, snap_id) {
+    // 也可以不用二分,就是速度慢
+    const idx = binarySearch(index, snap_id, this.data);
+    if (idx === 0) {
+        return 0;
+    }
+    return this.data[index][idx - 1][1];
+};
+
+const binarySearch = (index, snap_id, data) => {
+    let low = 0, high = data[index].length;
+    while (low < high) {
+        const mid = low + Math.floor((high - low) / 2);
+        const [x, y] = data[index][mid];
+        if (x > snap_id + 1 || (x == snap_id + 1 && y >= 0)) {
+            high = mid;
+        } else {
+            low = mid + 1;
+        }
+    }
+    return low;
+}
