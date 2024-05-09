@@ -53,3 +53,45 @@ var minimumRefill = function (plants, capacityA, capacityB) {
 /**
  * 边界条件有点麻烦
  */
+
+/**
+ * 官方题解
+ * 单独处理相遇情况
+ * @param {*} plants 
+ * @param {*} capacityA 
+ * @param {*} capacityB 
+ * @returns 
+ */
+var minimumRefill = function(plants, capacityA, capacityB) {
+    let res = 0; // 灌满水罐次数
+    let n = plants.length;
+    let posa = 0, posb = n - 1; // 两人位置
+    let vala = capacityA, valb = capacityB; // 两人剩余水量
+    // 模拟相遇前的浇水过程
+    while (posa < posb) {
+        if (vala < plants[posa]) {
+            ++res;
+            vala = capacityA - plants[posa];
+        } else {
+            vala -= plants[posa];
+        }
+        ++posa;
+        if (valb < plants[posb]) {
+            ++res;
+            valb = capacityB - plants[posb];
+        } else {
+            valb -= plants[posb];
+        }
+        --posb;
+    }
+    // 模拟相遇后可能的浇水过程
+    if (posa === posb) {
+        if (vala >= valb && vala < plants[posa]) {
+            ++res;
+        }
+        if (vala < valb && valb < plants[posb]) {
+            ++res;
+        }
+    }
+    return res;
+};
