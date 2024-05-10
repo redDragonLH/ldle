@@ -17,15 +17,13 @@
  * @return {number}
  */
 var countTestedDevices = function (batteryPercentages) {
-  let result = 0;
   let accumulate = 0;
   for (const battery of batteryPercentages) {
     if (battery - accumulate > 0) {
-      result++;
       accumulate++;
     }
   }
-  return result;
+  return accumulate;
 };
 /**
  * 执行用时：60 ms, 在所有 JavaScript 提交中击败了80.49%的用户
