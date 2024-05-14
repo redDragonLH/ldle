@@ -42,3 +42,32 @@ var minimumRounds = function (tasks) {
 /**
  * 估计得给每个走动态规划才行
  */
+
+/**
+ * 官方题解,思路挺简单,每个条件处理,但是能想到每个条件就有点傻了
+ * @param {*} tasks
+ * @returns
+ */
+var minimumRounds = function (tasks) {
+  const cnt = new Map();
+  for (const t of tasks) {
+    cnt.set(t, cnt.has(t) ? cnt.get(t) + 1 : 1);
+  }
+  let res = 0;
+  for (const [k, v] of cnt) {
+    // 1个肯定完成不了
+    if (v === 1) {
+      return -1;
+    } else if (v % 3 === 0) {
+      res += v / 3;
+    } else {
+      // 数字除以3剩1,剩2都有办法处理,都能处理完成
+      res += Math.ceil(v / 3);
+    }
+  }
+  return res;
+};
+/**
+ * 核心点还是,3和2的关系和性质,如何从3的到2
+ * 一个数可以是 3/n*3+2+2,可以是 3/n+2
+ */
