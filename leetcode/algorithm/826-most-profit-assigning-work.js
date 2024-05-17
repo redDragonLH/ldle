@@ -41,3 +41,35 @@ var maxProfitAssignment = function (difficulty, profit, worker) {
  * 执行用时：1538 ms, 在所有 JavaScript 提交中击败了15.63%的用户
  * 内存消耗：61.54 MB, 在所有 JavaScript 提交中击败了6.25%的用户
  */
+
+/**
+ * 官方题解
+ * 这个排序的方法挺有意思
+ * @param {*} difficulty
+ * @param {*} profit
+ * @param {*} worker
+ * @returns
+ */
+var maxProfitAssignment = function (difficulty, profit, worker) {
+  // 生成难度和价值的二维数组,然后用难度排序
+  // 用难度排序不会有报酬的问题么
+  const jobs = difficulty
+    .map((d, i) => [d, profit[i]])
+    .sort((a, b) => a[0] - b[0]);
+  let res = 0,
+    i = 0,
+    best = 0;
+    // 排序动作在循环声明中,看来是不用担心每次重新计算了
+  for (const w of worker.sort((a, b) => a - b)) {
+    // 感觉也是大部分遍历了,只不过排序之后大于的可以直接舍弃
+    while (i < jobs.length && w >= jobs[i][0]) {
+      best = Math.max(best, jobs[i][1]);
+      i++;
+    }
+    res += best;
+  }
+  return res;
+};
+/**
+ * 但确实快了太多
+ */
