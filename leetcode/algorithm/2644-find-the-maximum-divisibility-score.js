@@ -15,7 +15,7 @@
  */
 var maxDivScore = function (nums, divisors) {
   let count = 0;
-  let result = divisors[0];
+  let result = Math.min(...divisors);
   divisors.forEach((v) => {
     let divisor = 0;
     nums.forEach((num) => {
@@ -32,6 +32,6 @@ var maxDivScore = function (nums, divisors) {
  * 非常啰嗦的一个解
  * 
  * 在这种情况下for循环可能会更好看和简练一点
- * 执行用时：285 ms, 在所有 JavaScript 提交中击败了63.64%的用户
- * 内存消耗：56.69 MB, 在所有 JavaScript 提交中击败了25.97%的用户
+ * 执行用时：268 ms, 在所有 JavaScript 提交中击败了74.03%的用户
+ * 内存消耗：56.61 MB, 在所有 JavaScript 提交中击败了28.57%的用户
  */
