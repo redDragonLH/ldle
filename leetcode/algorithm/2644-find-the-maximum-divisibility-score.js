@@ -21,19 +21,17 @@ var maxDivScore = function (nums, divisors) {
     nums.forEach((num) => {
       num % v === 0 && divisor++;
     });
-    console.log(v, count, divisor);
-    if (count < divisor) {
+    if (count < divisor || (count === divisor&& result>v)) {
       count = divisor;
       result = v;
-    } else if (count === divisor) {
-      result = Math.min(result, v);
-    }
+    } 
   });
   return result;
 };
 /**
  * 非常啰嗦的一个解
  * 
- * 执行用时：527 ms, 在所有 JavaScript 提交中击败了5.19%的用户
- * 内存消耗：61.18 MB, 在所有 JavaScript 提交中击败了5.19%的用户
+ * 在这种情况下for循环可能会更好看和简练一点
+ * 执行用时：285 ms, 在所有 JavaScript 提交中击败了63.64%的用户
+ * 内存消耗：56.69 MB, 在所有 JavaScript 提交中击败了25.97%的用户
  */
