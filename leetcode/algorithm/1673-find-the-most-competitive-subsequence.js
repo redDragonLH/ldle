@@ -24,16 +24,9 @@ var mostCompetitive = function (nums, k) {
   let result = [];
   let i = 0;
   while (k > 0) {
-    let min = Number.MAX_SAFE_INTEGER;
-    let pos;
-    for (; i <= len - k; i++) {
-      console.log(i, nums[i]);
-      if (min > nums[i]) {
-        min = nums[i];
-        pos = i;
-      }
-    }
-    i = pos + 1;
+    let min = Math.min(...nums.slice(i, len - k + 1));
+
+    i = nums.indexOf(min, i) + 1;
     result.push(min);
     k--;
   }
@@ -41,4 +34,5 @@ var mostCompetitive = function (nums, k) {
 };
 /**
  *  这种方案看起来可以,但是超时了
+ *  还是超时,截取的方法果然是更慢的
  */
