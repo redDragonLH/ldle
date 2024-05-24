@@ -36,3 +36,32 @@ var mostCompetitive = function (nums, k) {
  *  这种方案看起来可以,但是超时了
  *  还是超时,截取的方法果然是更慢的
  */
+
+/**
+ * 官方题解 +单调栈
+ * @param {*} nums
+ * @param {*} k
+ * @returns
+ */
+var mostCompetitive = function (nums, k) {
+  const res = [];
+  const n = nums.length;
+  for (let i = 0; i < n; i++) {
+    // 最优上就遍历一遍
+    // 这确实NB,先怼进去,不对就弄出来,思路很直白,但是什么情况下不合理的判断却是很不直观
+    while (
+      res.length > 0 &&
+      n - i + res.length > k &&
+      res[res.length - 1] > nums[i]
+    ) {
+      res.pop();
+    }
+    res.push(nums[i]);
+  }
+  res.length = k;
+  return res;
+};
+/**
+ *  这道题适合单调栈这个数据结构是因为要求的是一个子序列,是有顺序的,虽然中间可以去掉,
+ * 而判断是最难的一个部分,必须要考虑长度,k的长度和当前遍历中子序列的长度
+ */
