@@ -39,3 +39,19 @@ var maxScore = function (nums, x) {
 /**
  * 失败,应该有条件我没理解
  */
+
+/**
+ * 官方题解 动态规划
+ */
+var maxScore = function(nums, x) {
+    let res = nums[0];
+    let dp = [-Infinity, -Infinity]; // 数据结构
+    dp[nums[0] % 2] = nums[0]; // 初始化 奇或偶
+    for (let i = 1; i < nums.length; i++) {
+        let parity = nums[i] % 2;
+        let cur = Math.max(dp[parity] + nums[i], dp[1 - parity] - x + nums[i]);
+        res = Math.max(res, cur);
+        dp[parity] = Math.max(dp[parity], cur);
+    }
+    return res;
+};
