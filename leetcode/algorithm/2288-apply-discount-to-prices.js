@@ -31,3 +31,26 @@ var discountPrices = function (sentence, discount) {
  * 失败
  * "$2$3 $10 $100 $1 200 $33 33$ $$ $99 $99999 $9999999999"
  */
+
+/**
+ *
+ * @param {*} sentence
+ * @param {*} discount
+ * @returns
+ */
+var discountPrices = function (sentence, discount) {
+  let words = sentence.split(" ");
+  for (let i = 0; i < words.length; i++) {
+    let word = words[i];
+    if (word.charAt(0) === "$" && isNumeric(word.substring(1))) {
+      let price = parseInt(word.substring(1)) * (1 - discount / 100.0);
+      words[i] = "$" + price.toFixed(2);
+    }
+  }
+  let result = words.join(" ");
+  return result;
+};
+
+const isNumeric = (s) => {
+  return /^\d+$/.test(s);
+};
