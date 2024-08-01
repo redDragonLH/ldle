@@ -18,10 +18,10 @@ var maxmiumScore = function (cards, cnt) {
       sum += cards[i];
     }
   }
-  if(sum % 2 === 0) {
+  if (sum % 2 === 0) {
     return sum;
   }
-  sum-=cards[cnt-1];
+  sum -= cards[cnt - 1];
   for (let i = cnt; i < cards.length; i++) {
     sum += cards[i];
     if (sum % 2 === 0) {
@@ -35,3 +35,44 @@ var maxmiumScore = function (cards, cnt) {
 /**
  * 失败,未考虑第二和第三大的数相加为偶数并且比第一和后的元素相加要大的情况
  */
+
+/**
+ * 官方题解
+ * @param {*} cards
+ * @param {*} cnt
+ * @returns
+ */
+var maxmiumScore = function (cards, cnt) {
+    // 倒序处理最好
+  cards.sort((a, b) => b - a);
+  let ans = 0;
+  let tmp = 0;
+  let odd = -1,
+    even = -1;
+  for (let i = 0; i < cnt; i++) {
+    tmp += cards[i];
+    if (cards[i] % 2 === 1) {
+      odd = cards[i];
+    } else {
+      even = cards[i];
+    }
+  }
+  //    偶数直接返回
+  if (tmp % 2 === 0) {
+    return tmp;
+  }
+  // 遍历未处理的元素
+  for (let i = cnt; i < cards.length; i++) {
+    // 奇偶对调,判断结果大小,获取最大的
+    if (cards[i] % 2 === 1) {
+      if (even !== -1) {
+        ans = Math.max(ans, tmp - even + cards[i]);
+      }
+    } else {
+      if (odd !== -1) {
+        ans = Math.max(ans, tmp - odd + cards[i]);
+      }
+    }
+  }
+  return ans;
+};
