@@ -19,7 +19,15 @@ var addedInteger = function (nums1, nums2) {
 };
 /**
  * 真是连循环都不用啊,按这个思路还可以优化,不用排序
- * 
+ *
  * 执行用时：76 ms, 在所有 JavaScript 提交中击败了15.31%的用户
  * 内存消耗：51.63 MB, 在所有 JavaScript 提交中击败了15.31%的用户
+ */
+var addedInteger = function (nums1, nums2) {
+  return Math.min(...nums2) - Math.min(...nums1);
+};
+/**
+ * 怎么时间还长了
+ * 执行用时：80 ms, 在所有 JavaScript 提交中击败了10.20%的用户
+ * 内存消耗：50.68 MB, 在所有 JavaScript 提交中击败了67.35%的用户
  */
