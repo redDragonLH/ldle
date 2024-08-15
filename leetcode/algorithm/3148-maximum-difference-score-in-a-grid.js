@@ -14,33 +14,32 @@
 var maxScore = function (grid) {
   // 1. 初始化dp数组
   let len = grid.length;
-  let dp = new Array(len).fill(0);
+  let dp = new Array(len).fill(0).map(() => new Array(grid[0].length).fill(0));
+
   // 2. 初始化起始数据
-  dp[0] = grid[0][0];
-  for (let i = 1; i < grid[0].length; i++) {
-    dp[i] = grid[0][i] - dp[i - 1];
+  dp[0][0] = grid[0][0];
+  for (let i = 1; i < len; i++) {
+    dp[i][0] = grid[i][0] - dp[i - 1][0];
   }
-  let result = dp[0];
+  for (let i = 1; i < grid[0].length; i++) {
+    dp[0][i] = grid[0][i] - dp[0][i - 1];
+  }
+  let result = Number.MIN_SAFE_INTEGER;
   // 3. 设计状态转移方程
-  console.log(dp);
   // 也不对,要的是最大的分,所以中间状态也是必须要判断的
   for (let i = 1; i < len; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-      // j=0也就是开头的时候,只能从上面来,所以只能是grid[i][j] - dp[j]
-      if (j === 0) {
-        dp[j] = grid[i][j] - dp[j];
-      } else {
-        dp[j] = Math.max(grid[i][j] - dp[j - 1], grid[i][j] - dp[j]);
-      }
-      console.log(i, j, grid[i][j]);
-      result = Math.max(result, dp[j]);
+        let top = dp[i - 1][j];
+        let left = dp[i][j - 1];
+        dp[i][j] = Math.max(top, left) + grid[i][j];
+        result = Math.max(result, dp[i][j]);
     }
-    console.log(dp);
   }
 
-  return Math.max(...dp);
+  return result;
 };
 
 /**
  * 不必相邻就有点坑~~但是应该也能用动态规划处理
+ * 失败,状态转移应该是没想好
  */
