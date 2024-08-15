@@ -29,10 +29,10 @@ var maxScore = function (grid) {
   // 也不对,要的是最大的分,所以中间状态也是必须要判断的
   for (let i = 1; i < len; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-        let top = dp[i - 1][j];
-        let left = dp[i][j - 1];
-        dp[i][j] = Math.max(top, left) + grid[i][j];
-        result = Math.max(result, dp[i][j]);
+      let top = dp[i - 1][j];
+      let left = dp[i][j - 1];
+      dp[i][j] = Math.max(top, left) + grid[i][j];
+      result = Math.max(result, dp[i][j]);
     }
   }
 
@@ -43,3 +43,34 @@ var maxScore = function (grid) {
  * 不必相邻就有点坑~~但是应该也能用动态规划处理
  * 失败,状态转移应该是没想好
  */
+
+/**
+ * 官方题解 动态规划
+ * @param {*} grid
+ * @returns
+ */
+var maxScore = function (grid) {
+  const m = grid.length;
+  const n = grid[0].length;
+  // 优化过的数据结构,要不然应该是个一样的二维数组
+  const precol = Array(n).fill(Number.MIN_SAFE_INTEGER);
+  let ans = Number.MIN_SAFE_INTEGER;
+
+  for (let i = 0; i < m; i++) {
+    let prerow = Number.MIN_SAFE_INTEGER;
+    for (let j = 0; j < n; j++) {
+      let f = Number.MIN_SAFE_INTEGER;
+      if (i > 0) {
+        f = Math.max(f, grid[i][j] + precol[j]);
+      }
+      if (j > 0) {
+        f = Math.max(f, grid[i][j] + prerow);
+      }
+      ans = Math.max(ans, f);
+      precol[j] = Math.max(precol[j], Math.max(f, 0) - grid[i][j]);
+      prerow = Math.max(prerow, Math.max(f, 0) - grid[i][j]);
+    }
+  }
+
+  return ans;
+};
