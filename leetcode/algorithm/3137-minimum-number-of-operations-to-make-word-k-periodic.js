@@ -43,3 +43,23 @@ const getSubString = (word, k, start) => {
  * 执行用时：134 ms, 在所有 JavaScript 提交中击败了31.03%的用户
  * 内存消耗：67.86 MB, 在所有 JavaScript 提交中击败了10.43%的用户
  */
+
+/**
+ * 第三方题解 优化
+ */
+var minimumOperationsToMakeKPeriodic = function (word, k) {
+    const map = new Map();
+    let len = word.length,max = 0;
+    for (let i = 0; i < word.length; i += k) {
+        // 没必要数组循环,直接截取字符串即可,这还不用转换成数组
+        const unit = word.slice(i, i + k)
+        map.set(unit, (map.get(unit) || 0) + 1)
+        max = Math.max(max, map.get(unit));
+
+    }
+    return (len - max * k) / k
+};
+/**
+ * 执行用时：103 ms, 在所有 JavaScript 提交中击败了68.97%的用户
+ * 内存消耗：58.82 MB, 在所有 JavaScript 提交中击败了86.21%的用户
+ */
