@@ -12,23 +12,20 @@
 var sumDigitDifferences = function (nums) {
   let n = nums.length;
   let ans = 0;
+  // 将数组转换为对象，键为数组的索引，值为数组的元素
+  let mapping = nums.reduce((acc, cur, index) => {
+    acc[cur] = cur.toString().split("");
+    return acc;
+  }, {});
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
-      console.log(i, j, getDiff(nums[i], nums[j]));
-      ans += getDiff(nums[i], nums[j]);
+      for (let k = 0; k < mapping[nums[i]].length; k++) {
+        ans += mapping[nums[i]][k] === mapping[nums[j]][k] ? 0 : 1;
+      }
     }
   }
   return ans;
 };
-let getDiff = (a, b) => {
-  let ans = 0;
-  while (a || b) {
-    ans += a % 10 === b % 10 ? 0 : 1;
-    a = Math.floor(a / 10);
-    b = Math.floor(b / 10);
-  }
-  return ans;
-};
 /**
- * 超时
+ * 竟然还超时
  */
