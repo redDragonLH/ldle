@@ -9,23 +9,23 @@
  * @param {number[]} nums
  * @return {number}
  */
-var sumDigitDifferences = function (nums) {
-  let n = nums.length;
-  let ans = 0;
-  // 将数组转换为对象，键为数组的索引，值为数组的元素
-  let mapping = nums.reduce((acc, cur, index) => {
-    acc[cur] = cur.toString().split("");
-    return acc;
-  }, {});
-  for (let i = 0; i < n; i++) {
-    for (let j = i + 1; j < n; j++) {
-      for (let k = 0; k < mapping[nums[i]].length; k++) {
-        ans += mapping[nums[i]][k] === mapping[nums[j]][k] ? 0 : 1;
-      }
+var sumDigitDifferences = function(nums) {
+    let res = 0n;
+    let n = nums.length;
+    while (nums[0] > 0) {
+        // 只有10个数字
+        const cnt = new Array(10).fill(0);
+        for (let i = 0; i < n; i++) {
+            cnt[nums[i] % 10]++;
+            nums[i] = Math.floor(nums[i] / 10);
+        }
+        for (let i = 0; i < 10; i++) {
+            // 数组长度减去当前元素的个数，乘以当前元素的个数
+            res += BigInt(n - cnt[i]) * BigInt(cnt[i]);
+        }
     }
-  }
-  return ans;
+    return Number(res >> 1n);
 };
 /**
- * 竟然还超时
+ * 规避了每次轮训吗
  */
