@@ -41,3 +41,29 @@ var maxNumOfMarkedIndices = function (nums) {
  *  此思路是找的最大节点与对应公式的内部节点,从此节点遍历查找,
  * 此解法无法解决起始节点不是最优开始节点的问题,会导致节点浪费
  */
+
+/**
+ * 官方题解: 双指针
+ */
+var maxNumOfMarkedIndices = function (nums) {
+  nums.sort((a, b) => a - b);
+  const n = nums.length;
+  // 简单粗暴
+  const m = Math.floor(n / 2);
+  let res = 0;
+// 反正就是查,查不到就一直查,直到查到头
+  for (let i = 0, j = m; i < m && j < n; i++) {
+    while (j < n && 2 * nums[i] > nums[j]) {
+      j++;
+    }
+    if (j < n) {
+      res += 2;
+      j++;
+    }
+  }
+
+  return res;
+};
+/**
+ * 有时候简单粗暴一点更符合要求
+ */
