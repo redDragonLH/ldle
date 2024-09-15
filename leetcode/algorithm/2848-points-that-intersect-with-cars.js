@@ -22,3 +22,17 @@ var numberOfPoints = function (nums) {
  * 执行用时：87 ms, 在所有 JavaScript 提交中击败了6.67%的用户
  * 内存消耗：51.91 MB, 在所有 JavaScript 提交中击败了80.00%的用户
  */
+
+/**
+ * @param {number[][]} nums
+ * @return {number}
+ */
+var numberOfPoints = function (nums) {
+  const set = new Set();
+  for (let arr of nums) {
+    for (let i = arr[0]; i <= arr[1]; i++) {
+      set.add(i)
+    }
+  }
+  return set.size;
+};
