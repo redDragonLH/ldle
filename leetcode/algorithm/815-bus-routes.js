@@ -64,6 +64,7 @@ numBusesToDestination(
  */
 
 var numBusesToDestination = function (routes, source, target) {
+  // 总是打个补丁
   if (source === target) {
     return 0;
   }
@@ -78,6 +79,7 @@ var numBusesToDestination = function (routes, source, target) {
         // 这个点所对应的路线
       const list = rec.get(site) || [];
       for (const j of list) {
+        // 不能双向吧？
         edge[i][j] = edge[j][i] = true;
       }
       list.push(i);
