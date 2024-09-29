@@ -14,14 +14,12 @@
  */
 var timeRequiredToBuy = function (tickets, k) {
   let standard = tickets[k] - 1;
-  let sum = 0;
-  for (let i = 0; i < tickets.length; i++) {
+  let sum = 0,n= tickets.length;
+  for (let i = 0; i < n; i++) {
     if (tickets[i] <= standard) {
       sum += tickets[i];
-      tickets[i] = 0;
     } else {
       sum += standard;
-      tickets[i] -= standard;
       if (i <= k) {
         sum += 1;
       }
@@ -31,6 +29,6 @@ var timeRequiredToBuy = function (tickets, k) {
   return sum;
 };
 /**
- * 执行用时：66 ms, 在所有 JavaScript 提交中击败了46.67%的用户
- * 内存消耗：49.08 MB, 在所有 JavaScript 提交中击败了76.67%的用户
+ * 执行用时：59 ms, 在所有 JavaScript 提交中击败了76.67%的用户
+ * 内存消耗：49.16 MB, 在所有 JavaScript 提交中击败了50.00%的用户
  */
