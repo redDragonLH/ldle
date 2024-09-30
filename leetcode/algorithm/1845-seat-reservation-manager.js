@@ -12,16 +12,17 @@
  * @param {number} n
  */
 var SeatManager = function (n) {
-  this.mapping = new Array(n).fill(0);
+    this.available = new MinPriorityQueue();
+    for (let i = 1; i <= n; i++) {
+        this.available.enqueue(i, i);
+    }
 };
 
 /**
  * @return {number}
  */
 SeatManager.prototype.reserve = function () {
-    let i = this.mapping.indexOf(0);
-    this.mapping[i] = 1;
-    return i + 1;
+    return this.available.dequeue().element;
 };
 
 /**
@@ -29,7 +30,7 @@ SeatManager.prototype.reserve = function () {
  * @return {void}
  */
 SeatManager.prototype.unreserve = function (seatNumber) {
-    this.mapping[seatNumber - 1] = 0;
+    this.available.enqueue(seatNumber);
 };
 
 /**
