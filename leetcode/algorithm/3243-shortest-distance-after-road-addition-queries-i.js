@@ -43,3 +43,43 @@ let deep = (target, mapping) => {
  * 超时,这还能有优化方案?
  * 或许可以缓存之前的数据,如果添加的路径的起始位置是之前处理过的,那么只需要计算新添加的路径的终点到终点的距离即可
  */
+
+/**
+ * 官方题解 广度优先搜索
+ * @param {number} n
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var shortestDistanceAfterQueries = function(n, queries) {
+    // 构建初步的邻接表
+    let neighbors = new Array(n).fill().map(() => []);
+    for (let i = 0; i < n - 1; i++) {
+        neighbors[i].push(i + 1);
+    }
+    let res = [];
+    for (let i = 0; i < queries.length; i++) {
+        neighbors[queries[i][0]].push(queries[i][1]);
+        // 也是从头算
+        res.push(bfs(n, neighbors));
+    }
+    return res;
+};
+
+var bfs = function(n, neighbors) {
+    let dist = new Array(n).fill(-1);
+    dist[0] = 0;
+    let q = [0];
+    while (q.length > 0) {
+        let x = q.shift();
+        for (let y of neighbors[x]) {
+            // 如果已经访问过了，就不再访问
+            if (dist[y] >= 0) {
+                continue;
+            }
+            q.push(y);
+            // 从x到y的距离是从x到0的距离+1
+            dist[y] = dist[x] + 1;
+        }
+    }
+    return dist[n - 1];
+};
