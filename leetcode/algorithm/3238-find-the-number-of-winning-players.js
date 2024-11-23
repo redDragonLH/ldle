@@ -37,3 +37,22 @@ var winningPlayerCount = function (n, pick) {
  * 执行用时：17 ms, 在所有 JavaScript 提交中击败了0.00%的用户
  * 内存消耗：55.88 MB, 在所有 JavaScript 提交中击败了7.14%的用户
  */
+
+/**
+ * 官方题解 
+ * 好在哪？
+ * @param {number} n
+ * @param {number[][]} pick
+ * @return {number}
+ */
+var winningPlayerCount = function(n, pick) {
+    let cnt = Array.from({ length: n }, () => Array(11).fill(0)); 
+    // 大概的流程是差不多的，为什么人家这么快
+    pick.forEach(p => {
+        cnt[p[0]][p[1]]++;
+    });
+    
+    return cnt.filter((player, i) => 
+        player.some((count, j) => count > i)
+    ).length;
+};
