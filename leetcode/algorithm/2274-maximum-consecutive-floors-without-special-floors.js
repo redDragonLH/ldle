@@ -32,3 +32,19 @@ var maxConsecutive = function (bottom, top, special) {
 /**
  * 超时 , 10^9的楼层还是有点超纲了
  */
+
+/**
+ * 官方题解 排序
+ * 这就没有总楼层什么事了
+ * 遍历总楼层肯定超时
+ */
+var maxConsecutive = function (bottom, top, special) {
+  special.push(bottom - 1);
+  special.push(top + 1);
+  special.sort((a, b) => a - b);
+  let ans = 0;
+  for (let i = 0; i < special.length - 1; ++i) {
+    ans = Math.max(ans, special[i + 1] - special[i] - 1);
+  }
+  return ans;
+};
