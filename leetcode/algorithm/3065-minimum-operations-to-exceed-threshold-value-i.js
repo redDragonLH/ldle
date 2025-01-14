@@ -12,7 +12,7 @@
  * @return {number}
  */
 var minOperations = function (nums, k) {
-  nums.sort((a, b) => a - b);
+  nums.sort((a, b) => a - b); // 排序可能更耗费时间,虽然能减少遍历次数,但是大多数时间都是不划算的
   let result = 0;
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] < k) {
