@@ -1,6 +1,6 @@
 /**
  * 47. 全排列 II
- * 
+ *
  * 给定一个可包含重复数字的序列，返回所有不重复的全排列。
  */
 
@@ -9,27 +9,27 @@
  * @return {number[][]}
  */
 var permuteUnique = function (nums) {
-    const len = nums.length;
-    const result=[];
-    if(!len) return result
-    nums.sort((a,b)=> a-b);
-    // 去重
-    const obj ={}
-    const dfs =(path,pos)=> {
-        if(path.length === len) {
-            if(obj[path.join('')]) return false
-            result.push([...path])
-            obj[path.join('')]=true;
-            return false
-        }
-        console.log(pos,path);
-        for (let i = pos; i < len; i++) {
-            path.push(nums[i]);
-            dfs(path,pos+1);
-            path.pop();       
-        }
+  const ans = [];
+  const vis = new Array(nums.length).fill(false);
+  const backtrack = (idx, perm) => {
+    if (idx === nums.length) {
+      ans.push(perm.slice());
+      return;
     }
-    dfs([],0)
-    return result
+    // 全排列还是得从头算,然后跳过已经处理的
+    for (let i = 0; i < nums.length; ++i) {
+      if (vis[i] || (i > 0 && nums[i] === nums[i - 1] && !vis[i - 1])) {
+        continue;
+      }
+      perm.push(nums[i]);
+      vis[i] = true;
+      backtrack(idx + 1, perm);
+      vis[i] = false;
+      perm.pop();
+    }
+  };
+  nums.sort((x, y) => x - y);
+  backtrack(0, []);
+  return ans;
 };
-console.log(permuteUnique([1,1,2]));
+console.log(permuteUnique([1, 1, 2]));
