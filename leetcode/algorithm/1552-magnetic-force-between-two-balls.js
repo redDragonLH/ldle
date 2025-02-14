@@ -43,3 +43,57 @@ var check = function (position, m, mid) {
 /**
  * AI解法,失败,也不是很行啊
  */
+
+/**
+ * 那就得是平均分,二分法怎么平均分呢,按照篮子?
+ * 两头先放,然后怎么办?
+ *
+ * @param {number[]} position
+ * @param {number} m
+ * @return {number}
+ */
+var maxDistance = function(position, m) {
+    position.sort((x, y) => x - y);
+    // 初始化左右边界和结果
+    let left = 1, right = position[position.length - 1] - position[0], ans = -1;
+    // 二分查找
+    while (left <= right) {
+        // 中间值
+        const mid = Math.floor((left + right) / 2); 
+        // 判断是否满足条件
+        if (check(mid, position, m)) {
+            ans = mid;
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return ans;
+};
+/**
+ * 
+ * @param {*} x 起点
+ * @param {*} position 篮子
+ * @param {*} m 球数
+ * @returns 
+ */
+const check = (x, position, m) => {
+    let pre = position[0], cnt = 1;
+    // 遍历篮子
+    for (let i = 1; i < position.length; ++i) {
+        // 如果当前位置减去上一个位置大于等于x
+        // 查找的是整个篮子数组是否能分割m个距离
+        if (position[i] - pre >= x) {
+            pre = position[i];
+            cnt += 1;
+        }
+    }
+    // 大于m说明能分割的下
+    return cnt >= m;
+}
+/**
+ * 有一个核心逻辑和问题,就是均分,而均分的分割就是小球数,小球间隔必须是大于小球数的,否则间隔就是0了,
+ * 这样二分的起步和步进就有了,就是小球数
+ * 
+ * 还是有点没有理解这个逻辑,二分查找的到底是什么,满足的条件意义是什么,
+ */
