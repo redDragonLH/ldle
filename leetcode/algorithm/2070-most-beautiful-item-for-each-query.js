@@ -12,35 +12,73 @@
  * @return {number[]}
  */
 var maximumBeauty = function (items, queries) {
-    const map = [];
-    const mapIndex = [];
-    for (const [price, beauty] of items) {
-      if (!map[price]) {
+  const map = [];
+  const mapIndex = [];
+  for (const [price, beauty] of items) {
+    if (!map[price]) {
+      map[price] = beauty;
+      mapIndex.push(price);
+    } else {
+      if (map[price] < beauty) {
         map[price] = beauty;
-        mapIndex.push(price);
-      } else {
-        if (map[price] < beauty) {
-          map[price] = beauty;
-        }
       }
     }
-    mapIndex.sort((a, b) => a - b);
-    const maxBeauties = new Array(queries.length).fill(0);
-    for (let i = queries.length-1; i > 0; i--) {
-      const query = queries[i];
-      const beauties = map[query];
-      if (!beauties) {
-        let findinx = mapIndex.findLast((item) => item <= query); //循环次数过多
-        if (findinx === -1) {
-          maxBeauties[i] = 0;
-          continue;
-        }else {maxBeauties[
-         i] = map[findinx];
-        }
+  }
+  mapIndex.sort((a, b) => a - b);
+  const maxBeauties = new Array(queries.length).fill(0);
+  for (let i = queries.length - 1; i > 0; i--) {
+    const query = queries[i];
+    const beauties = map[query];
+    if (!beauties) {
+      let findinx = mapIndex.findLast((item) => item <= query); //循环次数过多
+      if (findinx === -1) {
+        maxBeauties[i] = 0;
+        continue;
       } else {
-        maxBeauties[i] = beauties;
+        maxBeauties[i] = map[findinx];
       }
+    } else {
+      maxBeauties[i] = beauties;
     }
-    return maxBeauties;
-  };
-  
+  }
+  return maxBeauties;
+};
+
+/**
+ * 官方题解 果然是另一种思路
+ */
+var maximumBeauty = function (items, queries) {
+  // 将物品按价格升序排序
+  items.sort((a, b) => a[0] - b[0]);
+  const n = items.length;
+  // 按定义修改美丽值
+  for (let i = 1; i < n; ++i) {
+    items[i][1] = Math.max(items[i][1], items[i - 1][1]);
+  }
+  // 二分查找处理查询
+  const res = [];
+  for (let q of queries) {
+    res.push(query(items, q, n));
+  }
+  return res;
+};
+
+function query(items, q, n) {
+  let l = 0,
+    r = n;
+  while (l < r) {
+    const mid = l + Math.floor((r - l) / 2);
+    if (items[mid][0] > q) {
+      r = mid;
+    } else {
+      l = mid + 1;
+    }
+  }
+  if (l === 0) {
+    // 此时所有物品价格均大于查询价格
+    return 0;
+  } else {
+    // 返回小于等于查询价格的物品的最大美丽值
+    return items[l - 1][1];
+  }
+}
