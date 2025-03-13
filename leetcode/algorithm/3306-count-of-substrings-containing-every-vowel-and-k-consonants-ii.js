@@ -7,7 +7,7 @@
  */
 
 /**
- * 3305 改都不用哎?
+ * 3305 改都不用改?
  * @param {string} word
  * @param {number} k
  * @return {number}
