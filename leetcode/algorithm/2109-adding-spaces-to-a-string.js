@@ -19,3 +19,20 @@ var addSpaces = function(s, spaces) {
 /**
  * 超时
  */
+
+/**
+ * 子字符串分割
+ * @param {string} s
+ * @param {number[]} spaces
+ * @return {string}
+ */
+var addSpaces = function(s, spaces) {
+    let res = [], left = 0
+    for (let space of spaces) {
+        // 
+        res.push(s.substring(left, space))
+        left = space
+    }
+    res.push(s.substring(left))
+    return res.join(' ')
+};
