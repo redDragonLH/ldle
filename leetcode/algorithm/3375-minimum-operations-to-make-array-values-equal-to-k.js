@@ -73,3 +73,25 @@ var minOperations = function (nums, k) {
 /**
  * 也不对,奇怪,肯定是思路错了
  */
+
+/**
+ * 官方题解 阅读理解失败
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var minOperations = function (nums, k) {
+  const st = new Set();
+  for (const x of nums) {
+    if (x < k) {
+      return -1;
+    } else if (x > k) {
+      st.add(x);
+    }
+  }
+  return st.size;
+};
+/**
+ * 执行用时：63 ms, 在所有 JavaScript 提交中击败了85.71%的用户
+ * 内存消耗：56.16 MB, 在所有 JavaScript 提交中击败了14.29%的用户
+ */
