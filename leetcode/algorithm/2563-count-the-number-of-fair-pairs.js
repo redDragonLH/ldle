@@ -31,3 +31,26 @@ var countFairPairs = function (nums, lower, upper) {
 /**
  * 双层遍历 超时
  */
+
+var countFairPairs = function (nums, lower, upper) {
+  nums.sort((a, b) => a - b);
+  let ans = 0;
+  let left = nums.length,
+    right = nums.length;
+
+  for (let j = 0; j < nums.length; j++) {
+    while (right > 0 && nums[right - 1] > upper - nums[j]) {
+      right--;
+    }
+    while (left > 0 && nums[left - 1] >= lower - nums[j]) {
+      left--;
+    }
+    ans += Math.min(right, j) - Math.min(left, j);
+  }
+
+  return ans;
+};
+/**
+ * 执行用时：112 ms, 在所有 JavaScript 提交中击败了95.31%的用户
+ * 内存消耗：69.59 MB, 在所有 JavaScript 提交中击败了48.44%的用户
+ */
