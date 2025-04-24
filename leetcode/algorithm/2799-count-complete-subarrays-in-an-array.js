@@ -33,3 +33,43 @@ var countCompleteSubarrays = function (nums) {
  * 执行用时：214 ms, 在所有 JavaScript 提交中击败了 13.46%的用户
  * 内存消耗：60.54 MB, 在所有 JavaScript 提交中击败了 11.54%的用户
  */
+
+/**
+ * 滑动窗口
+ * @param {number[]} nums
+ * @return {number}
+ */
+var countCompleteSubarrays = function (nums) {
+  let res = 0;
+  let cnt = new Map();
+  const n = nums.length;
+  let right = 0;
+  // 计算不同元素的个数
+  // 这里使用了 Set 来去重
+  // size 属性可以获取 Set 的大小
+  const distinct = new Set(nums).size;
+
+  for (let left = 0; left < n; left++) {
+    if (left > 0) {
+      // 这里使用了 Map 来统计元素的个数
+      const remove = nums[left - 1];
+      // 如果元素的个数减一后为 0，则删除该元素
+      cnt.set(remove, cnt.get(remove) - 1);
+      if (cnt.get(remove) === 0) {
+        cnt.delete(remove);
+      }
+    }
+    // 这里使用了 Map 来统计元素的个数
+    while (right < n && cnt.size < distinct) {
+        // 如果元素的个数小于 distinct，则继续向右移动
+      const add = nums[right];
+        // 如果元素的个数加一后为 1，则添加该元素
+      cnt.set(add, (cnt.get(add) || 0) + 1);
+      right++;
+    }
+    if (cnt.size === distinct) {
+      res += n - right + 1;
+    }
+  }
+  return res;
+};
