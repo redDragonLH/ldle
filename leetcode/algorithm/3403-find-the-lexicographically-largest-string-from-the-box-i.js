@@ -33,3 +33,23 @@ var answerString = function (word, numFriends) {
  * 最长不代表最大,需要考虑 numFriends 的影响
  * 例如 word = "abcde", numFriends = 2, 则最长字符串为 "cde", 但字典序最大的是 "de"
  */
+
+/**
+ * 官方题解
+ */
+
+var answerString = function (word, numFriends) {
+  if (numFriends === 1) {
+    return word;
+  }
+  let n = word.length;
+  let res = "";
+  for (let i = 0; i < n; i++) {
+    // 么次分割的长度为 n - numFriends + 1 或者剩余长度
+    let s = word.substring(i, Math.min(i + n - numFriends + 1, n));
+    if (s > res) {
+      res = s;
+    }
+  }
+  return res;
+};
