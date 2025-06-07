@@ -35,3 +35,33 @@ var clearStars = function (s) {
 /**
  * 有超时用例，可以用预处理的方式优化，前缀和？
  */
+
+/**
+ * 官方题解
+ */
+var clearStars = function (s) {
+    // 二维数组，留存每个字母出现的位置
+  const cnt = Array(26)
+    .fill()
+    .map(() => []);
+  const arr = s.split("");
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== "*") {
+      cnt[arr[i].charCodeAt(0) - "a".charCodeAt(0)].push(i);
+    } else {
+      for (let j = 0; j < 26; j++) {
+        if (cnt[j].length > 0) {
+            // 吐出的是最近的位置
+          arr[cnt[j].pop()] = "*";
+          break;
+        }
+      }
+    }
+  }
+  // 最后统一处理，减少字符串操作
+  return arr.filter((c) => c !== "*").join("");
+};
+/**
+ * 执行用时：63 ms, 在所有 JavaScript 提交中击败了88.89%的用户
+ * 内存消耗：65.96 MB, 在所有 JavaScript 提交中击败了100.00%的用户
+ */
