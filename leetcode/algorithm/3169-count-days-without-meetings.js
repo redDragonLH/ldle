@@ -37,10 +37,13 @@ var countDays = function (days, meetings) {
     let [start, end] = meetings.shift(); // 取出第一个会议
 
     //  下一个会议开始时间要大于当前会议的结束时间
-    while (meetings.length > 0 && (meetings[0][0] <= end || meetings[0][1] <= end)) {
-      let nextMeetingEnd = meetings.shift()[1] 
-    //   nextMeetingEnd = nextMeetingEnd> days ? days : nextMeetingEnd; // 不考虑超过工作日
-      end = nextMeetingEnd>end?nextMeetingEnd:end; // 更新结束时间为下一个会议的结束时间
+    while (
+      meetings.length > 0 &&
+      (meetings[0][0] <= end || meetings[0][1] <= end)
+    ) {
+      let nextMeetingEnd = meetings.shift()[1];
+      //   nextMeetingEnd = nextMeetingEnd> days ? days : nextMeetingEnd; // 不考虑超过工作日
+      end = nextMeetingEnd > end ? nextMeetingEnd : end; // 更新结束时间为下一个会议的结束时间
     }
 
     mettingsDays += end - start + 1; // 计算从上一个会议结束到当前会议开始的工作日
@@ -51,4 +54,33 @@ var countDays = function (days, meetings) {
 /**
  * 执行用时：2039 ms, 在所有 JavaScript 提交中击败了0%的用户
  * 内存消耗：82.64 MB, 在所有 JavaScript 提交中击败了75.00%的用户
+ */
+
+var countDays = function (days, meetings) {
+  meetings.sort((a, b) => a[0] - b[0]); // 按照会议开始时间排序
+  let meetingsLength = meetings.length; // 会议长度
+  let mettingsDays = 0; // 初始化工作日数组
+  let index = 0; // 会议索引
+  while (meetingsLength > index) {
+    let [start, end] = meetings[index]; // 取出第一个会议
+    //  下一个会议开始时间要大于当前会议的结束时间
+    while (
+      meetingsLength > index + 1 &&
+      (meetings[index + 1][0] <= end || meetings[index + 1][1] <= end)
+    ) {
+      index++;
+      let nextMeetingEnd = meetings[index][1];
+      end = nextMeetingEnd > end ? nextMeetingEnd : end; // 更新结束时间为下一个会议的结束时间
+    }
+
+    mettingsDays += end - start + 1; // 计算从上一个会议结束到当前会议开始的工作日
+    index++;
+  }
+  // 返回剩余的工作日天数
+  return days - mettingsDays;
+};
+
+/**
+ * 执行用时：66 ms, 在所有 JavaScript 提交中击败了75.00%的用户
+ * 内存消耗：88.99 MB, 在所有 JavaScript 提交中击败了0%的用户
  */
