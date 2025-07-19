@@ -45,3 +45,59 @@ var removeSubfolders = function (folder) {
  * 此题确实非常适合用字典树解答,主要问题是检查是否叶节点问题,需要删除的逻辑处理,
  * 字典树构建非常简单
  */
+var removeSubfolders = function (folder) {
+  const root = new Trie();
+  for (let i = 0; i < folder.length; ++i) {
+    const path = split(folder[i]);
+    let cur = root;
+    for (const name of path) {
+      if (!cur.children.has(name)) {
+        cur.children.set(name, new Trie());
+      }
+      cur = cur.children.get(name);
+    }
+    cur.ref = i;
+  }
+
+  const ans = [];
+
+  const dfs = (folder, ans, cur) => {
+    if (cur.ref !== -1) {
+      ans.push(folder[cur.ref]);
+      return;
+    }
+    for (const child of cur.children.values()) {
+      dfs(folder, ans, child);
+    }
+  };
+
+  dfs(folder, ans, root);
+  return ans;
+};
+
+const split = (s) => {
+  const ret = [];
+  let cur = "";
+  for (let i = 0; i < s.length; ++i) {
+    const ch = s[i];
+    if (ch === "/") {
+      ret.push(cur);
+      cur = "";
+    } else {
+      cur += ch;
+    }
+  }
+  ret.push(cur);
+  return ret;
+};
+
+class Trie {
+  constructor() {
+    this.ref = -1;
+    this.children = new Map();
+  }
+}
+/**
+ * 执行用时：152 ms, 在所有 JavaScript 提交中击败了10.00%的用户
+ * 内存消耗：86.36 MB, 在所有 JavaScript 提交中击败了10.00%的用户
+ */
