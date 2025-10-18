@@ -32,3 +32,23 @@ var maxDistinctElements = function (nums, k) {
   }
   return result;
 };
+
+var maxDistinctElements = function (nums, k) {
+  // 排序
+  nums.sort((a, b) => a - b);
+  let cnt = 0;
+  let prev = -Number.MAX_SAFE_INTEGER;
+  // 一个一个遍历需改，能修改的就加到结果里
+  for (const num of nums) {
+    const curr = Math.min(Math.max(num - k, prev + 1), num + k);
+    if (curr > prev) {
+      cnt++;
+      prev = curr;
+    }
+  }
+  return cnt;
+};
+/**
+ * 执行用时：9149ms, 在所有 JavaScript 提交中击败了44.44%的用户
+ * 内存消耗：67.23 MB, 在所有 JavaScript 提交中击败了77.78%的用户
+ */
