@@ -19,3 +19,33 @@ var smallestNumber = function (n) {
   }
   return x;
 };
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+function smallestNumber(n) {
+    // 找到 n 的二进制长度
+    let length = 0;
+    let temp = n;
+    while (temp > 0) {
+        length++;
+        // 右移 1 位，相当于除以 2，去掉最低位。（二进制）
+        temp = temp >> 1;
+    }
+    
+    // 候选答案：length 个 1
+    // 左移，将所有位置位
+    let candidate = (1 << length) - 1;
+    
+    // 如果候选数小于 n，需要 length+1 个 1
+    if (candidate < n) {
+        return (1 << (length + 1)) - 1;
+    }
+    
+    return candidate;
+}
+/**
+ * 执行用时 :0 ms, 在所有 JavaScript 提交中击败了100.00%的用户
+ * 内存消耗 :55.93 MB, 在所有 JavaScript 提交中击败了30.00%的用户
+ */
