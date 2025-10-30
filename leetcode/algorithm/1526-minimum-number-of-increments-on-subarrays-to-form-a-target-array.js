@@ -25,22 +25,36 @@ var minNumberOperations = function (target) {
   while (min < max) {
     for (let i = 0; i < target.length; i++) {
       if (target[i] <= min) {
-        console.log(bucket,min,max)
+        console.log(bucket, min, max);
         res += bucket.length ? 1 : 0; // 有子数组才加1
         bucket = [];
       } else if (target[i] > min) {
         bucket.push(target[i]);
-        nextMin = Math.min( max,target[i]);
+        nextMin = Math.min(max, target[i]);
       }
     }
     min = nextMin;
     res += bucket.length ? 1 : 0; // 有子数组才加
-    bucket=[]
+    bucket = [];
   }
-//   let maxNum = target.filter((num) => num === max).length;
-//   console.log(res,maxNum)
+  //   let maxNum = target.filter((num) => num === max).length;
+  //   console.log(res,maxNum)
   return res;
 };
 /**
  * 失败
  */
+
+/**
+ * 官方题解：差分数组
+ * @param {number[]} target
+ * @return {number}
+ */
+var minNumberOperations = function (target) {
+  const n = target.length;
+  let ans = target[0];
+  for (let i = 1; i < n; ++i) {
+    ans += Math.max(target[i] - target[i - 1], 0);
+  }
+  return ans;
+};
