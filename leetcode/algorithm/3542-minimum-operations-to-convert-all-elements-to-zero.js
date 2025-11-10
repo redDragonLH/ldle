@@ -33,3 +33,26 @@ var minOperations = function (nums) {
 /**
  * 模拟超时
  */
+/**
+ * 单调栈
+ * @param {*} nums 
+ * @returns 
+ */
+var minOperations = function (nums) {
+  const s = [];
+  let res = 0;
+  for (const a of nums) {
+    while (s.length && s[s.length - 1] > a) {
+      s.pop();
+    }
+    if (a === 0) continue;
+    if (!s.length || s[s.length - 1] < a) {
+      res++;
+      s.push(a);
+    }
+  }
+  return res;
+};
+/**
+ * 栈顶比a大，那么肯定不会和a同时操作，那么栈顶元素非常可能单独处理，因为前后可能是0
+ */
