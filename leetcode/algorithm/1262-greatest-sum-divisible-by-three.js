@@ -49,3 +49,21 @@ const getSum = (list, start, end) => {
   }
   return sum;
 };
+
+/**
+ * 排序思路
+ * 这种情况必须保证只能多余一个数字，算法限制太大，无法处理复杂情况
+ */
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSumDivThree = function(nums) {
+    nums.sort((a, b) => a-b);
+    let total = nums.reduce((a, b) => a + b, 0);
+    console.log(nums,total);
+    while (total % 3 !== 0) {
+      total -= nums.shift();
+    }
+    return total;
+};
