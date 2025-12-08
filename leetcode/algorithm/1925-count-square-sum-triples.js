@@ -5,6 +5,7 @@
  * 给你一个整数 n ，请你返回满足 1 <= a, b, c <= n 的 平方和三元组 的数目。
  */
 /**
+ * 我的题解
  * @param {number} n
  * @return {number}
  */
