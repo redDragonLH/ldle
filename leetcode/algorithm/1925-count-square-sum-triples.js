@@ -13,13 +13,12 @@ var countTriples = function (n) {
   for (let i = 1; i <= n; i++) {
     squares.push(i * i);
   }
-  let set = new Set(squares);
   let count = 0;
   for (let a = 1; a <= n; a++) {
-    for (let b = a+1; b <= n; b++) {
+    for (let b = a + 1; b <= n; b++) {
       let cSquare = squares[a] + squares[b];
-      if (set.has(cSquare)) {
-        count+=2;
+      if (squares.indexOf(cSquare) > 0) {
+        count += 2;
       }
     }
   }
@@ -27,8 +26,9 @@ var countTriples = function (n) {
 };
 /**
  * 平方和 set 看起来占了很大一部分运行时间
- * 执行用时：19 ms, 在所有 JavaScript 提交中击败了31.25%的用户
- * 内存消耗：56.38 MB, 在所有 JavaScript 提交中击败了12.50%的用户
+ * 去掉set 之后执行时间飙升，内存消耗降低不明显但是百分比提升了很多
+ * 执行用时：189 ms, 在所有 JavaScript 提交中击败了6.25%的用户
+ * 内存消耗：54.70 MB, 在所有 JavaScript 提交中击败了81.25%的用户
  */
 
 /**
