@@ -16,21 +16,19 @@ var countTriples = function (n) {
   let set = new Set(squares);
   let count = 0;
   for (let a = 1; a <= n; a++) {
-    for (let b = 1; b <= n; b++) {
+    for (let b = a+1; b <= n; b++) {
       let cSquare = squares[a] + squares[b];
       if (set.has(cSquare)) {
-        let c = Math.sqrt(cSquare);
-        if (c <= n) {
-          count++;
-        }
+        count+=2;
       }
     }
   }
   return count;
 };
 /**
- * 执行用时：43 ms, 在所有 JavaScript 提交中击败了25.00%的用户
- * 内存消耗：56.22 MB, 在所有 JavaScript 提交中击败了12.50%的用户
+ * 平方和 set 看起来占了很大一部分运行时间
+ * 执行用时：19 ms, 在所有 JavaScript 提交中击败了31.25%的用户
+ * 内存消耗：56.38 MB, 在所有 JavaScript 提交中击败了12.50%的用户
  */
 
 /**
