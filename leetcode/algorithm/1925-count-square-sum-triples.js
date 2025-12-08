@@ -32,3 +32,26 @@ var countTriples = function (n) {
  * 执行用时：43 ms, 在所有 JavaScript 提交中击败了25.00%的用户
  * 内存消耗：56.22 MB, 在所有 JavaScript 提交中击败了12.50%的用户
  */
+
+/**
+ * 官方题解
+ */
+var countTriples = function (n) {
+  let res = 0;
+  // 枚举 a 与 b
+  for (let a = 1; a <= n; a++) {
+    for (let b = 1; b <= n; b++) {
+      // 判断是否符合要求
+      let c = Math.floor(Math.sqrt(a * a + b * b + 1));
+      if (c <= n && c * c === a * a + b * b) {
+        res++;
+      }
+    }
+  }
+  return res;
+};
+/**
+ * 为什么每次都平方的方案要比一次平方的方案快?
+ * 执行用时：8 ms, 在所有 JavaScript 提交中击败了75.00%的用户
+ * 内存消耗：54.84 MB, 在所有 JavaScript 提交中击败了68.75%的用户
+ */
