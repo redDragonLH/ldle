@@ -60,3 +60,43 @@ var countCoveredBuildings = function (n, buildings) {
 
   return coveredCount;
 };
+/**
+ * 超时
+ */
+/**
+ * 官方题解：模拟
+ * 有点类似前缀和的逻辑
+ * @param {number} n
+ * @param {number[][]} buildings
+ * @return {number}
+ */
+var countCoveredBuildings = function (n, buildings) {
+  const maxRow = new Array(n + 1).fill(0);
+  const minRow = new Array(n + 1).fill(n + 1);
+  const maxCol = new Array(n + 1).fill(0);
+  const minCol = new Array(n + 1).fill(n + 1);
+
+  for (const p of buildings) {
+    const x = p[0],
+      y = p[1];
+    maxRow[y] = Math.max(maxRow[y], x);
+    minRow[y] = Math.min(minRow[y], x);
+    maxCol[x] = Math.max(maxCol[x], y);
+    minCol[x] = Math.min(minCol[x], y);
+  }
+
+  let res = 0;
+  for (const p of buildings) {
+    const x = p[0],
+      y = p[1];
+    if (x > minRow[y] && x < maxRow[y] && y > minCol[x] && y < maxCol[x]) {
+      res++;
+    }
+  }
+
+  return res;
+};
+/**
+ * 执行用时：79 ms, 在所有 JavaScript 提交中击败了100.00%的用户
+ * 内存消耗：97.37 MB, 在所有 JavaScript 提交中击败了33.33%的用户
+ */
