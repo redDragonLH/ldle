@@ -42,6 +42,6 @@ var maxMatrixSum = function (matrix) {
   }
 };
 /**
- * 执行用时： ms, 在所有 JavaScript 提交中击败了 100.00% 的用户
+ * 执行用时： 4ms, 在所有 JavaScript 提交中击败了 100.00% 的用户
  * 内存消耗：64.59 MB, 在所有 JavaScript 提交中击败了 50.00% 的用户
  */
