@@ -11,10 +11,15 @@
  * @return {number[]}
  */
 var sortByBits = function (arr) {
+  const map = new Map();
+  for (let i = 0; i < arr.length; i++) {
+    let count = arr[i].toString(2).split("0").join("").length;
+    map.set(arr[i], count);
+  }
   return arr.sort((a, b) => {
     // 每次都计算很慢
-    let countA = a.toString(2).split("0").join("").length;
-    let countB = b.toString(2).split("0").join("").length;
+    let countA = map.get(a);
+    let countB = map.get(b);
     if (countA === countB) {
       return a - b;
     } else {
@@ -23,6 +28,7 @@ var sortByBits = function (arr) {
   });
 };
 /**
- * 执行用时 : 116 ms, 在所有 JavaScript 提交中击败了 5.26% 的用户
- * 内存消耗 : 60.55 MB, 在所有 JavaScript 提交中击败了 19.30% 的用户
+ * 简单优化,将每个数的1的个数计算一次，存储在map中，排序时直接获取
+ * 执行用时 : 21 ms, 在所有 JavaScript 提交中击败了 31.58% 的用户
+ * 内存消耗 : 58.64 MB, 在所有 JavaScript 提交中击败了 42.10% 的用户
  */
