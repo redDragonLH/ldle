@@ -44,3 +44,29 @@ var countSubmatrices = function (grid, k) {
   }
   return count;
 };
+
+/**
+ * 官方题解 二维前缀和
+ */
+var countSubmatrices = function (grid, k) {
+    const n = grid.length; // 获取矩阵的行数
+    const m = grid[0].length; // 获取矩阵的列数
+    const cols = new Array(m).fill(0); // 初始化一个数组，用于存储每列的累加和
+    let res = 0; // 结果计数器，初始化为0
+
+    // 遍历每一行
+    for (let i = 0; i < n; i++) {
+        let rows = 0; // 当前行的累加和，初始化为0
+        // 遍历每一列
+        for (let j = 0; j < m; j++) {
+            cols[j] += grid[i][j]; // 更新当前列的累加和
+            rows += cols[j]; // 更新当前行的累加和
+            // 如果当前行的累加和小于等于k，增加结果计数
+            if (rows <= k) {
+                res++;
+            }
+        }
+    }
+
+    return res; // 返回符合条件的子矩阵数量
+};
