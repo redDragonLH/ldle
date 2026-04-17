@@ -15,21 +15,30 @@
  * @return {number}
  */
 var minMirrorPairDistance = function (nums) {
-  let minDistance = Infinity;
-  for (let i = 0; i < nums.length; i++) {
-    for (let index = i + 1; index < nums.length; index++) {
-      if (reverse(nums[i]) === nums[index]) {
-        minDistance = Math.min(minDistance, Math.abs(i - index));
-      }
+  const reverseNum = (x) => {
+    let y = 0;
+    while (x > 0) {
+      y = y * 10 + (x % 10);
+      x = Math.floor(x / 10);
     }
+    return y;
+  };
+
+  const prev = new Map();
+  const n = nums.length;
+  let ans = n + 1;
+
+  for (let i = 0; i < n; i++) {
+    const x = nums[i];
+    if (prev.has(x)) {
+      ans = Math.min(ans, i - prev.get(x));
+    }
+    prev.set(reverseNum(x), i);
   }
-  return minDistance === Infinity ? -1 : minDistance;
+
+  return ans === n + 1 ? -1 : ans;
 };
-function reverse(x) {
-  let res = 0;
-  while (x > 0) {
-    res = res * 10 + (x % 10);
-    x = Math.floor(x / 10);
-  }
-  return res;
-}
+/**
+ * 执行用时 :65 ms, 在所有 JavaScript 提交中击败了86.36%的用户
+ * 内存消耗 :78.15 MB, 在所有 JavaScript 提交中击败了100.00%的用户
+ */
