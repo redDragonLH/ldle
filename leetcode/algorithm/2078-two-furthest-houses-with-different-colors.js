@@ -62,3 +62,31 @@ var maxDistance = function (colors) {
  * 执行用时 : 2 ms, 在所有 JavaScript 提交中击败了 18.18% 的用户
  * 内存消耗 : 54.30 MB, 在所有 JavaScript 提交中击败了 18.18% 的用户
  */
+/**
+ * https://leetcode.cn/problems/two-furthest-houses-with-different-colors/solutions/1113521/on-zuo-fa-by-endlesscheng-an8b/?envType=daily-question&envId=2026-03-16
+ * 引入三四变量,只要两端是一样的那就从两边找不一样的颜色然后计算距离
+ * @param {*} colors 
+ * @returns 
+ */
+var maxDistance = function (colors) {
+  const n = colors.length;
+  const c = colors[0];
+  if (c !== colors[n - 1]) {
+    return n - 1;
+  }
+
+  // 找最右边的颜色不等于 c 的房子
+  // 题目保证至少有两栋颜色不同的房子
+  let r = n - 2;
+  while (colors[r] === c) {
+    r--;
+  }
+
+  // 找最左边的颜色不等于 c 的房子
+  let l = 1;
+  while (colors[l] === c) {
+    l++;
+  }
+
+  return Math.max(r, n - 1 - l);
+};
