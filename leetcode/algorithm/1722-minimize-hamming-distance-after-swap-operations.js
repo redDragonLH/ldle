@@ -17,53 +17,120 @@
  * @return {number}
  */
 var minimumHammingDistance = function (source, target, allowedSwaps) {
-    const n = source.length;
-    const graph = new Array(n).fill(0).map(() => []);
-    for (const [a, b] of allowedSwaps) {
-        graph[a].push(b);
-        graph[b].push(a);
+  const n = source.length;
+  const graph = new Array(n).fill(0).map(() => []);
+  for (const [a, b] of allowedSwaps) {
+    graph[a].push(b);
+    graph[b].push(a);
+  }
+  const visited = new Array(n).fill(false);
+  const buildStructure = () => {
+    const mapping = {};
+    for (let i = 0; i < n; i++) {
+      if (visited[i]) continue;
+      const queue = [i];
+      visited[i] = true;
+      while (queue.length) {
+        const node = queue.shift();
+        for (const neighbor of graph[node]) {
+          if (!visited[neighbor]) {
+            visited[neighbor] = true;
+            queue.push(neighbor);
+          }
+        }
+      }
+      if (mapping[graph[i][0]]) {
+        mapping[graph[i][0]].push(i);
+      } else {
+        mapping[graph[i][0]] = [i];
+      }
     }
-    const visited = new Array(n).fill(false);
-    const buildStructure = () => {
-        const mapping = {};
-        for (let i = 0; i < n; i++) {
-            if (visited[i]) continue;
-            const queue = [i];
-            visited[i] = true;
-            while (queue.length) {
-                const node = queue.shift();
-                for (const neighbor of graph[node]) {
-                    if (!visited[neighbor]) {
-                        visited[neighbor] = true;
-                        queue.push(neighbor);
-                    }
-                }
-            }
-            if (mapping[graph[i][0]]) {
-                mapping[graph[i][0]].push(i);
-            } else {
-                mapping[graph[i][0]] = [i];
-            }
-        }
-        return mapping;
-    };
-    const mapping = buildStructure();
-    let res = 0;
-    for (const key in mapping) {
-        const count = {};
-        for (const index of mapping[key]) {
-            count[source[index]] = (count[source[index]] || 0) + 1;
-        }
-        for (const index of mapping[key]) {
-            if (count[target[index]]) {
-                count[target[index]]--;
-            } else {
-                res++;
-            }
-        }
+    return mapping;
+  };
+  const mapping = buildStructure();
+  let res = 0;
+  for (const key in mapping) {
+    const count = {};
+    for (const index of mapping[key]) {
+      count[source[index]] = (count[source[index]] || 0) + 1;
     }
-    return res;
+    for (const index of mapping[key]) {
+      if (count[target[index]]) {
+        count[target[index]]--;
+      } else {
+        res++;
+      }
+    }
+  }
+  return res;
 };
 /**
  * 失败
+ */
+/**
+ * 哈希表 + 并查集
+ */
+class UnionFind {
+  constructor(n) {
+    this.fa = new Array(n);
+    this.rank = new Array(n).fill(0);
+    for (let i = 0; i < n; i++) {
+      this.fa[i] = i;
+    }
+  }
+
+  find(x) {
+    if (this.fa[x] !== x) {
+      this.fa[x] = this.find(this.fa[x]);
+    }
+    return this.fa[x];
+  }
+
+  union(x, y) {
+    x = this.find(x);
+    y = this.find(y);
+    if (x === y) return;
+    if (this.rank[x] < this.rank[y]) {
+      [x, y] = [y, x];
+    }
+    this.fa[y] = x;
+    if (this.rank[x] === this.rank[y]) {
+      this.rank[x]++;
+    }
+  }
+}
+
+var minimumHammingDistance = function (source, target, allowedSwaps) {
+  const n = source.length;
+  const uf = new UnionFind(n);
+
+  for (const [a, b] of allowedSwaps) {
+    uf.union(a, b);
+  }
+
+  const sets = new Map();
+  for (let i = 0; i < n; i++) {
+    const f = uf.find(i);
+    if (!sets.has(f)) {
+      sets.set(f, new Map());
+    }
+    const cnt = sets.get(f);
+    cnt.set(source[i], (cnt.get(source[i]) || 0) + 1);
+  }
+
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
+    const f = uf.find(i);
+    const cnt = sets.get(f);
+    const count = cnt.get(target[i]) || 0;
+    if (count > 0) {
+      cnt.set(target[i], count - 1);
+    } else {
+      ans++;
+    }
+  }
+  return ans;
+};
+/**
+ * 官方题解
  */
