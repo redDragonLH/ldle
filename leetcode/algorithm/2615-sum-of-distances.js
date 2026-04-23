@@ -10,23 +10,31 @@
  * @return {number[]}
  */
 var distance = function (nums) {
-  let arr = new Array(nums.length).fill(0);
-  let map = new Map();
-  for (let i = 0; i < nums.length; i++) {
-    if (map.has(nums[i])) {
-      let list = map.get(nums[i]);
-      for (let j of list) {
-        arr[i] += Math.abs(i - j);
-        arr[j] += Math.abs(i - j);
-      }
-      list.push(i);
-    } else {
-      map.set(nums[i], [i]);
+  const n = nums.length;
+  const groups = new Map();
+  for (let i = 0; i < n; i++) {
+    if (!groups.has(nums[i])) {
+      groups.set(nums[i], []);
+    }
+    groups.get(nums[i]).push(i);
+  }
+  const res = new Array(n).fill(0);
+  for (const group of groups.values()) {
+    let total = 0;
+    for (const idx of group) {
+      total += idx;
+    }
+    let prefixTotal = 0;
+    const sz = group.length;
+    for (let i = 0; i < sz; i++) {
+      const idx = group[i];
+      res[idx] = total - prefixTotal * 2 + idx * (2 * i - sz);
+      prefixTotal += idx;
     }
   }
-
-  return arr;
+  return res;
 };
 /**
- * 失败;超时
+ * 执行用时 : 100 ms , 在所有 JavaScript 提交中击败了 85.71% 的用户
+ * 内存消耗 : 100.97 MB , 在所有 JavaScript 提交中击败了 57.14% 的用户
  */
