@@ -62,3 +62,18 @@ var pathExistenceQueries = function (n, nums, maxDiff, queries) {
  * 这个题的核心是数据结构的选择,优化方向是减少每次完整遍历
  * 这个就超时了,
  */
+
+var pathExistenceQueries = function (n, nums, maxDiff, queries) {
+  const tags = new Array(n);
+  tags[0] = 0;
+
+  for (let i = 1; i < n; i++) {
+    if (nums[i] - nums[i - 1] > maxDiff) {
+      tags[i] = tags[i - 1] + 1;
+    } else {
+      tags[i] = tags[i - 1];
+    }
+  }
+
+  return queries.map(([x, y]) => tags[x] === tags[y]);
+};
