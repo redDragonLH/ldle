@@ -37,3 +37,28 @@ var findItem = function (nums1, targetIndex, minParity) {
 /**
  * 遍历,超时
  */
+
+/**
+ * @param {number[]} nums1
+ * @return {boolean}
+ */
+var uniformArray = function (nums1) {
+  let mn = nums1[0];
+  let hasOdd = false;
+  for (const v of nums1) {
+    if (v < mn) {
+      mn = v;
+    }
+    if (v & 1) {
+      hasOdd = true;
+    }
+  }
+  if (mn & 1) {
+    return true;
+  }
+  return !hasOdd;
+};
+/**
+ * 如果 mn 是奇数，直接返回 true。
+ * 如果 mn 是偶数，则只有当数组中不存在奇数时才返回 true，否则返回 false。
+ */
