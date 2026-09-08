@@ -8,19 +8,15 @@
  *  * 位数 少于四位 的数字不包含逗号。
  */
 /**
+ * 这一般得分类讨论,10000以下是一个,10000以上,1000000以下是两个,以此类推
+ * TMD, 数值最大100000,顶多一个逗号
  * @param {number} n
  * @return {number}
  */
 var countCommas = function (n) {
-  if (n < 1000) return 0;
-  let count = 0;
-  for (let i = 1000; i <= n; i++) {
-    // 统计每个数字中的逗号数量
-    let str = i.toLocaleString();
-    count += (str.match(/,/g) || []).length;
-  }
-  return count;
+  return Math.max(n - 999, 0);
 };
 /**
- * 这肯定超时
+ * 执行用时 : 0ms, 在所有 JavaScript 提交中击败了100.00%的用户
+ * 内存消耗 :55.91 MB, 在所有 JavaScript 提交中击败了-%的用户
  */
