@@ -34,3 +34,7 @@ var averageOfSubtree = function (root) {
   dfs(root);
   return count;
 };
+/**
+ * 执行用时：51 ms, 在所有 JavaScript 提交中击败了87.50%的用户
+ * 内存消耗：60.63 MB, 在所有 JavaScript 提交中击败了50.00%的用户
+ */
