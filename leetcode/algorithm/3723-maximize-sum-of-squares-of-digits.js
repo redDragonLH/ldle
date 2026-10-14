@@ -35,3 +35,22 @@ var maxSumOfSquares = function (num, sum) {
 /**
  * 超时.好像也没什么可以优化的地方了,这个方案失败
  */
+/**
+ * 由于平方函数是凸函数，在数位总和固定的约束下，把数值尽量集中到少数数位上能获得更大的平方和。例如，9^2大于 4^2 + 5^2 。
+ * 因此，我们尽可能地在高数位填充 9，总共可以填充 ⌊ sum/9 ⌋ 个 9。如果 sum mod 9 > 0，那么再填充一个 sum mod 9。最后，剩余的位（如果有）都填充 0 即可。
+ * @param {*} num
+ * @param {*} sum
+ * @returns
+ */
+var maxSumOfSquares = function (num, sum) {
+  if (sum > 9 * num) {
+    return "";
+  }
+  let r = sum % 9;
+  let ans = "9".repeat(Math.floor(sum / 9));
+  if (r > 0) {
+    ans += String.fromCharCode("0".charCodeAt(0) + r);
+  }
+  ans += "0".repeat(num - ans.length);
+  return ans;
+};
