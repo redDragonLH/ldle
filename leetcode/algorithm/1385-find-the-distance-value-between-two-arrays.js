@@ -26,7 +26,7 @@ var findTheDistanceValue = function (arr1, arr2, d) {
   return count;
 };
 /**
- * 要元素树木啊,双循环吧~
+ * 要元素数目啊,双循环吧~
  * 执行用时：2 ms, 在所有 JavaScript 提交中击败了90.91%的用户
  * 内存消耗：54.58 MB, 在所有 JavaScript 提交中击败了95.45%的用户
  */
