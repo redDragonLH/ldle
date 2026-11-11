@@ -49,3 +49,34 @@ var minimumCost = function (cost1, cost2, costBoth, need1, need2) {
 /**
  * 还有失败,应该是这个思路要考虑的边界条件太多,
  */
+
+/**
+ * 官方题解: 贪心
+ * 
+ * 也是大概这三种情况,但是增加了对比物品 3 与物品 1 和物品 2 的组合是否更便宜的判断。
+ */
+var minimumCost = function (cost1, cost2, costBoth, need1, need2) {
+  let totalCost = 0;
+
+  // 分别购买更便宜，不需要物品 3
+  if (cost1 + cost2 <= costBoth) {
+    totalCost = cost1 * need1 + cost2 * need2;
+  } else {
+    // 优先购买物品 3，直到一种需求满足
+    let cnt_3 = Math.min(need1, need2);
+    totalCost = cnt_3 * costBoth;
+
+    need1 -= cnt_3;
+    need2 -= cnt_3;
+
+    // 类型 1 的需求还未被满足，选择物品 1 或物品 3 中更便宜的
+    if (need1 > 0) {
+      totalCost += need1 * Math.min(cost1, costBoth);
+      // 类型 2 的需求还未被满足，选择物品 2 或物品 3 中更便宜的
+    } else if (need2 > 0) {
+      totalCost += need2 * Math.min(cost2, costBoth);
+    }
+  }
+
+  return totalCost;
+};
